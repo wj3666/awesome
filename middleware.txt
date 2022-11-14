@@ -1,0 +1,36 @@
+import { NextRequest, NextResponse } from 'next/server'
+import {JWT} from './lib/util/JWT'
+
+
+const secret = "awesome-store"
+export function middleware(req: NextRequest) {
+    // console.log(req.nextUrl) 
+    console.log("++++++++++++++++++++++")
+    console.log("111", req.headers.get('authorization'))
+    // if (req.url.includes("login")) {
+    //     return NextResponse.next()
+    // }
+    // var author = req.headers.get('authorization')
+    // var payload = JWT.verify(author,secret)
+    // console.log("payload", payload)
+    // if(author){      
+    // var payload=jwt.verify(author,secret)
+    //     console.log("payload:",payload)
+    //     if(payload){
+
+    //         return NextResponse.next()
+    //     }else{
+    //        return NextResponse.next()   
+    //     }
+    // }else{
+    //     return NextResponse.next()
+    // }
+}
+
+
+
+
+export const config = {
+    matcher: ['/api/:function*', '/home'],
+}
+

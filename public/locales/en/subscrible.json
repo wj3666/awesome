@@ -1,0 +1,51 @@
+{
+    "subscrible":{
+        "title":"Choose the right solution for you",
+        "monthFees":"Monthly",
+        "yearFees":"Annual",
+        "version":[
+            "Free Edition","Premium paying users","Enterprise Edition"
+        ],
+        "versionDetail":[
+            "Suitable for personal use",
+            "Suitable for professional individuals/small teams",
+            "Customized solutions suitable for business needs",
+            "Annual charge, one-time payment only"
+        ],
+        "btnMessage":[
+            "Your current plan",
+            "Register advanced users",
+            "contact us"
+        ],
+        "funcDetailOne":[
+            [
+                "Get AwesomeIMG plug-in",
+                "You can use some image processing tools",
+                "When batch processing files, 8 pictures can be processed simultaneously at a time",
+                "Available online"
+            ],
+            [
+                "To advertise",
+                "You can use all the functions of the free version",
+                "Can use all image processing tools",
+                "Synchronize files in batches, with no upper limit; Dedicated node, faster speed"
+            ],
+            [
+                "Including all functions except advanced payment",
+                "Customized contract",
+                "More professional customized plug-ins",
+                "Exclusive customer service"
+            ]
+        ]
+    },
+    "contact":{
+        "connect":"connect US",
+        "email":"E-mail",
+        "name":"Your Name/Company name",
+        "nameHint":"We can called you...",
+        "content":"Input your problem，we will feedback soon.",
+        "succeed":"Send the E-mail succeed!",
+        "send":"Send",
+        "closed":"Closed"
+    }
+}

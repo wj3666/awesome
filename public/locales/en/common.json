@@ -1,0 +1,62 @@
+{
+  "header": {
+    "subscribe": "Subscribe",
+    "registerLogin": "Sign up/Log in",
+    "login": {
+      "title": "START FOR FREE",
+      "email": "E-mail",
+      "passWord": "Password",
+      "passWordHint": "Input your password",
+      "passWordErr": "Wrong account or password",
+      "login": "Sign in",
+      "account": "Don’t have an account?",
+      "creatUser": " Create an account",
+      "loginMethodOne": "Sign in with facebook",
+      "loginMethodTwo": "Sign in with Google"
+    },
+    "userHeader": {
+      "userSetting": "Setting",
+      "logout": "Quit"
+    },
+    "register": {
+      "passWordHint": "6+ Character, 1 Capital letter",
+      "passWordErr": "Password format problem",
+      "haveMember": "Already a member",
+      "creatUser": " Create an account",
+      "signIn": "Sign in"
+    },
+    "loginRight": {
+      "title": "Your fast and simple photo editor",
+      "content": "AwesomeIMG helps you compress, convert, crop and resize images easily. Enjoy a full suite of tools to batch edit multiple images online in seconds."
+    }
+  },
+  "sidebar": [
+    "Home",
+    "Compressed image file",
+    "Resize Image",
+    "Crop Picture",
+    "Convert to JPG file",
+    "JPG file conversion",
+    "Photo Editor",
+    "Watermark the picture",
+    "Funny creative picture",
+    "Rotate a picture",
+    "HTML to Picture",
+    "Setting",
+    "Help"
+  ],
+  "home": {
+    "homeFunc": [
+      "Compress JPG, PNG, SVG, and GIF while saving space and maintaining image quality.",
+      "Customize the size by percentage or pixel, and adjust the size of JPG, PNG, SVG, and GIF pictures.",
+      "Crop image files by setting pixels. You can crop JPG, PNG, or GIF image files.",
+      "Easily batch convert PNG, GIF, TIG, PSD, SVG, WEBP, HEIC or original image files.",
+      "Convert JPG image files to PNG or GIF format, and create a GIF animation file with multiple JPG files.",
+      "Use words, effects, frames and stickers to make pictures more vivid and interesting. Use simple editing tools to meet your creative needs.",
+      "Quickly add image or text watermarks to your pictures. Select typesetting, transparency, and location.",
+      "Make funny and creative pictures online in a simple step. Choose your own template, or choose from the most popular templates.",
+      "Rotate multiple JPG, PNG or GIF pictures at the same time, and select horizontal or vertical pictures each time!",
+      "Convert the webpage in HTML to JPG or SVG. Copy and paste the URL link of the page, and then click to convert it to a picture."
+    ]
+  }
+}
