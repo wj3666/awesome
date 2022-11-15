@@ -15,7 +15,7 @@ import nc from 'next-connect'
     var user = await db.query(sql,[userName,password])
     console.log(user[0])
     if(user[0].length==0){
-        res.send({code:1,data:"error"});
+        res.send({code:1,data:"eamil error"});
     }else{
         //设置token值
         const value=user[0][0].id

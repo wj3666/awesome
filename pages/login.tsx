@@ -89,7 +89,7 @@ const LoginMoal = observer(() => {
                             }
                             <div className='relative items-center  justify-start w-full h-24 '>
                                 <p className='h-7 w-full font-p15-CFD0E4-sem'>{t('header.login.passWord')}</p>
-                                <input type={showpassword ? 'password' : 'text'} onChange={(e) => { setPassword(e.target.value) }} value={password} className={`w-full h-10.5 rounded-xl border px-10  bg-password-logo logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${password === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={t('header.login.passWordHint')} />
+                                <input type={showpassword ? 'text' : 'password'} onChange={(e) => { setPassword(e.target.value) }} value={password} className={`w-full h-10.5 rounded-xl border px-10  bg-password-logo logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${password === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={t('header.login.passWordHint')} />
                                 <button type="button" onClick={() => setShowpassword(!showpassword)} className='absolute   w-5  right-3  top-9.5 cursor-pointer'>
                                     {
                                         showpassword ? <Showpassword /> : <Showpassword />
@@ -161,10 +161,14 @@ const SingUpModle = () => {
         }
     }
     const verificationPwd = () => {
+        let reg=/^(?=.*?[A-Za-z]+)(?=.*?[a-zA-Z0-9]{6,})(?=.*?[A-Z]).*$/;
         if (!NBString.textIsNull(password)) {
             setPwdTip(1)
             return false
-        } else {
+        } else if(!reg.test(password)) {
+            setPwdTip(2)
+            return false
+        }else{
             setPwdTip(0);
             return true
         }
@@ -174,6 +178,7 @@ const SingUpModle = () => {
         verificationPwd();
         if (verificationPwd() && verificationEmail()) {
             loginSignStore.register(emailVal, password)
+           setEmailTip(3)
         }
 
     }
@@ -197,7 +202,7 @@ const SingUpModle = () => {
                                 <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={emailVal} className={`w-full h-10.5 rounded-xl border px-10  bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${emailVal === '' ? "" : "font-p15-ffffff-sem"} `} placeholder="Name@xxxx.com" />
                             </div>
                             {
-                                emailTip !== 0 && router.locale === 'en' ? <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? 'Enter the email address' : emailTip === 2 && 'Please enter the correct email address'}</p> : <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? '请输入邮箱地址' : emailTip === 2 && '请输入正确的邮箱地址'}</p>
+                                emailTip !== 0 && router.locale === 'en' ? <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? 'Enter the email address' : emailTip === 2 ?  'Please enter the correct email address':emailTip===3&& 'The account already exists'}</p> : <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? '请输入邮箱地址' : emailTip === 2 ? '请输入正确的邮箱地址' : emailTip===3 &&'账号已经存在'}</p>
                             }
                             <div className='relative items-center  justify-start w-full h-30 '>
                                 <p className='h-7 w-full font-p15-CFD0E4-sem'>{t('header.login.passWord')}</p>
@@ -209,9 +214,9 @@ const SingUpModle = () => {
                                 </button>
                                 {
                                     router.locale === 'en' ?
-                                        loginSignStore.userErr ? pwdTip != 0 && <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p> : <p className="mt-2 font-p15-fab300-re">Wrong account or password</p>
+                                         pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> :pwdTip===1? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p>: pwdTip===2? <p className="mt-2 font-p15-fab300-re">Wrong account or password</p>:""
                                         :
-                                        loginSignStore.userErr ? pwdTip != 0 && <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && '请输入密码'}</p> : <p className="mt-2 font-p15-fab300-re">密码格式有问题,请重新输入</p>
+                                        pwdTip === 0  ?<p className="mt-2 font-p15-fab300-re"></p> :pwdTip===1? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p>: pwdTip===2? <p className="mt-2 font-p15-fab300-re">密码格式有问题,请重新输入</p>:""
                                 }
 
                             </div>

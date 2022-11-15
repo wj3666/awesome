@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }) {
   )
 }
 // MyApp.getInitialProps = async ({ ctx }) => {
-//   console.log(ctx.req.headers)
-//   console.log(ctx.req.url)
+//   const {out_trade_no,trade_no}=ctx.req.query
+//   console.log(out_trade_no,trade_no)
 //   return {}
 // }
 

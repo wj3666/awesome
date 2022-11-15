@@ -1,23 +1,25 @@
 {
-    "subscrible":{
-        "title":"Choose the right solution for you",
-        "monthFees":"Monthly",
-        "yearFees":"Annual",
-        "version":[
-            "Free Edition","Premium paying users","Enterprise Edition"
+    "subscrible": {
+        "title": "Choose the right solution for you",
+        "monthFees": "Monthly",
+        "yearFees": "Annual",
+        "version": [
+            "Free Edition",
+            "Premium paying users",
+            "Enterprise Edition"
         ],
-        "versionDetail":[
+        "versionDetail": [
             "Suitable for personal use",
             "Suitable for professional individuals/small teams",
             "Customized solutions suitable for business needs",
             "Annual charge, one-time payment only"
         ],
-        "btnMessage":[
+        "btnMessage": [
             "Your current plan",
             "Register advanced users",
             "contact us"
         ],
-        "funcDetailOne":[
+        "funcDetailOne": [
             [
                 "Get AwesomeIMG plug-in",
                 "You can use some image processing tools",
@@ -38,14 +40,38 @@
             ]
         ]
     },
-    "contact":{
-        "connect":"connect US",
-        "email":"E-mail",
-        "name":"Your Name/Company name",
-        "nameHint":"We can called you...",
-        "content":"Input your problem，we will feedback soon.",
-        "succeed":"Send the E-mail succeed!",
-        "send":"Send",
-        "closed":"Closed"
+    "payment": {
+        "payTitle": "Upgrade to Premium",
+        "monthly": "Monthly",
+        "yearly": "yearly",
+        "method": "Payment Method",
+        "card": "Card details",
+        "Premium": "Go Premium",
+        "cancel": "Cancel anytime",
+        "back": "Money back guarantee",
+        "payMthods": [
+            "Master-Card",
+            "Paypal",
+            "ApplePay",
+            "Alipay",
+            "WechatPayment"
+        ],
+        "Upgrade": "Upgrade to Premium",
+        "rightTitle": [
+            "No Ads",
+            "Can use all free tools;",
+            "Full access to  AwesomeIMG tools",
+            "Unlimited document processing；And faster upload..."
+        ]
+    },
+    "contact": {
+        "connect": "connect US",
+        "email": "E-mail",
+        "name": "Your Name/Company name",
+        "nameHint": "We can called you...",
+        "content": "Input your problem，we will feedback soon.",
+        "succeed": "Send the E-mail succeed!",
+        "send": "Send",
+        "closed": "Closed"
     }
 }

@@ -1,3 +1,4 @@
+import { Alipay } from "../../components/Svg";
 import apiClient  from "./apiClient";
 
 export const PaymentApi={
@@ -15,5 +16,16 @@ export const PaymentApi={
             window.location.href=res.data.parmentUrl;   
            }
         })
+    },
+    alipayJdude:async(data:any)=>{
+        const res=await apiClient.post('/pay/alipayJudge',{
+            Headers:{
+                token:true,
+                'content-type':'application/x-www-form-urlencoded'
+            },
+            data:data
+        })
+        const payData=res.data
+        return payData
     }
 }

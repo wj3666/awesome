@@ -5,6 +5,6 @@ export interface User{
     name:string;
     password:string;
     header_img:string;
-    pay_time:string;
-    end_time:string;
+    pay_time:number;
+    end_time:number;
 } 

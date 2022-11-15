@@ -40,6 +40,30 @@
             ]
         ]
     },
+    "payment": {
+        "payTitle": "Upgrade to Premium",
+        "monthly": "Monthly",
+        "yearly": "yearly",
+        "method": "Payment Method",
+        "card": "Card details",
+        "Premium": "Go Premium",
+        "cancel": "Cancel anytime",
+        "back": "Money back guarantee",
+        "payMthods": [
+            "Master-Card",
+            "Paypal",
+            "ApplePay",
+            "Alipay",
+            "WechatPayment"
+        ],
+        "Upgrade": "Upgrade to Premium",
+        "rightTitle": [
+            "No Ads",
+            "Can use all free tools;",
+            "Full access to  AwesomeIMG tools",
+            "Unlimited document processing；And faster upload..."
+        ]
+    },
     "contact": {
         "connect": "联系我们",
         "email": "电子邮箱",

@@ -111,7 +111,8 @@ function TopHeader() {
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
                             <div className='flex flex-row justify-center space-x-1 '><span className=' '>{appStore.user.email}</span>
-                            <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> </div>
+                            {appStore.userAthor? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> :""}
+                            </div>
                             <p>1543872008@qq.com</p>
                         </div>
                         <div> </div> 

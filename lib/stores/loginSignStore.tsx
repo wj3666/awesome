@@ -13,7 +13,7 @@ class LoginSign {
     showUserModel:boolean=false;
     userErr:boolean=false
     tokenMessage:boolean=false
-    
+    registerErr:boolean=false
     //注册
     register(email:string,password:string){
         loginApi.regsiter(email,password).then((data:any)=>{
@@ -21,7 +21,7 @@ class LoginSign {
                 console.log("注册成功")
                 this.onchangeLogSignView(0)
             }else{
-                console.log("注册失败")
+                this.registerErr=true
             }
         });
     }

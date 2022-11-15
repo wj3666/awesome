@@ -16,6 +16,7 @@ class AppStore {
     showContactModel: boolean = false
     temporaryAvatar = '';
     user: User = {} as User
+    userAthor=false
     //侧边菜单栏  
     setShowMenu() {
         if (this.showMenu) {
@@ -56,7 +57,7 @@ class AppStore {
         loginApi.login(email, password).then((data: any) => {
             if (data =='success') {
                 // this.getUsers()
-               Router.back()
+               Router.push('/home')
             } else {
                 loginSign.userErr=true
             }
@@ -66,6 +67,9 @@ class AppStore {
     setUser = (data: any) => {
         // console.log("dasada",data)
         this.user = data
+        if(this.user.author==1){
+            this.userAthor=true
+        }
         console.log("user:", this.user)
     }
 
