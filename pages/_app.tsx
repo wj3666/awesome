@@ -10,10 +10,6 @@ function MyApp({ Component, pageProps }) {
 
   )
 }
-// MyApp.getInitialProps = async ({ ctx }) => {
-//   const {out_trade_no,trade_no}=ctx.req.query
-//   console.log(out_trade_no,trade_no)
-//   return {}
-// }
+
 
 export default appWithTranslation(observer(MyApp)) 

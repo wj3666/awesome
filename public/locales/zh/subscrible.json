@@ -41,28 +41,34 @@
         ]
     },
     "payment": {
-        "payTitle": "Upgrade to Premium",
-        "monthly": "Monthly",
-        "yearly": "yearly",
-        "method": "Payment Method",
-        "card": "Card details",
-        "Premium": "Go Premium",
-        "cancel": "Cancel anytime",
-        "back": "Money back guarantee",
+        "payTitle": "升级特权",
+        "monthly": "月费",
+        "yearly": "年费",
+        "method": "付款方式",
+        "cardDetail": "卡详细信息",
+        "cardNumber":"卡号",
+        "Premium": "升级到高级",
+        "cancel": "随时取消",
+        "back": "退款担保",
         "payMthods": [
-            "Master-Card",
-            "Paypal",
-            "ApplePay",
-            "Alipay",
-            "WechatPayment"
+            "万事达卡",
+            "贝宝",
+            "苹果支付",
+            "支付宝",
+            "微信支付"
         ],
-        "Upgrade": "Upgrade to Premium",
+        "Upgrade": "升级到高级",
         "rightTitle": [
-            "No Ads",
-            "Can use all free tools;",
-            "Full access to  AwesomeIMG tools",
-            "Unlimited document processing；And faster upload..."
+            "无广告",
+            "可以使用所有免费工具;",
+            "完全访问AwesomeIMG工具",
+            "无限制的文档处理更快的上传..."
         ]
+    },
+    "success":{
+        "title":"订阅成功",
+        "welcome":"欢迎来到 AwesomeIMG",
+        "start":"开始使用 AwesomeIMG"
     },
     "contact": {
         "connect": "联系我们",

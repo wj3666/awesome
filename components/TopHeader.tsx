@@ -165,7 +165,7 @@ function TopHeader() {
                     } } ref={elementUserRef}>
                         {appStore.user.header_img!==null?<img className='w-10 h-10 ' src={`${appStore.user.header_img}`} />:<img className='w-10 h-10 ' src='/NFTelk.png' />}
                         </div>
-                        : <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
+                        : <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
                     }
                    
                     {/* <div className='1024sc:hidden w-15'><img src='/icon_menu.png' /></div> */}

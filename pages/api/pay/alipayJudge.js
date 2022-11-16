@@ -2,6 +2,7 @@
 import axios from 'axios';
 import nc from 'next-connect'
 import { query } from '../../../lib/util/dbconfig';
+import SQL from '../../../lib/util/SQL'
 const AlipayFormData = require('alipay-sdk/lib/form').default
 const AlipaySdk = require('alipay-sdk').default
 const alipaySdk = new AlipaySdk({
@@ -59,15 +60,13 @@ const handle = nc()
                             startTime = startTime.getTime()
                             console.log(entTime)
                             console.log(startTime)
-                            let sql2="select author from user where id=? "
-                            var author= db.query(sql2,out_trade_no)
+                            var author= db.query(SQL.authorById,out_trade_no)
                             author.then(res=>{
                                 const data=res[0][0].author
                                 console.log("result,", data)
                                 if(data==0){
                                     console.log(data)
-                                    let sql = "update user set pay_time=?,end_time=? ,author=? where id=?"
-                                    db.query(sql, [startTime, entTime, 1, out_trade_no])
+                                    db.query(SQL.updatePayStatusById, [startTime, entTime, 1, out_trade_no])
                                 }
                             })
                             
@@ -79,15 +78,13 @@ const handle = nc()
                             startTime = startTime.getTime()
                             console.log(entTime)
                             console.log(startTime)
-                            let sql2="select author from user where id=? "
-                            var author= db.query(sql2,out_trade_no)
+                            var author= db.query(SQL.authorById,out_trade_no)
                             author.then(res=>{
                                 const data=res[0][0].author
                                 console.log("result,",data)
                                 if(data==0){
                                     console.log(data)
-                                    let sql = "update user set pay_time=?,end_time=? ,author=? where id=?"
-                                    db.query(sql, [startTime, entTime, 1, out_trade_no])
+                                    db.query(SQL.updatePayStatusById, [startTime, entTime, 1, out_trade_no])
                                 }
                             })
                         }

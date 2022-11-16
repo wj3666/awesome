@@ -34,7 +34,7 @@ const handle = nc()
         }
         formData.addField('bizContent',JSON.stringify(bizContent));
         //支付成功或者失败要跳转的链接
-        formData.addField('returnUrl', 'http://localhost:3000/payment/success');
+        formData.addField('returnUrl', 'http://localhost:3000/paystatus');
         console.log("id", req.body.id)  
         //返回promise
         const result = alipaySdk.exec(

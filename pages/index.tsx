@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 
 
 export default function Index() {
-  const router =useRouter()
-  useEffect(()=>{
-    router.push('./home')
-  },[])
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/home')
+  }, [])
 
   return (
     <></>
-    
+
   )
 }

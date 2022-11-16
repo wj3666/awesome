@@ -45,7 +45,8 @@
         "monthly": "Monthly",
         "yearly": "yearly",
         "method": "Payment Method",
-        "card": "Card details",
+        "cardDetail": "Card details",
+        "cardNumber":"Card number",
         "Premium": "Go Premium",
         "cancel": "Cancel anytime",
         "back": "Money back guarantee",
@@ -63,6 +64,11 @@
             "Full access to  AwesomeIMG tools",
             "Unlimited document processing；And faster upload..."
         ]
+    },
+    "success":{
+        "title":"Subscription succeed!",
+        "welcome":"Welcome to AwesomeIMG",
+        "start":"Start using AwesomeIMG"
     },
     "contact": {
         "connect": "connect US",

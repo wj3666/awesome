@@ -7,8 +7,8 @@ const Compress = () => {
   return (
     <>
       <Layout>
-        {/* <Choice /> */}
-        <Chosen />
+        <Choice />
+        {/* <Chosen /> */}
       </Layout>
     </>
   )
@@ -20,14 +20,16 @@ const Choice = () => {
         <div className='flex flex-col items-center  1600sc:mt-50 justify-around h-96 w-200  '>
           <div className='font-p36-ffffff-sem '>压缩图像文件</div>
           <div className='font-p20-FFFFFF-sem'>压缩<span className='font-p20-4C90FE-sem'>JPG</span>、<span className='font-p20-4C90FE-sem'>PNG</span>、<span className='font-p20-4C90FE-sem'>SVG</span>或<span className='font-p20-4C90FE-sem'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</div>
-          <div className='flex flex-col items-center justify-around w-67 h-26 -space-y-8 rounded-3xl bg-nb-2F63AE'>
-            <p className='font-p26-FFFFFF-sem'>选择多张图片</p>
-            <p className='font-p15-f9f9f9-re'>或者将多个图片拖动到这里 </p>
-          </div>
+          <button className='cursor-default active:bg-blue-700  bg-nb-2F63AE rounded-3xl'>
+            <div className='flex flex-col items-center justify-around w-67 h-26 -space-y-8 rounded-3xl'>
+              <p className='font-p26-FFFFFF-sem'>选择多张图片</p>
+              <p className='font-p15-f9f9f9-re'>或者将多个图片拖动到这里 </p>
+            </div>
+          </button>
           <p className='font-p15-f9f9f9-re'>Or</p>
           <div className='flex flex-row justify-around w-26 h-10.5 '>
-            <div><Ellipse1 /></div>
-            <div><Ellipse2 /></div>
+            <button><Ellipse1 /></button>
+            <button><Ellipse2 /></button>
           </div>
         </div>
         <div className='flex flex-row w-187 h-27.25 fixed bottom-0 bg-nb-2E2F30 items-center justify-center   '>
@@ -55,14 +57,14 @@ const Chosen = () => {
           <div className='flex flex-col w-full items-start h-25  '>
             <div className='flex flex-row font-p15-f9f9f9-re '><Add /><span>{`\xa0\xa0` + `选择添加更多图片`}</span></div>
             <div className='flex flex-row w-3/5 mt-4 justify-around  '>
-            <button className='cursor-default'><Ellipse1/></button>
-            <button className='cursor-default'><Ellipse2/></button>
-            <button className='cursor-default'><Ellipse3/></button>
+              <button className='cursor-default'><Ellipse1 /></button>
+              <button className='cursor-default'><Ellipse2 /></button>
+              <button className='cursor-default'><Ellipse3 /></button>
             </div>
           </div>
           <div className='w-4/5 border border-black '></div>
           <div>
-            
+
           </div>
         </div>
       </div>
@@ -99,7 +101,7 @@ const Add = () => (
 )
 export const getStaticProps = async ({ locale }) => ({
   props: {
-      ...await serverSideTranslations(locale, ['common']),
+    ...await serverSideTranslations(locale, ['common']),
   },
 })
 export default observer(Compress)

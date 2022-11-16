@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { NBString } from '../lib/util/tools'
 import appStore from '../lib/stores/appstore'
+import { verificationEmail, verificationPwd, verificationPwdRegister } from '../components/Loginverify'
 const LogIn = () => {
     const { loginSignStore } = useStore()
 
@@ -31,40 +32,18 @@ const LoginMoal = observer(() => {
     const [pwdTip, setPwdTip] = useState(0) // 0:隐藏  1:Enter a password 
     const { loginSignStore } = useStore()
     const router = useRouter()
-    const verificationEmail = () => {
-        let reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!NBString.textIsNull(emailVal)) {
-            setEmailTip(1)
-            return false
-        } else if (!reg.test(emailVal)) {
-            setEmailTip(2);
-            return false
-        } else {
-            setEmailTip(0)
-            return true
-        }
-    }
-    const verificationPwd = () => {
-        if (!NBString.textIsNull(password)) {
-            setPwdTip(1)
-            return false
-        } else {
-            setPwdTip(0);
-            return true
-        }
-    }
     const submit = () => {
-        verificationEmail();
-        verificationPwd();
-        if (verificationPwd() && verificationEmail()) {
+        var emailErr = verificationEmail(emailVal);
+        var pwdErr = verificationPwd(password);
+        setEmailTip(emailErr)
+        setPwdTip(pwdErr)
+        if (emailErr == 0 && pwdErr == 0) {
             appStore.login(emailVal, password)
-            if(loginSignStore.userErr==true){
+            if (loginSignStore.userErr == true) {
                 setPwdTip(2)
             }
         }
-
     }
-  
     return (
         <>
             <div onKeyDown={(e) => {
@@ -97,9 +76,9 @@ const LoginMoal = observer(() => {
                                 </button>
                                 {
                                     router.locale === 'en' ?
-                                        pwdTip === 0 ?   <p className="mt-2 font-p15-fab300-re"></p> : pwdTip===1 ?  <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p>: pwdTip===2?<p className="mt-2 font-p15-fab300-re">Wrong account or password</p>:""
+                                        pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> : pwdTip === 1 ? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p> : pwdTip === 2 ? <p className="mt-2 font-p15-fab300-re">Wrong account or password</p> : ""
                                         :
-                                        pwdTip=== 0 ? <p className="mt-2 font-p15-fab300-re"></p> : pwdTip===1? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && '请输入密码'}</p>: pwdTip===2 ?<p className="mt-2 font-p15-fab300-re">密码或邮箱错误</p>:""
+                                        pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> : pwdTip === 1 ? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && '请输入密码'}</p> : pwdTip === 2 ? <p className="mt-2 font-p15-fab300-re">密码或邮箱错误</p> : ""
                                 }
                             </div>
                             <button onClick={() => {
@@ -147,38 +126,15 @@ const SingUpModle = () => {
     const [emailTip, setEmailTip] = useState(0);// 0:隐藏 1:Enter the email address  2:Please enter the correct email address
     const [pwdTip, setPwdTip] = useState(0) // 0:隐藏  1:Enter a password 
     const router = useRouter()
-    const verificationEmail = () => {
-        let reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!NBString.textIsNull(emailVal)) {
-            setEmailTip(1)
-            return false
-        } else if (!reg.test(emailVal)) {
-            setEmailTip(2);
-            return false
-        } else {
-            setEmailTip(0)
-            return true
-        }
-    }
-    const verificationPwd = () => {
-        let reg=/^(?=.*?[A-Za-z]+)(?=.*?[a-zA-Z0-9]{6,})(?=.*?[A-Z]).*$/;
-        if (!NBString.textIsNull(password)) {
-            setPwdTip(1)
-            return false
-        } else if(!reg.test(password)) {
-            setPwdTip(2)
-            return false
-        }else{
-            setPwdTip(0);
-            return true
-        }
-    }
+
     const submit = () => {
-        verificationEmail();
-        verificationPwd();
-        if (verificationPwd() && verificationEmail()) {
+        var emailErr = verificationEmail(emailVal);
+        var pwdErr = verificationPwdRegister(password);
+        setEmailTip(emailErr)
+        setPwdTip(pwdErr)
+        if (emailErr == 0 && pwdErr == 0) {
             loginSignStore.register(emailVal, password)
-           setEmailTip(3)
+            setEmailTip(3)
         }
 
     }
@@ -202,7 +158,7 @@ const SingUpModle = () => {
                                 <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={emailVal} className={`w-full h-10.5 rounded-xl border px-10  bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${emailVal === '' ? "" : "font-p15-ffffff-sem"} `} placeholder="Name@xxxx.com" />
                             </div>
                             {
-                                emailTip !== 0 && router.locale === 'en' ? <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? 'Enter the email address' : emailTip === 2 ?  'Please enter the correct email address':emailTip===3&& 'The account already exists'}</p> : <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? '请输入邮箱地址' : emailTip === 2 ? '请输入正确的邮箱地址' : emailTip===3 &&'账号已经存在'}</p>
+                                emailTip !== 0 && router.locale === 'en' ? <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? 'Enter the email address' : emailTip === 2 ? 'Please enter the correct email address' : emailTip === 3 && 'The account already exists'}</p> : <p className="mt-2 font-p15-fab300-re">{emailTip === 1 ? '请输入邮箱地址' : emailTip === 2 ? '请输入正确的邮箱地址' : emailTip === 3 && '账号已经存在'}</p>
                             }
                             <div className='relative items-center  justify-start w-full h-30 '>
                                 <p className='h-7 w-full font-p15-CFD0E4-sem'>{t('header.login.passWord')}</p>
@@ -214,9 +170,9 @@ const SingUpModle = () => {
                                 </button>
                                 {
                                     router.locale === 'en' ?
-                                         pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> :pwdTip===1? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p>: pwdTip===2? <p className="mt-2 font-p15-fab300-re">Wrong account or password</p>:""
+                                        pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> : pwdTip === 1 ? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p> : pwdTip === 2 ? <p className="mt-2 font-p15-fab300-re">Wrong account or password</p> : ""
                                         :
-                                        pwdTip === 0  ?<p className="mt-2 font-p15-fab300-re"></p> :pwdTip===1? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && 'Enter a password'}</p>: pwdTip===2? <p className="mt-2 font-p15-fab300-re">密码格式有问题,请重新输入</p>:""
+                                        pwdTip === 0 ? <p className="mt-2 font-p15-fab300-re"></p> : pwdTip === 1 ? <p className="mt-2 font-p15-fab300-re">{pwdTip === 1 && '请输入密码'}</p> : pwdTip === 2 ? <p className="mt-2 font-p15-fab300-re">密码格式有问题,请重新输入</p> : ""
                                 }
 
                             </div>

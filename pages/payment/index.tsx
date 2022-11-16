@@ -5,17 +5,17 @@ import appStore from '../../lib/stores/appstore'
 import useStore from '../../lib/stores/stores'
 import { Transition, Listbox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import {MasterCard,Paypal,Alipay,ApplePay,Wechat,Small} from '../../components/Svg'
+import { MasterCard, Paypal, Alipay, ApplePay, Wechat, Small } from '../../components/Svg'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
 
 const Paystate = () => {
-    const { loginSignStore,paymentStore } = useStore()
+    const { loginSignStore, paymentStore } = useStore()
     return (
         <>
             {
-               <Payment />
+                <Payment />
             }
         </>
     )
@@ -29,12 +29,12 @@ const people = [
     { name: 'WechatPayment', svg: <Wechat /> },
 ]
 const Payment = () => {
-    const {t}=useTranslation('subscrible')
+    const { t } = useTranslation('subscrible')
     const [selected, setSelected] = useState(people[0])
     const [userName, setUserName] = useState('')
     const [choiceFees, setChoiceFees] = useState(false)
     const [showPaymentMethod, setShowPaymentMethod] = useState(0)//0:master-card 1:paypal 2:applepay 3:aplipay 4:wechat
-    const { loginSignStore ,paymentStore,appStore} = useStore()
+    const { loginSignStore, paymentStore, appStore } = useStore()
     const handleRefvalue = (evt: any) => {
         switch (evt.name) {
             case 'Master-Card':
@@ -59,26 +59,26 @@ const Payment = () => {
     const conditionMessage = {
         message: ["No Ads", "Can use all free tools;", "Full access to  AwesomeIMG tools", "Unlimited document processing；And faster upload..."]
     }
-    const alipyPayment=()=>{
-        if(choiceFees){
+    const alipyPayment = () => {
+        if (choiceFees) {
             appStore.getUsers()
-            var money=3
-            if(appStore.user.id==undefined){
+            var money = 3
+            if (appStore.user.id == undefined) {
                 return Router.push('/login')
             }
             var id = appStore.user.id
-            paymentStore.alipayMethod(id,money)
-        }else{
-            var money=30
-            if(appStore.user.id==undefined){
+            paymentStore.alipayMethod(id, money)
+        } else {
+            var money = 30
+            if (appStore.user.id == undefined) {
                 return Router.push('/login')
             }
-            var id=appStore.user.id
-            paymentStore.alipayMethod(id,money)
+            var id = appStore.user.id
+            paymentStore.alipayMethod(id, money)
         }
     }
-    useEffect(()=>{
-        if(appStore.user.id==undefined){
+    useEffect(() => {
+        if (appStore.user.id == undefined) {
             appStore.getUsers()
         }
     })
@@ -90,26 +90,32 @@ const Payment = () => {
                         <div className=' flex flex-col space-y-3 h-140 w-94.5  '>
                             <div className='flex flex-col justify-center items-center space-y-5 w-full h-30 '>
                                 <img className='w-50' src='/Logo_awesomeImg.svg' />
-                                <p className='font-p15-C8C8C8-sem'>Upgrade to Premium</p>
+                                <p className='font-p15-C8C8C8-sem'>{t('payment.payTitle')}</p>
                             </div>
                             <div className='flex flex-row justify-around w-full  h-40  '>
                                 <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer ${choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(true)}>
-                                    <p className='font-p20-FFFFFF-sem'>Monthly</p>
+                                    <p className='font-p20-FFFFFF-sem'>{t('payment.monthly')}</p>
                                     <div className='flex flex-row justify-around w-full '><span className={`${!choiceFees ? "font-p50-CFD0E4-sem " : "font-p50-FFFFFF-sem"}  font-normal font-sans`}>$ 3</span></div>
                                 </div>
                                 <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer  ${!choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(false)}>
-                                    <p className='font-p20-FFFFFF-sem'>Yearly</p>
+                                    <p className='font-p20-FFFFFF-sem'>{t('payment.yearly')}</p>
                                     <div className='flex flex-row justify-around w-full '><span className={`${choiceFees ? "font-p50-CFD0E4-sem" : "font-p50-FFFFFF-sem"}  font-normal font-sans`}>$ 30</span></div>
                                 </div>
                             </div>
                             <div className={`flex flex-col items-center  justify-start w-full ${showPaymentMethod === 0 ? "h-25" : "h-27"}`}>
-                                <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>Payment Menthod</p>
+                                <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>{t('payment.method')}</p>
                                 {/* <img src='/Vector.png' className='absolute'/> */}
                                 <div className=" w-full h-10.5  ">
                                     <Listbox value={selected} onChange={setSelected} >
                                         <div className="relative w-full  h-10.5  ">
                                             <Listbox.Button className=" w-full h-10.5 border border-nb-CFD0E466 font-p15-ffffff-sem cursor-default  rounded-xl pl-3 bg-nb-CFD0E44D  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                                <span className="flex flex-row   block truncate">{selected.svg}{`\u00A0`}{selected.name}</span>
+                                                <span className="flex flex-row   block truncate">{selected.svg}{`\u00A0`}
+                                                    {selected.name === 'Master-Card' && t('payment.payMthods.0')}
+                                                    {selected.name === 'Paypal' && t('payment.payMthods.1')}
+                                                    {selected.name === 'ApplePay' && t('payment.payMthods.2')}
+                                                    {selected.name === 'Aplipay' && t('payment.payMthods.3')}
+                                                    {selected.name === 'WechatPayment' && t('payment.payMthods.4')}
+                                                </span>
                                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                                     <div className="w-full border-dashed border border-CFD0E466 mr-2"><Small aria-hidden="true" /></div>
                                                 </span>
@@ -140,7 +146,7 @@ const Payment = () => {
                                                                             className={`block truncate font-p15-ffffff-sem ${selected ? 'font-medium' : 'font-normal'
                                                                                 }`}
                                                                         >
-                                                                            {method.name}
+                                                                            {t(`payment.payMthods.${personIdx}`)}
                                                                         </span>
                                                                     </div>
                                                                     {selected ? (
@@ -161,28 +167,28 @@ const Payment = () => {
 
                             {
                                 showPaymentMethod === 0 ? <div className='flex flex-col items-center  justify-start w-full h-30  '>
-                                    <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>Card details</p>
+                                    <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>{t('payment.cardDetail')}</p>
                                     {/* <img src='/Vector.png' className='absolute'/> */}
-                                    <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={`Card number \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
+                                    <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={`${t('payment.cardNumber')} \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
                                 </div> : ""
                             }
                             <div className='w-full h-12.5'>
                                 {
-                                    showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-re   bg-nb-4C90FE rounded-xl">Go Premium</button> :
+                                    showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-re   bg-nb-4C90FE rounded-xl">{t('payment.Premium')}</button> :
                                         showPaymentMethod === 1 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonPaypal /></button> :
                                             showPaymentMethod === 2 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonApplePay /></button> :
-                                                showPaymentMethod === 3 ? <button onClick={() =>   alipyPayment() } className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
+                                                showPaymentMethod === 3 ? <button onClick={() => alipyPayment()} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
                                                     showPaymentMethod === 4 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonWechat /></button> : ""
                                 }
                             </div>
                             <div className='flex flex-col justify-center items-center w-full  '>
                                 <span className=" inset-y-0 right-2  flex items-center pl-3 space-x-2 ">
                                     <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-re'>Cancel anytime</p>
+                                    <p className='font-p12-A2A3BC-re'>{t('payment.cancel')}</p>
                                 </span>
                                 <span className="inset-y-0 right-2  flex items-center pl-3 space-x-1 ">
                                     <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-re'>Money back guarantee</p>
+                                    <p className='font-p12-A2A3BC-re'>{t('payment.back')}</p>
                                 </span>
                             </div>
                         </div>
@@ -192,10 +198,10 @@ const Payment = () => {
                     <div className='flex flex-col justify-start  items-center  h-160 w-94.5 '>
                         <div className='w-65 h-74.5 '><img src='/imgPremium.svg' /></div>
                         <div className='flex flex-col items-center h-60 w-94.5 '>
-                            <p className='font-p26-FFFFFF-sem font-sans'>Upgrade to Premium</p>
+                            <p className='font-p26-FFFFFF-sem font-sans'>{t('payment.Upgrade')}</p>
                             {
-                                conditionMessage.message.map((items,indexs) =>
-                                    <div key={indexs} className='ml-20 mt-5 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-sem'>{items}</p></div>
+                                conditionMessage.message.map((items, indexs) =>
+                                    <div key={indexs} className='ml-20 mt-5 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-sem'>{t(`payment.rightTitle.${indexs}`)}</p></div>
                                 )
                             }
                         </div>
