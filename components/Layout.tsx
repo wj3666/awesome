@@ -5,6 +5,8 @@ import stores from '../lib/stores/stores';
 import { observer } from 'mobx-react'
 import axios from 'axios';
 import Contact from './Contact';
+import { useRouter } from 'next/router';
+import CompressChoseList from './ChoseList/Compress';
 
 
 type Props = {
@@ -12,6 +14,7 @@ type Props = {
   children?: ReactNode
 }
 const Layout = ({ currenTal = "HOME", children }: Props) => {
+  const router = useRouter();
   const { appStore, homeStore } = stores
   useEffect(() => {
 
@@ -34,9 +37,13 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
             {children}
           </div>
           {/* 右侧边栏 */}
-          <div className='flex-none w-72.5 sticky top-0'>
-
-          </div>
+          {
+            router.pathname != "/home" &&
+              router.pathname === "/compress" ?
+               stores.compressStore.isShowChoseList && <CompressChoseList />
+              :
+              <div></div>
+          }
         </div>
       </div>
       <Contact />
@@ -44,4 +51,4 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
   )
 }
 
-export default observer(Layout)
+export default observer(Layout);

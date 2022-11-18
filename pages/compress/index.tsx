@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
-import { useDropzone } from 'react-dropzone';
 import { NBString } from '../../lib/util/tools'
 import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import stores from '../../lib/stores/stores'
 
 const Compress = () => {
   return (
@@ -17,12 +17,12 @@ const Compress = () => {
     </>
   )
 }
-const CompressBlock = () => {
-  const [uploadState, setUploadState] = useState([]);
+const CompressBlock = observer(() => {
   const onDrop = (e) => {
     // console.log(e)
     
-    setUploadState(uploadState.concat(e))
+    stores.compressStore.setImgListData(e);
+    stores.compressStore.changeIsShowChoseList(true);
   }
 
 
@@ -30,7 +30,7 @@ const CompressBlock = () => {
     <div className='flex flex-row justify-between h-full'>
       <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
         <div className='flex-grow flex flex-col items-center justify-center'>
-          {uploadState.length == 0 &&
+          {stores.compressStore.imgListData.length == 0 &&
             <div>
               <div className='font-p36-ffffff-sem'>压缩图像文件</div>
               <div className='font-p20-FFFFFF-sem mt-10.5'>压缩<span className='font-p20-4C90FE-sem italic'>JPG</span>、<span className='font-p20-4C90FE-sem italic'>PNG</span>、<span className='font-p20-4C90FE-sem italic'>SVG</span>或<span className='font-p20-4C90FE-sem italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</div>
@@ -38,11 +38,11 @@ const CompressBlock = () => {
           }
 
           <div className='mt-12.5 mb-4.5'>
-            {uploadState.length != 0 ?
+            {stores.compressStore.imgListData.length != 0 ?
               <div className='mb-22'>
-                {uploadState.length > 1 ?
+                {stores.compressStore.imgListData.length > 1 ?
                   <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
-                    {uploadState.map((item, idx) => {
+                    {stores.compressStore.imgListData.map((item, idx) => {
                       return (
                         <div key={item.name + idx} className='w-85 h-82.75'>
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -58,7 +58,7 @@ const CompressBlock = () => {
                   </div>
                   :
                   <>
-                    {uploadState.map((item, idx) => {
+                    {stores.compressStore.imgListData.map((item, idx) => {
                       return (
                         <div key={item.name + idx} className='w-85 h-82.75'>
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -91,7 +91,7 @@ const CompressBlock = () => {
           </div>
 
 
-          {uploadState.length == 0 &&
+          {stores.compressStore.imgListData.length == 0 &&
             <>
               <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
               <div className='flex flex-row'>
@@ -105,73 +105,10 @@ const CompressBlock = () => {
           ADs
         </div>
       </div>
-      {uploadState.length != 0 &&
-        <div className='flex-none relative w-72.5 h-full px-4.5 bg-nb-2E2F30 text-left '>
-          {/* 标题 */}
-          <div>
-            <p className='py-5.25 font-p24-FFFFFF-w600'>压缩图像文件</p>
-            <p className='font-p14-CFD0E4-w400 pr-7'>所有图片都将被压缩，同时保持最佳质量和大小比例</p>
-          </div>
-          {/* 水平线 */}
-          <div className='w-full h-0.25 mt-7.5 bg-nb-222325' />
-          {/* 选择添加更多图片 */}
-          <div>
-            <div className='flex items-center cursor-pointer py-5.25'>
-              <IconAdd />
-              <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
-            </div>
-            {/* 按钮 */}
-            <div>
-              <button className="w-10.5 h-10.5 rounded-full hover:opacity-90">
-                <Dropzone noDrag={true} onDrop={(e) => { onDrop(e) }}>
-                  {({ getRootProps, getInputProps }) => (
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <IconDesktop />
-                    </div>
-                  )}
-                </Dropzone>
-              </button>
-              <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
-                <IconFolderGoogleDrive />
-              </button>
-              <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
-                <IconDropbox />
-              </button>
-            </div>
-          </div>
-          {/* 水平线 */}
-          <div className='w-full h-0.25 my-4.375 bg-nb-222325' />
 
-          {/* 图片列表 */}
-          <ul>
-            {uploadState.map((item, idx) => {
-              return (
-                <li key={item.name + idx} className='h-14 w-full flex flex-row items-center'>
-                  <p className='font-p13-FFFFFF-w400 w-2.75'>{idx+1}.</p>
-                  <div className='w-9 h-9 bg-nb-222325 ml-2'>
-                    <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
-                  </div>
-                  <div className='ml-2.5'>
-                    <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 6)}</p>
-                    <p className='font-p13-A2A3BA-w400 mt-1'>
-                      等待中
-                    </p>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-
-          {/* 压缩按钮 */}
-          <button className='absolute bottom-9 w-60.5 h-14.5 bg-nb-2F63AE rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90'>
-            <span>压缩多个图像文件</span>
-          </button>
-        </div>
-      }
     </div>
   )
-}
+})
 
 
 const Ellipse1 = () => (
