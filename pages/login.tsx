@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState, useTransition } from 'react'
-import useStore from '../lib/stores/stores'
+import stores from '../lib/stores/stores'
 import { Showpassword, FaceBooklogo, Googlelogo } from '../components/Svg'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
@@ -11,7 +11,7 @@ import { verificationEmail, verificationPwd, verificationPwdRegister } from '../
 import { signIn, signOut, useSession } from 'next-auth/react'
 import axios from 'axios'
 const LogIn = () => {
-    const { loginSignStore } = useStore()
+    const { loginSignStore } = stores
 
     return (
         <>
@@ -34,7 +34,7 @@ const LoginMoal = observer(() => {
     const [showpassword, setShowpassword] = useState(false)
     const [emailTip, setEmailTip] = useState(0);// 0:隐藏 1:Enter the email address  2:Please enter the correct email address
     const [pwdTip, setPwdTip] = useState(0) // 0:隐藏  1:Enter a password 
-    const { loginSignStore } = useStore()
+    const { loginSignStore } = stores
     const router = useRouter()
     const submit = () => {
         var emailErr = verificationEmail(emailVal);
@@ -51,6 +51,7 @@ const LoginMoal = observer(() => {
     }
     if(session){
         router.push('/home')
+        
         appStore.googleLogin(session)
     }
     return (
@@ -125,7 +126,7 @@ const LoginMoal = observer(() => {
 })
 // 注册 
 const SingUpModle = () => {
-    const { loginSignStore } = useStore()
+    const { loginSignStore } = stores
     const { t } = useTranslation('common')
     const [emailVal, setUserName] = useState('')
     const [password, setPassword] = useState('')

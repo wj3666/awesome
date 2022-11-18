@@ -1,76 +1,179 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Dropzone from 'react-dropzone'
+import { useDropzone } from 'react-dropzone';
+import { NBString } from '../../lib/util/tools'
+import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
 
 const Compress = () => {
   return (
     <>
       <Layout>
-        <Choice />
+        <CompressBlock />
         {/* <Chosen /> */}
       </Layout>
     </>
   )
 }
-const Choice = () => {
+const CompressBlock = () => {
+  const [uploadState, setUploadState] = useState([]);
+  const onDrop = (e) => {
+    // console.log(e)
+    
+    setUploadState(uploadState.concat(e))
+  }
+
+
   return (
-    <>
-      <div className='flex flex-col items-center mt-23 w-full h-full  '>
-        <div className='flex flex-col items-center  1600sc:mt-50 justify-around h-96 w-200  '>
-          <div className='font-p36-ffffff-sem '>压缩图像文件</div>
-          <div className='font-p20-FFFFFF-sem'>压缩<span className='font-p20-4C90FE-sem'>JPG</span>、<span className='font-p20-4C90FE-sem'>PNG</span>、<span className='font-p20-4C90FE-sem'>SVG</span>或<span className='font-p20-4C90FE-sem'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</div>
-          <button className='cursor-default active:bg-blue-700  bg-nb-2F63AE rounded-3xl'>
-            <div className='flex flex-col items-center justify-around w-67 h-26 -space-y-8 rounded-3xl'>
-              <p className='font-p26-FFFFFF-sem'>选择多张图片</p>
-              <p className='font-p15-f9f9f9-re'>或者将多个图片拖动到这里 </p>
+    <div className='flex flex-row justify-between h-full'>
+      <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
+        <div className='flex-grow flex flex-col items-center justify-center'>
+          {uploadState.length == 0 &&
+            <div>
+              <div className='font-p36-ffffff-sem'>压缩图像文件</div>
+              <div className='font-p20-FFFFFF-sem mt-10.5'>压缩<span className='font-p20-4C90FE-sem italic'>JPG</span>、<span className='font-p20-4C90FE-sem italic'>PNG</span>、<span className='font-p20-4C90FE-sem italic'>SVG</span>或<span className='font-p20-4C90FE-sem italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</div>
             </div>
-          </button>
-          <p className='font-p15-f9f9f9-re'>Or</p>
-          <div className='flex flex-row justify-around w-26 h-10.5 '>
-            <button><Ellipse1 /></button>
-            <button><Ellipse2 /></button>
+          }
+
+          <div className='mt-12.5 mb-4.5'>
+            {uploadState.length != 0 ?
+              <div className='mb-22'>
+                {uploadState.length > 1 ?
+                  <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
+                    {uploadState.map((item, idx) => {
+                      return (
+                        <div key={item.name + idx} className='w-85 h-82.75'>
+                          <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
+                            <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
+                          </div>
+                          <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
+                            <p>{NBString.truncateString(item.name, 18, 6)}</p>
+                            <p>{NBString.getImgSizeMb(item.size)}Mb</p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  :
+                  <>
+                    {uploadState.map((item, idx) => {
+                      return (
+                        <div key={item.name + idx} className='w-85 h-82.75'>
+                          <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
+                            <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
+                          </div>
+                          <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
+                            <p>{item.name}</p>
+                            <p>{(item.size / 1024 / 1024).toFixed(2)}Mb</p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </>}
+              </div>
+              :
+              <Dropzone onDrop={(e) => { onDrop(e) }}>
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <button className='w-67 h-26 active:bg-blue-400 bg-nb-2F63AE rounded-4.5'>
+                        <p className='font-p26-FFFFFF-w700'>选择多张图片</p>
+                        <p className='font-p15-FFFFFF-w400 mt-2.75'>或者将多个图片拖动到这里</p>
+                      </button>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+            }
           </div>
+
+
+          {uploadState.length == 0 &&
+            <>
+              <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
+              <div className='flex flex-row'>
+                <button className='mr-5'><Ellipse1 /></button>
+                <button><Ellipse2 /></button>
+              </div>
+            </>
+          }
         </div>
-        <div className='flex flex-row w-187 h-27.25 fixed bottom-0 bg-nb-2E2F30 items-center justify-center   '>
+        <div className='flex-none w-187.5 h-27.25 bottom-0 bg-nb-2E2F30 text-safe'>
           ADs
         </div>
       </div>
-    </>
-  )
-}
-const Chosen = () => {
-  return (
-    <>
-      <div className='flex flex-row justify-start mt-23 w-full h-full '>
-        <div className='flex flex-wrap itmens-start justify-center  w-11/12 h-full bg-black'>
-          <div className='flex flex-row w-187 h-27.25 fixed bottom-0 bg-nb-2E2F30 items-center justify-center   '>
-            ADs
+      {uploadState.length != 0 &&
+        <div className='flex-none relative w-72.5 h-full px-4.5 bg-nb-2E2F30 text-left '>
+          {/* 标题 */}
+          <div>
+            <p className='py-5.25 font-p24-FFFFFF-w600'>压缩图像文件</p>
+            <p className='font-p14-CFD0E4-w400 pr-7'>所有图片都将被压缩，同时保持最佳质量和大小比例</p>
           </div>
-        </div>
-        <div className='flex flex-col items-center w-72.5 h-full '>
-          <div className='flex flex-col text-left justify-center space-y-4 w-full h-30 '>
-            <p className='font-p26-FFFFFF-sem'>压缩图像文件</p>
-            <p className='w-5/6 font-p15-f9f9f9-re'>所有图片都将被压缩，同时保持最佳质量和大小比例 </p>
-          </div>
-          <div className='w-4/5 border border-black '></div>
-          <div className='flex flex-col w-full items-start h-25  '>
-            <div className='flex flex-row font-p15-f9f9f9-re '><Add /><span>{`\xa0\xa0` + `选择添加更多图片`}</span></div>
-            <div className='flex flex-row w-3/5 mt-4 justify-around  '>
-              <button className='cursor-default'><Ellipse1 /></button>
-              <button className='cursor-default'><Ellipse2 /></button>
-              <button className='cursor-default'><Ellipse3 /></button>
+          {/* 水平线 */}
+          <div className='w-full h-0.25 mt-7.5 bg-nb-222325' />
+          {/* 选择添加更多图片 */}
+          <div>
+            <div className='flex items-center cursor-pointer py-5.25'>
+              <IconAdd />
+              <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
+            </div>
+            {/* 按钮 */}
+            <div>
+              <button className="w-10.5 h-10.5 rounded-full hover:opacity-90">
+                <Dropzone noDrag={true} onDrop={(e) => { onDrop(e) }}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <IconDesktop />
+                    </div>
+                  )}
+                </Dropzone>
+              </button>
+              <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
+                <IconFolderGoogleDrive />
+              </button>
+              <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
+                <IconDropbox />
+              </button>
             </div>
           </div>
-          <div className='w-4/5 border border-black '></div>
-          <div>
+          {/* 水平线 */}
+          <div className='w-full h-0.25 my-4.375 bg-nb-222325' />
 
-          </div>
+          {/* 图片列表 */}
+          <ul>
+            {uploadState.map((item, idx) => {
+              return (
+                <li key={item.name + idx} className='h-14 w-full flex flex-row items-center'>
+                  <p className='font-p13-FFFFFF-w400 w-2.75'>{idx+1}.</p>
+                  <div className='w-9 h-9 bg-nb-222325 ml-2'>
+                    <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
+                  </div>
+                  <div className='ml-2.5'>
+                    <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 6)}</p>
+                    <p className='font-p13-A2A3BA-w400 mt-1'>
+                      等待中
+                    </p>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+
+          {/* 压缩按钮 */}
+          <button className='absolute bottom-9 w-60.5 h-14.5 bg-nb-2F63AE rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90'>
+            <span>压缩多个图像文件</span>
+          </button>
         </div>
-      </div>
-    </>
+      }
+    </div>
   )
 }
+
+
 const Ellipse1 = () => (
   <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="21" cy="21" r="21" fill="#2F63AE" />

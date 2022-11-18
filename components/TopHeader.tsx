@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link';
-import useStore from '../lib/stores/stores';
+import stores from '../lib/stores/stores';
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -13,7 +13,7 @@ function TopHeader() {
     const { pathname, asPath, query } = router;
     const [isShowSwitchLanguage, setIsShowSwitchLanguage] = useState(false);
     const [headerUser, setHanderUser] = useState(false)
-    const { appStore, loginSignStore } = useStore()
+    const { appStore, loginSignStore } = stores
     const [showUserModel, setShowUserModel] = useState(false)
     const elementRef = useRef(null)
     const elementUserRef = useRef(null)
@@ -182,12 +182,13 @@ function TopHeader() {
                 </div> : ""
             }
             <div className='flex flex-row justify-between  min-w-full  bg-nb-sidebar-grey h-23'>
-                <div className='flex h-23 flex-row justify-start bg-nb-sidebar-grey space-x-4  w-full'>
-                    <button className='h-23 ml-8 ' onClick={() => appStore.setShowMenu()}><img className={` ${appStore.showMenu ? " transition-rotate duration-500 rotate-90" : " transition-rotate duration-300 rotate-0"} `} src='/icon_menu.png' /></button>
+                <div className='h-23 pr-6.75 flex flex-row justify-start items-center bg-nb-sidebar-grey w-60.75 border-r border-nb-191919'>
+                    <button className='h-23 ml-7.75 ' onClick={() => appStore.setShowMenu()}><img className={` ${appStore.showMenu ? " transition-rotate duration-500 rotate-90" : " transition-rotate duration-300 rotate-0"} `} src='/icon_menu.png' /></button>
 
-                    <h1 className={`cursor-pointer mt-8 mb-8 left-18  `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>
-
+                    <h1 className={`cursor-pointer ml-5 `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>
+                    
                 </div>
+
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
                     <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'><div><Subscribe /></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
                     <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e) => {

@@ -1,6 +1,6 @@
 import Router, { useRouter } from "next/router"
 import { useEffect } from "react"
-import useStore from "../../lib/stores/stores"
+import stores from "../../lib/stores/stores"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from "next-i18next"
 

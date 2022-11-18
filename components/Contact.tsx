@@ -2,10 +2,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 import React, { Fragment, useState } from 'react'
-import useStore from '../lib/stores/stores'
+import stores from '../lib/stores/stores'
 
 function Contact() {
-  const { appStore } = useStore()
+  const { appStore } = stores
   const [isOpen, setIsOpen] = useState(true)
   const [email, setEmail] = useState('')
   const [userName, setUserName] = useState('')

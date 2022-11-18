@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import Router from 'next/router'
 import React, { useEffect, useState, Fragment, useRef } from 'react'
 import appStore from '../../lib/stores/appstore'
-import useStore from '../../lib/stores/stores'
+import stores from '../../lib/stores/stores'
 import { Transition, Listbox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { MasterCard, Paypal, Alipay, ApplePay, Wechat, Small } from '../../components/Svg'
@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react'
 
 
 const Paystate = () => {
-    const { loginSignStore, paymentStore } = useStore()
+    const { loginSignStore, paymentStore } = stores()
     return (
         <>
             {
@@ -36,7 +36,7 @@ const Payment = () => {
     const [userName, setUserName] = useState('')
     const [choiceFees, setChoiceFees] = useState(false)
     const [showPaymentMethod, setShowPaymentMethod] = useState(0)//0:master-card 1:paypal 2:applepay 3:aplipay 4:wechat
-    const { loginSignStore, paymentStore, appStore } = useStore()
+    const { loginSignStore, paymentStore, appStore } = stores()
     const handleRefvalue = (evt: any) => {
         switch (evt.name) {
             case 'Master-Card':

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
-import useStore from "../lib/stores/stores"
+import stores from "../lib/stores/stores"
 const Paystatus=(data:any)=>{
-    const {paymentStore} = useStore()
+    const {paymentStore} = stores
     useEffect(()=>{
         if(data){
          paymentStore.aliapyStats(data)

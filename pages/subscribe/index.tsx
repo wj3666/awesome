@@ -2,7 +2,7 @@ import { Router, useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Contact from '../../components/Contact'
 import Layout from '../../components/Layout'
-import useStore from '../../lib/stores/stores'
+import stores from '../../lib/stores/stores'
 import { Airplane, Rocket, Ufosvg, Chosen } from '../../components/Svg'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
@@ -17,7 +17,7 @@ export default function Subscribe() {
 const Schememonth = () => {
     const [showLeft, setShowLeft] = useState(false)
     const [showRight, setShowRight] = useState(false)
-    const { appStore, loginSignStore } = useStore()
+    const { appStore, loginSignStore } = stores
     const list = [1, 2, 3]
     const { t } = useTranslation('subscrible')
     const router = useRouter()
