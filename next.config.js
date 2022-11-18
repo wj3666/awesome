@@ -6,7 +6,7 @@ module.exports = {
   i18n,
   pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
   // experimental: {
-  //   // allowMiddlewareResponseBody: true,
+  //   allowMiddlewareResponseBody: true,
   // },
   // trailingSlash: true,
   

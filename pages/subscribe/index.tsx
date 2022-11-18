@@ -17,7 +17,7 @@ export default function Subscribe() {
 const Schememonth = () => {
     const [showLeft, setShowLeft] = useState(false)
     const [showRight, setShowRight] = useState(false)
-    const { appStore,loginSignStore } = useStore()
+    const { appStore, loginSignStore } = useStore()
     const list = [1, 2, 3]
     const { t } = useTranslation('subscrible')
     const router = useRouter()
@@ -178,11 +178,7 @@ const Schememonth = () => {
                                             if (data.id === 3) {
                                                 appStore.setShowContactModel(true)
                                             } else if (data.id === 2) {
-                                                if(loginSignStore.tokenMessage){
-                                                    router.push('/payment')
-                                                }else{
-                                                    router.push('/login')
-                                                }
+                                                router.push('/payment')
                                             }
                                         }}>{t(`subscrible.btnMessage.${index}`)}</button>
                                     </div>

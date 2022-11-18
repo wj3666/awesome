@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
         if (resp.code == 1) {
             // console.log("dsadsa",response)
             response.data = resp.data;
-            // console.log("res.data:",response.data) 
+            console.log("res.data:",response.data) 
             const { authorization } = response.headers
             authorization && localStorage.setItem("token", authorization)
             return response;
@@ -48,7 +48,7 @@ apiClient.interceptors.response.use(
         }
     },
     function (error) {
-        // console.log("响应错误:",error.response.status)
+        console.log("响应错误:",error.response)
         if(error.response?.status==400){
             localStorage.removeItem("token")
         }
