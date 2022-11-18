@@ -25,7 +25,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/api/auth/[...nextauth].js", "pages/api/_middlewarejs", "middleware.ts"  ],
   "exclude": [
     "node_modules"
   ]

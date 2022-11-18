@@ -24,5 +24,13 @@ export const  loginApi= {
         });
         const data=response.data
         return data;
+    },
+    googleLogin:async(seesion:any)=>{
+        const response=await apiClient.post('/auth/login',{
+            data:seesion
+        });
+        console.log("返回结果：",response)
+        const data=response.data
+        return data
     }
 }

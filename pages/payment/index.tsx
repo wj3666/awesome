@@ -8,6 +8,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { MasterCard, Paypal, Alipay, ApplePay, Wechat, Small } from '../../components/Svg'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { useSession } from 'next-auth/react'
 
 
 const Paystate = () => {
@@ -29,6 +30,7 @@ const people = [
     { name: 'WechatPayment', svg: <Wechat /> },
 ]
 const Payment = () => {
+    const { data: seesion } = useSession()
     const { t } = useTranslation('subscrible')
     const [selected, setSelected] = useState(people[0])
     const [userName, setUserName] = useState('')
@@ -63,14 +65,14 @@ const Payment = () => {
         if (choiceFees) {
             appStore.getUsers()
             var money = 3
-            if (appStore.user.id == undefined) {
+            if (appStore.user.id == undefined && !seesion) {
                 return Router.push('/login')
             }
             var id = appStore.user.id
             paymentStore.alipayMethod(id, money)
         } else {
             var money = 30
-            if (appStore.user.id == undefined) {
+            if (appStore.user.id == undefined&&!seesion) {
                 return Router.push('/login')
             }
             var id = appStore.user.id

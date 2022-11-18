@@ -3,10 +3,14 @@ import React from 'react'
 import 'tailwindcss/tailwind.css'
 import { observer } from 'mobx-react'
 import { appWithTranslation } from 'next-i18next'
+import { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps:{session,...pageProps}}:AppProps) {
   return (
+    <SessionProvider  session={session}>
     <Component {...pageProps} />
+    </SessionProvider>
 
   )
 }

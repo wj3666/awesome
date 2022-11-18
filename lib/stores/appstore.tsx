@@ -1,5 +1,5 @@
 import { throws } from "assert";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, toJS } from "mobx";
 import Router from "next/router";
 import { HomeApi } from "../api/home";
 import { User } from "../models/user";
@@ -63,10 +63,18 @@ class AppStore {
             }
         })
     }
+    //三方登录存储数据(google、facebook)
+        googleLogin(session:any){
+            loginApi.googleLogin(session).then((data:any)=>{
+                
+            })
+        }
+    
     //登录信息
     setUser = (data: any) => {
         // console.log("dasada",data)
-        this.user = data
+        this.user = data[0]
+        console.log(toJS(this.user))
         if(this.user.author==1){
             this.userAthor=true
         }

@@ -5,18 +5,20 @@ import { observer } from 'mobx-react'
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { signOut, useSession } from 'next-auth/react';
 function TopHeader() {
-    const {t}=useTranslation('common')
+    const { t } = useTranslation('common')
     const [rctangle, setRctangle] = useState(true)
-    const router=useRouter()
+    const router = useRouter()
     const { pathname, asPath, query } = router;
     const [isShowSwitchLanguage, setIsShowSwitchLanguage] = useState(false);
     const [headerUser, setHanderUser] = useState(false)
     const { appStore, loginSignStore } = useStore()
     const [showUserModel, setShowUserModel] = useState(false)
-    const elementRef=useRef(null)
-    const elementUserRef=useRef(null)
-    const avatarImgRef =useRef<any>();
+    const elementRef = useRef(null)
+    const elementUserRef = useRef(null)
+    const avatarImgRef = useRef<any>();
+    const { data: seesion } = useSession()
     // console.log("111",appStore.user.id)
     const avatarUpload = (e) => {
         let file = e.target.files[0];
@@ -38,12 +40,12 @@ function TopHeader() {
             fileInfo.append('fileType', 'policy')
             // console.log(fileInfo.get('file'));
         }
-        console.log("1111",file)
+        console.log("1111", file)
         appStore.uploadAvatar(fileInfo, appStore.user.id)
     }
-    console.log("头像信息：",appStore.user.header_img)
-    const handleChange = (e:any) => {
-            e.stopPropagation()
+    console.log("头像信息：", appStore.user.header_img)
+    const handleChange = (e: any) => {
+        e.stopPropagation()
         if (rctangle) {
             setRctangle(false)
         } else {
@@ -57,18 +59,19 @@ function TopHeader() {
         localStorage.removeItem("token")
         loginSignStore.setTokenMessage(false)
     }
-   
+    const GoogleLoginOut=()=>{
+        signOut()
+        localStorage.removeItem("token")
+    }
+    
     useEffect(() => {
-        
-        if(localStorage.getItem("token")==null){
+        console.log(loginSignStore.tokenMessage)
+        if (localStorage.getItem("token") == null) {
             loginSignStore.setTokenMessage(false)
-            setHanderUser(false)
-        }else{
+            // setHanderUser(false)
+        } else {
             appStore.getUsers()
-           
-        }
-        if(appStore.user.email==undefined){
-            setHanderUser(false)
+
         }
         addEventListener('click', (e) => {
             setIsShowSwitchLanguage(false);
@@ -80,42 +83,85 @@ function TopHeader() {
                 setHanderUser(false)
             })
         }
-    }, [loginSignStore.tokenMessage,isShowSwitchLanguage,headerUser])
+    }, [loginSignStore.tokenMessage, isShowSwitchLanguage, headerUser])
     const stopPropagation = (e) => {//阻止冒泡
         e.stopPropagation();
     }
-     
+
     return (
         <>
             {
-                headerUser ? <div ref={elementRef} className={`fixed rounded-2xl ${rctangle ? 'h-41' : 'h-29'} w-59 h-55 right-10 top-20 `}>
+                headerUser ? seesion ? <div ref={elementRef} className={`fixed rounded-2xl ${rctangle ? 'h-41' : 'h-29'} w-59 h-55 right-10 top-20 `}>
                     <div className='absolute w-16 h-16  rounded-full left-20 top-6 border border-222325 overflow-hidden'>
-                        <button 
-                            onClick={(e)=>{
+                        <button
+                            onClick={(e) => {
                                 stopPropagation(e)
                                 avatarImgRef.current.click()
                             }}
-                            className="relative"
-
-                        >
-                        {appStore.user.header_img!==null?<img className='w-16 h-16 object-over ' src={`${appStore.user.header_img}`} />:<img className='w-16 h-16' src='/NFTelk.png' />}
-                        <div>
-                        <input ref={avatarImgRef} type="file" name='file' className='hidden'  onClick={(e) => {
-                            stopPropagation(e)
-                            e.currentTarget.value = null }} onChange={(e) => avatarUpload(e)} />
-                        </div>
+                            className="relative">
+                            {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={seesion.user.image} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                            <div>
+                                <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
+                                    stopPropagation(e)
+                                    e.currentTarget.value = null
+                                }} onChange={(e) => avatarUpload(e)} />
+                            </div>
                         </button>
-                       </div>
+                    </div>
+                    <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
+                    <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
+                        <div className='w-full h-9 bg-white invisible  '></div>
+                        <div className='flex flex-col w-59 h-16 '>
+                            <div className='flex flex-row justify-center space-x-1 '><span className=' '>{seesion.user.email}</span>
+                                {appStore.userAthor ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
+                            </div>
+                            <p>{seesion.user.name}</p>
+                        </div>
+                        <div> </div>
+                        <div className='w-4/5 border border-black '></div>
+                        {rctangle ?
+                            <div className=' rounded-b-2xl w-59 h-16'>
+                                <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
+                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-sem'>{t('header.userHeader.userSetting')}</p></div>
+                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => GoogleLoginOut()}><Userexit /><p className='font-p13-CFD0E4-sem cursor-default'>{t('header.userHeader.logout')}</p></div>
+                                </div>
+                                <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
+                                    handleChange(e)
+                                }
+                                }><RctangleTop /></button>
+                            </div>
+                            : <button className='flex flec-row justify-center items-end w-full h-3 ' onClick={(e) => {
+                                handleChange(e)
+                            }}><RctangleDown /></button >
+                        }
+                    </div>
+                </div> : <div ref={elementRef} className={`fixed rounded-2xl ${rctangle ? 'h-41' : 'h-29'} w-59 h-55 right-10 top-20 `}>
+                    <div className='absolute w-16 h-16  rounded-full left-20 top-6 border border-222325 overflow-hidden'>
+                        <button
+                            onClick={(e) => {
+                                stopPropagation(e)
+                                avatarImgRef.current.click()
+                            }}
+                            className="relative">
+                            {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${appStore.user.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                            <div>
+                                <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
+                                    stopPropagation(e)
+                                    e.currentTarget.value = null
+                                }} onChange={(e) => avatarUpload(e)} />
+                            </div>
+                        </button>
+                    </div>
                     <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
                     <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
                             <div className='flex flex-row justify-center space-x-1 '><span className=' '>{appStore.user.email}</span>
-                            {appStore.userAthor? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> :""}
+                                {appStore.userAthor ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
                             </div>
                             <p>1543872008@qq.com</p>
                         </div>
-                        <div> </div> 
+                        <div> </div>
                         <div className='w-4/5 border border-black '></div>
                         {rctangle ?
                             <div className=' rounded-b-2xl w-59 h-16'>
@@ -124,11 +170,13 @@ function TopHeader() {
                                     <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => handleExit()}><Userexit /><p className='font-p13-CFD0E4-sem cursor-default'>{t('header.userHeader.logout')}</p></div>
                                 </div>
                                 <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
-                                    handleChange(e)} 
+                                    handleChange(e)
+                                }
                                 }><RctangleTop /></button>
                             </div>
-                            : <button  className='flex flec-row justify-center items-end w-full h-3 ' onClick={(e) => {
-                                handleChange(e)}}><RctangleDown /></button >
+                            : <button className='flex flec-row justify-center items-end w-full h-3 ' onClick={(e) => {
+                                handleChange(e)
+                            }}><RctangleDown /></button >
                         }
                     </div>
                 </div> : ""
@@ -136,42 +184,48 @@ function TopHeader() {
             <div className='flex flex-row justify-between  min-w-full  bg-nb-sidebar-grey h-23'>
                 <div className='flex  w-96 h-23 flex-row justify-start bg-nb-sidebar-grey space-x-4  w-full'>
                     <button className='h-23 ml-8 ' onClick={() => appStore.setShowMenu()}><img className={` ${appStore.showMenu ? " transition-rotate duration-500 rotate-90" : " transition-rotate duration-300 rotate-0"} `} src='/icon_menu.png' /></button>
-                   
-                        <h1 className={`cursor-pointer mt-8 mb-8 left-18  `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>
-                   
+
+                    <h1 className={`cursor-pointer mt-8 mb-8 left-18  `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>
+
                 </div>
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
-                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'><div><Subscribe/></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
-                    <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e)=>{
+                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'><div><Subscribe /></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
+                    <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e) => {
                         setIsShowSwitchLanguage(!isShowSwitchLanguage)
                         setHanderUser(false)
                         stopPropagation(e)
-                    }}><p className={`flex flex-row justify-between font-p15-f9f9f9-re items-center ${router.locale=='en'? "ml-4":""} `}><span className='mr-2'><Language/></span>{router.locale==='en'?"EN":"ZH"}</p></button>
+                    }}><p className={`flex flex-row justify-between font-p15-f9f9f9-re items-center ${router.locale == 'en' ? "ml-4" : ""} `}><span className='mr-2'><Language /></span>{router.locale === 'en' ? "EN" : "ZH"}</p></button>
                     <div className={`fixed  top-16 rigth-0 ${!isShowSwitchLanguage && 'hidden'}`}>
-                            <div className="w-24 rounded-2xl bg-nb-sidebar-grey shadow-card">
-                                <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'en' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-t-2xl">
-                                    English
-                                </button>
-                                <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'zh' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-b-2xl">
-                                    简体中文
-                                </button>
-                            </div>
+                        <div className="w-24 rounded-2xl bg-nb-sidebar-grey shadow-card">
+                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'en' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-t-2xl">
+                                English
+                            </button>
+                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'zh' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-b-2xl">
+                                简体中文
+                            </button>
                         </div>
+                    </div>
                     {
-                    loginSignStore.tokenMessage ? <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden ' onClick={(e) =>{
-                        stopPropagation(e)
-                        setHanderUser(!headerUser)
-                        setIsShowSwitchLanguage(false)
-                    } } ref={elementUserRef}>
-                        {appStore.user.header_img!==null?<img className='w-10 h-10 ' src={`${appStore.user.header_img}`} />:<img className='w-10 h-10 ' src='/NFTelk.png' />}
-                        </div>
-                        : <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
+                        loginSignStore.tokenMessage ? <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden ' onClick={(e) => {
+                            stopPropagation(e)
+                            setHanderUser(!headerUser)
+                            setIsShowSwitchLanguage(false)
+                        }} ref={elementUserRef}>
+                            {appStore.user.header_img !== null ? <img className='w-10 h-10 ' src={`${appStore.user.header_img}`} /> : <img className='w-10 h-10 ' src='/NFTelk.png' />}
+                        </div> : seesion ? <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden '
+                            onClick={(e) => {
+                                stopPropagation(e)
+                                setHanderUser(!headerUser)
+                                setIsShowSwitchLanguage(false)
+                            }}
+                        ><img className='w-10 h-10 ' src={seesion.user.image} /></div>
+                            : <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
                     }
-                   
+
                     {/* <div className='1024sc:hidden w-15'><img src='/icon_menu.png' /></div> */}
                 </div>
             </div>
-         
+
         </>
     )
 }

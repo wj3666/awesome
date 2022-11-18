@@ -8,6 +8,8 @@ import { useTranslation } from 'next-i18next'
 import { NBString } from '../lib/util/tools'
 import appStore from '../lib/stores/appstore'
 import { verificationEmail, verificationPwd, verificationPwdRegister } from '../components/Loginverify'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import axios from 'axios'
 const LogIn = () => {
     const { loginSignStore } = useStore()
 
@@ -24,6 +26,8 @@ const LogIn = () => {
 }
 //登录
 const LoginMoal = observer(() => {
+    const { data: session } = useSession()
+    console.log("session",session)
     const { t } = useTranslation('common');
     const [emailVal, setUserName] = useState('')
     const [password, setPassword] = useState('')
@@ -43,6 +47,11 @@ const LoginMoal = observer(() => {
                 setPwdTip(2)
             }
         }
+        
+    }
+    if(session){
+        router.push('/home')
+        appStore.googleLogin(session)
     }
     return (
         <>
@@ -93,9 +102,7 @@ const LoginMoal = observer(() => {
                                     <p>{t('header.login.loginMethodOne')}</p>
                                 </button>
                             </div>
-                            <div className='h-20 flex flex-row items-center '><button onClick={() => {
-
-                            }} className="flex flex-row  justify-center items-center space-x-2 w-full h-12.5  font-p15-CFD0E4-sem   bg-black rounded-xl ">
+                            <div className='h-20 flex flex-row items-center '><button onClick={() => signIn()} className="flex flex-row  justify-center items-center space-x-2 w-full h-12.5  font-p15-CFD0E4-sem   bg-black rounded-xl ">
                                 <Googlelogo />
                                 <p className='font-p15-ffffff-sem'>{t('header.login.loginMethodTwo')}</p>
                             </button></div>

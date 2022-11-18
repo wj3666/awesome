@@ -11,12 +11,13 @@ import SQL  from '../../../lib/util/SQL'
     let userName=req.body.username;
     let password=req.body.password;
     var user =await SQL.getUserEP(userName,password)
-    console.log(user)
+    // console.log("111",user)
     if(user.length==0){
         res.send({code:1,data:"eamil error"});
     }else{
         //设置token值
-        const value=user[0].id
+        const value=user[0].email
+        // console.log(value)
         // console.log("value:",value)
         const token=JWT.generate({value},"12h")
         res.header("Authorization",token)

@@ -13,21 +13,26 @@ const SQL = {
         return user[0][0]
     },
     authorSql: "update user set author=? where id=?",
-    getUserEamil: async (email:string) => {
+    authorEmail: "select * from user where email=?",
+    getUserEamil: async (email: string) => {
         let sql = "select * from user where email=?"
         var user = await db.query(sql, email)
         return user[0]
     },
-    registerUser:async(email:string,password:string,)=>{
-        let sql2="insert into user (email,password,author) values (?,?,?)"
-        await db.query(sql2,[email,password,0])
+    registerUser: async (email: string, password: string,) => {
+        let sql = "insert into user (email,password,author) values (?,?,?)"
+        await db.query(sql, [email, password, 0])
     },
-    updateHeader:async(avatar:any,id:any)=>{
-        let sql="update user set header_img=? where id=?"
-        var user=await db.query(sql,[avatar,id])
+    updateHeader: async (avatar: any, id: any) => {
+        let sql = "update user set header_img=? where id=?"
+        var user = await db.query(sql, [avatar, id])
         return user[0]
     },
-    authorById:"select author from user where id=?",
-    updatePayStatusById:"update user set pay_time=?,end_time=? ,author=? where id=?"
+    authorById: "select author from user where id=?",
+    updatePayStatusById: "update user set pay_time=?,end_time=? ,author=? where id=?",
+    insertUserSql: async (email: string, name: string,image:string) => {
+        let sql = "insert into user (email,name,header_img) values (?,?,?)"
+        await db.query(sql, [email, name,image])
+    }
 }
 export default SQL
