@@ -134,7 +134,7 @@ function TopHeader() {
                 </div> : ""
             }
             <div className='flex flex-row justify-between  min-w-full  bg-nb-sidebar-grey h-23'>
-                <div className='flex  w-96 h-23 flex-row justify-start bg-nb-sidebar-grey space-x-4  w-full'>
+                <div className='flex h-23 flex-row justify-start bg-nb-sidebar-grey space-x-4  w-full'>
                     <button className='h-23 ml-8 ' onClick={() => appStore.setShowMenu()}><img className={` ${appStore.showMenu ? " transition-rotate duration-500 rotate-90" : " transition-rotate duration-300 rotate-0"} `} src='/icon_menu.png' /></button>
                    
                         <h1 className={`cursor-pointer mt-8 mb-8 left-18  `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>

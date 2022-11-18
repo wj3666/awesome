@@ -82,7 +82,7 @@ function Sidebar() {
     pathName = router.pathname;
 
     return (
-        <div className={`h-full  overflow-hidden  bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
+        <div className={`h-full  overflow-hidden bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
         <div className={ `mt-23 h-full overflow-x-auto  1279sc-max:22   bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 12879sc-max:w-22 w-22 " : " transition-width duration-500  1279sc-max:w-22  w-60.5"}`}>
         
 

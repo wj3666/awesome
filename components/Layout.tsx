@@ -17,25 +17,24 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
 
   }, [])
   return (
-    <div className="flex flex-col flex-1 items-center justify-center min-h-screen bg-nb-0E0E12 ">
-      <div className='flex flex-col  items-center  w-screen h-screen  text-center '>
+    <div className="flex flex-col w-full min-h-screen bg-nb-0E0E12 ">
+      <div className='flex flex-col  items-center w-full h-screen  text-center '>
         {/* 导航栏 */}
-        <div className='fixed w-full  z-[51]'> 
+        <div className='fixed top-0 w-full z-[51]'>
           <TopHeader />
         </div>
-        <div className={`flex flex-row w-full h-full  `}>
-        
-          {/* 侧边栏 */}          
-            <div className={`h-full  1599sc-max:h-1024`}>
-              <Sidebar />
+        <div className={`flex flex-row w-full`}>
+
+          {/* 侧边栏 */}
+          <div className={`flex-none sticky top-0 h-screen ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
+            <Sidebar />
           </div>
-          <div className=" flex flex-col h-full w-full bg-nb-0E0E12 1599sc-max:h-1024 ">
+          <div className="flex-grow flex flex-col bg-nb-0E0E12 ">
             {children}
-          
           </div>
         </div>
       </div>
-      <Contact/>
+      <Contact />
     </div>
   )
 }

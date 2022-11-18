@@ -378,6 +378,7 @@ module.exports = {
         '260': '65rem',
         '264': '66rem',
         '268': '67rem',
+        '271.5':'67.875rem',
         '272': '68rem',
         '274': '68.5rem',
         '276.5': '69.625rem',
@@ -442,6 +443,7 @@ module.exports = {
       },
       boxShadow: {
         'calendar': '0 4px 20px 0 rgba(0, 0, 0, 0.12)',
+        'card': '0 2px 6px rgba(0, 0, 0, 0.5)',
       },
       borderRadius: {
         '0.75': '0.1875rem',
@@ -517,7 +519,7 @@ module.exports = {
         '.font-p13-96969e-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#96969e', fontFamily: 'Inter-SemiBold' },
         '.font-p13-F0F0F5-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#F0F0F5', fontFamily: 'Inter-SemiBold' },
         '.font-p13-0E0E12-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#0E0E12', fontFamily: 'Inter-SemiBold' },
-        '.font-p13-C1C1C1-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontFamily: 'Inter-Regular' },
+        '.font-p13-C1C1C1-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontWeight: 600 },
         '.font-p13-CFD0E4-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#CFD0E4', fontFamily: 'Inter-Regular' },
         '.font-p13-191919-sem': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#191919', fontFamily: 'Inter-Regular' },
         '.font-p14-A0A0A8-sem': { fontSize: '0.875rem', lineHeight: '1.25rem', color: '#A0A0A8', fontFamily: 'Inter-SemiBold' },
@@ -562,6 +564,7 @@ module.exports = {
         '.font-p16-0E0E12-sem': { fontSize: '1rem', lineHeight: '1.5rem', color: '#0E0E12', fontFamily: 'Inter-SemiBold' },
         '.font-p16-96969e-re': { fontSize: '1rem', lineHeight: '1.5rem', color: '#96969e', fontFamily: 'Inter-Regular' },
         '.font-p16-F9F9F9-re': { fontSize: '1rem', lineHeight: '1.125rem', color: '#F9F9F9', fontFamily: 'Inter-Regular' },
+        '.font-p16-F9F9F9-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#F9F9F9', fontWeight: 700 },
         '.font-p16-A2A3BC-re': { fontSize: '1rem', lineHeight: '1.125rem', color: '#A2A3BC', fontFamily: 'Inter-Regular' },
         '.font-p16-FFFFFF-re': { fontSize: '1rem', lineHeight: '1.125rem', color: '#FFFFFF', fontFamily: 'Inter-Regular' },
         '.font-p17-1b1b21-sem': { fontSize: '1.0625rem', lineHeight: '1.5rem', color: '#1B1B21', fontFamily: 'Inter-SemiBold' },
