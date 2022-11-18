@@ -124,7 +124,7 @@ const Allcategory = () => {
           }
         </div>
       </div> */}
-      <div className='w-full pt-6.25 pl-9.5 pr-18.5 '>
+      <div className='w-full pt-6.25 pl-9.5 pr-18.5 pb-10'>
         <div className='mt-23 w-full h-60 rounded  bg-white'>
 
         </div>
