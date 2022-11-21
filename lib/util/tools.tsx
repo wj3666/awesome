@@ -10,6 +10,6 @@ export class NBString {
     }
   }
   static getImgSizeMb(imgSize: number){
-    return (imgSize / 1024 / 1024).toFixed(2)
+    return Number((imgSize / 1024 / 1024).toFixed(2));
   }
 }

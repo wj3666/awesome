@@ -8,40 +8,34 @@ module.exports = {
   // important: true,
   darkMode: false, // or 'media' or 'class'
   theme: {
-    fontFamily:{
+    fontFamily: {
       'sans': ['sans-serif'],
       'serif': ['Merriweather', 'serif'],
     },
-    textColor: {
-      'primary': '#3490dc',
-      'secondary': '#ffed4a',
-      'danger': '#e3342f',
-      "3DB39E":"#3DB39E",
-      "safe":"white"
-    },
+
     borderColor: theme => ({
       ...theme('colors'),
       DEFAULT: theme('colors.gray.300', 'currentColor'),
       'primary': '#3490dc',
       'secondary': '#ffed4a',
       'danger': '#e3342f',
-      '222325':'#222325',
-      'CFD0E466':"#CFD0E466",
+      '222325': '#222325',
+      'CFD0E466': "#CFD0E466",
     }),
     extend: {
       backgroundSize: {
         'auto': 'auto',
         'cover': 'cover',
         'contain': 'contain',
-       '50%': '50%',
-       '16': '4rem',
+        '50%': '50%',
+        '16': '4rem',
       },
       backgroundImage: {
         'loginbg-left': "url('/bg_left.png')",
         'email-logo': "url('/Vector.png')",
         "password-logo": "url('/Password-2.png')",
-        "paymentbg-right":"url('/Paymentbg-right.png')",
-        "bg-succeed":"url('/Bg-Succeed.png')"
+        "paymentbg-right": "url('/Paymentbg-right.png')",
+        "bg-succeed": "url('/Bg-Succeed.png')"
       },
       backgroundPosition: {
         left: 'left',
@@ -93,11 +87,20 @@ module.exports = {
         "nb-435893": "#435893",
         "nb-2E2F30": "#2E2F30",
         "nb-292A2D": "#292A2D",
-        "ng-FFB400":"#FFB400",
-        "nb-282829":"#282829",
-        "nb-121212":"#121212",
-        "nb-3DB39E":"#3DB39E",
-        "nb-222325":"#222325"
+        "ng-FFB400": "#FFB400",
+        "nb-282829": "#282829",
+        "nb-121212": "#121212",
+        "nb-3DB39E": "#3DB39E",
+        "nb-222325": "#222325",
+
+      },
+      textColor: {
+        'primary': '#3490dc',
+        'secondary': '#ffed4a',
+        'danger': '#e3342f',
+        "3DB39E": "#3DB39E",
+        "safe": "white",
+        "nb-F45D47": "#F45D47"
       },
       spacing: {
         '0.25': '0.0625rem',
@@ -292,7 +295,7 @@ module.exports = {
         '81.5': '20.375rem',
         '82': '20.5rem',
         '82.5': '20.625rem',
-        '82.75':'20.6875rem',
+        '82.75': '20.6875rem',
         '84': '21rem',
         '84.75': '21.1875rem',
         '85': '21.25rem',
@@ -387,7 +390,7 @@ module.exports = {
         '260': '65rem',
         '264': '66rem',
         '268': '67rem',
-        '271.5':'67.875rem',
+        '271.5': '67.875rem',
         '272': '68rem',
         '274': '68.5rem',
         '276.5': '69.625rem',
@@ -644,6 +647,7 @@ module.exports = {
         '.font-p13-C1C1C1-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontWeight: 600 },
         '.font-p13-FFFFFF-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#FFFFFF', fontWeight: 400 },
         '.font-p13-A2A3BA-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BA', fontWeight: 400 },
+        '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 600 },
         '.font-p14-CFD0E4-w400': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontWeight: 400 },
         '.font-p15-FFFFFF-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontWeight: 500 },
         '.font-p15-E4E4E4-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontWeight: 400 },
@@ -651,7 +655,7 @@ module.exports = {
         '.font-p16-F9F9F9-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#F9F9F9', fontWeight: 700 },
         '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 700 },
         '.font-p24-FFFFFF-w600': { fontSize: '1.5rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 600 },
-        '.font-p26-FFFFFF-w700': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontWeight: 700 },
+        '.font-p26-FFFFFF-w700': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF', fontWeight: 700 },
       }
 
       addComponents(texts)

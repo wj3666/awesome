@@ -1,8 +1,9 @@
-import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive } from "../Svg";
+import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive, } from "../Svg";
 import Dropzone from 'react-dropzone';
 import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
 import { observer } from "mobx-react-lite";
+import Link from "next/link";
 
 const Index = observer(() => {
     const onDrop = (e) => {
@@ -29,8 +30,8 @@ const Index = observer(() => {
                                 <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
                             </div>
                             {/* 按钮 */}
-                            <div>
-                                <button className="w-10.5 h-10.5 rounded-full hover:opacity-90">
+                            <div className="flex items-center">
+                                <button className="w-10.5 h-10.5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
                                     <Dropzone noDrag={true} onDrop={(e) => { onDrop(e) }}>
                                         {({ getRootProps, getInputProps }) => (
                                             <div {...getRootProps()}>
@@ -40,10 +41,10 @@ const Index = observer(() => {
                                         )}
                                     </Dropzone>
                                 </button>
-                                <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
+                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
                                     <IconFolderGoogleDrive />
                                 </button>
-                                <button className="w-10.5 h-10.5 ml-5 rounded-full hover:opacity-90">
+                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
                                     <IconDropbox />
                                 </button>
                             </div>
@@ -61,10 +62,10 @@ const Index = observer(() => {
                                             <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
                                         </div>
                                         <div className='ml-2.5'>
-                                            <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 6)}</p>
-                                            <p className='font-p13-A2A3BA-w400 mt-1'>
-                                                等待中
-                                            </p>
+                                            <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 7)}</p>
+                                            <div className='font-p13-A2A3BA-w400 mt-1'>
+                                                {NBString.getImgSizeMb(item.size) >= 5 ? <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
+                                            </div>
                                         </div>
                                     </li>
                                 )
