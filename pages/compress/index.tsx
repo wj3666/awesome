@@ -18,7 +18,7 @@ const Compress = () => {
 }
 const CompressBlock = observer(() => {
   const onDrop = (e) => {
-    // console.log(e)
+    console.log(e[0])
 
     stores.compressStore.setImgListData(e);
     stores.compressStore.changeIsShowChoseList(true);
@@ -43,7 +43,7 @@ const CompressBlock = observer(() => {
                   <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
                     {stores.compressStore.imgListData.map((item, idx) => {
                       return (
-                        <ImgInfo item={item} idx={idx} />
+                        <ImgInfo key={item.name + idx}  item={item} idx={idx} />
                       )
                     })}
                   </div>
@@ -51,18 +51,12 @@ const CompressBlock = observer(() => {
                   <>
                     {stores.compressStore.imgListData.map((item, idx) => {
                       return (
-                        <div key={item.name + idx} className='w-85 h-82.75'>
-                          <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
-                            <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
-                          </div>
-                          <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
-                            <p>{item.name}</p>
-                            <p>{(item.size / 1024 / 1024).toFixed(2)}Mb</p>
-                          </div>
-                        </div>
+                        <ImgInfo key={item.name + idx}  item={item} idx={idx} />
                       )
-                    })}
-                  </>}
+                    })
+                    }
+                  </>
+                }
               </div>
               :
               <Dropzone onDrop={(e) => { onDrop(e) }}>
@@ -103,13 +97,13 @@ const CompressBlock = observer(() => {
 
 const ImgInfo = ({ item, idx }) => {
   return (
-    <div key={item.name + idx} className='w-85 h-82.75'>
+    <div className='w-85 h-82.75'>
       <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
         <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
       </div>
       <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
         <p>{NBString.truncateString(item.name, 18, 6)}</p>
-        
+
         <p className={`${NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeMb(item.size)}Mb</p>
       </div>
     </div>

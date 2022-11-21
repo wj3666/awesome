@@ -4,12 +4,33 @@ import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
+import Compressor from 'compressorjs';
+import { Circle } from 'rc-progress';
 
 const Index = observer(() => {
     const onDrop = (e) => {
         // console.log(e)
         stores.compressStore.setImgListData(e);
         stores.compressStore.changeIsShowChoseList(true);
+    }
+
+    const compressImg = () => {
+        stores.compressStore.onChangeStartCompress(true);
+        for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
+            new Compressor(stores.compressStore.imgListData[i], {
+                quality: 0.6,
+                success(result: any) {
+                    const formData = new FormData();
+                    // The third parameter is required for server
+                    formData.append('file', result, result.name);
+                    stores.compressStore.upload(formData)
+                    stores.compressStore.setImgListCompressData(formData.get("file"));
+                },
+                error(err) {
+                    console.log(err.message);
+                },
+            })
+        }
     }
     return (
         <div className='flex-none w-72.5 pt-23 sticky top-0 h-screen'>
@@ -56,30 +77,57 @@ const Index = observer(() => {
                         <ul>
                             {stores.compressStore.imgListData.map((item, idx) => {
                                 return (
-                                    <li key={item.name + idx} className='h-14 w-full flex flex-row items-center'>
-                                        <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
-                                        <div className='w-9 h-9 bg-nb-222325 ml-2'>
-                                            <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
-                                        </div>
-                                        <div className='ml-2.5'>
-                                            <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 7)}</p>
-                                            <div className='font-p13-A2A3BA-w400 mt-1'>
-                                                {NBString.getImgSizeMb(item.size) >= 5 ? <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <ImgInfoList key={item.name + idx} item={item} idx={idx} />
                                 )
                             })}
                         </ul>
 
                         {/* 压缩按钮 */}
-                        <button className='absolute bottom-9 w-60.5 h-14.5 bg-nb-2F63AE rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90'>
-                            <span>压缩多个图像文件</span>
+                        <button
+                            onClick={() => {
+                                compressImg()
+                            }}
+                            className={`absolute bottom-9 w-60.5 h-14.5 rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90 ${stores.compressStore.isStartCompress ? "bg-nb-191919" : "bg-nb-2F63AE"}`}>
+                            <span>{stores.compressStore.isStartCompress ? "加载中..." : "压缩多个图像文件"}</span>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+    )
+})
+
+type ImgInfoListProps = {
+    item: any,
+    idx: number
+}
+
+const ImgInfoList = observer(({ item, idx }: ImgInfoListProps) => {
+    return (
+        <li className='h-14 w-full flex flex-row items-center'>
+            <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
+            <div className='w-9 h-9 bg-nb-222325 ml-2'>
+                <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
+            </div>
+            <div className='ml-2.5'>
+                <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 7)}</p>
+                {stores.compressStore.isStartCompress ?
+                    // <div className="mt-1.5 flex items-center">
+                    //     <div className="w-4 h-4">
+                    //     <Circle trailWidth={6} strokeWidth={6} strokeColor="#4C90FE" trailColor="#191919" percent={stores.compressStore.process} />
+                    //     </div>
+                    //     <p className="ml-2 font-p13-4C90FE-w400">{stores.compressStore.process}%</p>
+                    // </div>
+                    <div className='font-p13-4C90FE-w400 mt-1'>
+                        <p>压缩中</p>
+                    </div>
+                    :
+                    <div className='font-p13-A2A3BA-w400 mt-1'>
+                        {NBString.getImgSizeMb(item.size) >= 5 ? <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
+                    </div>
+                }
+            </div>
+        </li>
     )
 })
 
