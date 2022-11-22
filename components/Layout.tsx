@@ -7,7 +7,7 @@ import axios from 'axios';
 import Contact from './Contact';
 import { useRouter } from 'next/router';
 import CompressChoseList from './ChoseList/Compress';
-
+import TailorChoseList from './ChoseList/Tailor';
 
 type Props = {
   currenTal?: string;
@@ -39,8 +39,11 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
           {/* 右侧边栏 */}
           {
             router.pathname != "/home" &&
-              router.pathname === "/compress" ?
+              router.pathname === "/compress" ?  // 压缩
                stores.compressStore.isShowChoseList && <CompressChoseList />
+              :
+              router.pathname === "/tailor" ?  // 裁剪
+               stores.tailorStore.isShowChoseList && <TailorChoseList />
               :
               <div></div>
           }

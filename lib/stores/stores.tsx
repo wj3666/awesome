@@ -4,9 +4,10 @@ import homeStore from "./homeStore";
 import loginSign from "./loginSignStore";
 import paymentStore from "./paystore";
 import CompressStore from "./compressStore";
-
+import TailorStore from "./tailotStore";
 
 const compressStore = new CompressStore();
+const tailorStore = new TailorStore();
 
 const stores = {
     appStore:appStore,
@@ -14,6 +15,7 @@ const stores = {
     homeStore:homeStore,
     paymentStore:paymentStore,
     compressStore,
+    tailorStore
 }
 export default stores;
 

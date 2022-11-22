@@ -5,21 +5,21 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
+import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
 
 const Compress = () => {
-  useEffect(()=>{
+  useEffect(() => {
     stores.compressStore.init()
-  },[])
+  }, [])
   return (
     <>
       <Layout>
-        <CompressBlock />
-        {/* <Chosen /> */}
+        <CompressPage />
       </Layout>
     </>
   )
 }
-const CompressBlock = observer(() => {
+const CompressPage = observer(() => {
   const onDrop = (e) => {
     stores.compressStore.setImgListData(e);
     stores.compressStore.changeIsShowChoseList(true);
@@ -32,33 +32,14 @@ const CompressBlock = observer(() => {
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.compressStore.imgListData.length == 0 &&
             <div>
-              <div className='font-p36-ffffff-sem'>压缩图像文件</div>
-              <div className='font-p20-FFFFFF-sem mt-10.5'>压缩<span className='font-p20-4C90FE-sem italic'>JPG</span>、<span className='font-p20-4C90FE-sem italic'>PNG</span>、<span className='font-p20-4C90FE-sem italic'>SVG</span>或<span className='font-p20-4C90FE-sem italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</div>
+              <p className='font-p36-ffffff-sem'>压缩图像文件</p>
+              <p className='font-p20-FFFFFF-sem mt-10.5'>压缩<span className='font-p20-4C90FE-w600 italic'>JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG、</span><span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</p>
             </div>
           }
 
           <div className='mt-12.5 mb-4.5'>
             {stores.compressStore.imgListData.length != 0 ?
-              <div className='mb-22'>
-                {stores.compressStore.imgListData.length > 1 ?
-                  <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
-                    {stores.compressStore.imgListData.map((item, idx) => {
-                      return (
-                        <ImgInfo key={item.name + idx} item={item} idx={idx} />
-                      )
-                    })}
-                  </div>
-                  :
-                  <>
-                    {stores.compressStore.imgListData.map((item, idx) => {
-                      return (
-                        <ImgInfo key={item.name + idx} item={item} idx={idx} />
-                      )
-                    })
-                    }
-                  </>
-                }
-              </div>
+              <CompressBlock />
               :
               <Dropzone onDrop={(e) => { onDrop(e) }}>
                 {({ getRootProps, getInputProps }) => (
@@ -81,8 +62,8 @@ const CompressBlock = observer(() => {
             <>
               <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
               <div className='flex flex-row'>
-                <button className='mr-5'><Ellipse1 /></button>
-                <button><Ellipse2 /></button>
+                <button className='w-10.5 h-10.5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconFolderGoogleDrive /></button>
+                <button className='w-10.5 h-10.5 ml-5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconDropbox /></button>
               </div>
             </>
           }
@@ -95,6 +76,31 @@ const CompressBlock = observer(() => {
     </div>
   )
 })
+
+const CompressBlock = () => {
+  return (
+    <div className='mb-22'>
+      {stores.compressStore.imgListData.length > 1 ?
+        <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
+          {stores.compressStore.imgListData.map((item, idx) => {
+            return (
+              <ImgInfo key={item.name + idx} item={item} idx={idx} />
+            )
+          })}
+        </div>
+        :
+        <>
+          {stores.compressStore.imgListData.map((item, idx) => {
+            return (
+              <ImgInfo key={item.name + idx} item={item} idx={idx} />
+            )
+          })
+          }
+        </>
+      }
+    </div>
+  )
+}
 
 const ImgInfo = observer(({ item, idx }) => {
   return (
@@ -114,22 +120,6 @@ const ImgInfo = observer(({ item, idx }) => {
     </div>
   )
 })
-
-
-const Ellipse1 = () => (
-  <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="21" cy="21" r="21" fill="#2F63AE" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M21 13.6H31.4C32.0896 13.6 32.7509 13.8739 33.2385 14.3615C33.7261 14.8491 34 15.5104 34 16.2V29.2C34 29.8896 33.7261 30.5509 33.2385 31.0385C32.7509 31.5261 32.0896 31.8 31.4 31.8H10.6C9.91044 31.8 9.24912 31.5261 8.76152 31.0385C8.27393 30.5509 8 29.8896 8 29.2V13.6C8 12.157 9.157 11 10.6 11H18.4L21 13.6ZM26.382 17.5H23.275L22.95 18.098L26.265 24H30.1L26.382 17.5ZM21.975 27.9H29.19L30.789 25.248L30.451 24.65H23.795L21.975 27.9ZM20.35 27.9L18.92 25.118L22.612 18.67L24.562 22.128L21.325 27.9H20.35Z" fill="white" />
-  </svg>
-
-)
-const Ellipse2 = () => (
-  <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="21" cy="21" r="21" fill="#2F63AE" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M15.6483 9L21 13.1958L13.2888 17.6667L8 13.6898L15.6483 9ZM21 13.1958L28.7112 17.6667L34 13.6898L26.3517 9L21 13.1958ZM8 22.7269L13.2888 18.75L21 23.2209L15.6483 27.4167L8 22.7269ZM28.7112 18.75L21 23.222L26.3517 27.4167L34 22.7269L28.7112 18.75ZM21 24.1667L26.3105 28.3483L28.5833 26.94V28.5184L21 32.8333L13.4167 28.5184V26.94L15.6895 28.3483L21 24.1667Z" fill="white" />
-  </svg>
-
-)
 
 export const getStaticProps = async ({ locale }) => ({
   props: {

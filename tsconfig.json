@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es2016",
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -28,5 +29,5 @@
 , "pages/api/auth/[...nextauth].js", "pages/api/_middlewarejs", "middleware.ts"  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }
