@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
@@ -7,6 +7,9 @@ import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
 
 const Compress = () => {
+  useEffect(()=>{
+    stores.compressStore.init()
+  },[])
   return (
     <>
       <Layout>
@@ -18,8 +21,6 @@ const Compress = () => {
 }
 const CompressBlock = observer(() => {
   const onDrop = (e) => {
-    console.log(e[0])
-
     stores.compressStore.setImgListData(e);
     stores.compressStore.changeIsShowChoseList(true);
   }
@@ -43,7 +44,7 @@ const CompressBlock = observer(() => {
                   <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
                     {stores.compressStore.imgListData.map((item, idx) => {
                       return (
-                        <ImgInfo key={item.name + idx}  item={item} idx={idx} />
+                        <ImgInfo key={item.name + idx} item={item} idx={idx} />
                       )
                     })}
                   </div>
@@ -51,7 +52,7 @@ const CompressBlock = observer(() => {
                   <>
                     {stores.compressStore.imgListData.map((item, idx) => {
                       return (
-                        <ImgInfo key={item.name + idx}  item={item} idx={idx} />
+                        <ImgInfo key={item.name + idx} item={item} idx={idx} />
                       )
                     })
                     }
@@ -95,7 +96,7 @@ const CompressBlock = observer(() => {
   )
 })
 
-const ImgInfo = ({ item, idx }) => {
+const ImgInfo = observer(({ item, idx }) => {
   return (
     <div className='w-85 h-82.75'>
       <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -104,11 +105,15 @@ const ImgInfo = ({ item, idx }) => {
       <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
         <p>{NBString.truncateString(item.name, 18, 6)}</p>
 
-        <p className={`${NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeMb(item.size)}Mb</p>
+        <p className={`${NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
+          &gt; {NBString.getImgSizeUnit(stores.compressStore.imgListCompressData[idx]?.size) ? NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Mb" : NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Kb"}
+        </>
+        }
+        </p>
       </div>
     </div>
   )
-}
+})
 
 
 const Ellipse1 = () => (

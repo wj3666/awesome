@@ -9,7 +9,21 @@ export class NBString {
       return str;
     }
   }
-  static getImgSizeMb(imgSize: number){
-    return Number((imgSize / 1024 / 1024).toFixed(2));
+  static getImgSize(imgSize: number) {
+    if (imgSize / 1024 < 1024) {
+      return Math.ceil(Number((imgSize / 1024))); //Kb
+    } else {
+      return Number((imgSize / 1024 / 1024).toFixed(2)); //Mb
+    }
+  }
+  static getImgSizeMb(imgSize: number) {
+    return Number((imgSize / 1024 / 1024).toFixed(2)); //Mb
+  }
+  static getImgSizeUnit(imgSize: number) {
+    if (imgSize / 1024 < 1024) {
+      return false
+    } else {
+      return true
+    }
   }
 }

@@ -645,6 +645,7 @@ module.exports = {
 
         '.font-p12-FFFFFF-w400': { fontSize: '0.75rem', lineHeight: '1rem', color: '#FFFFFF', fontWeight: 400 },
         '.font-p13-C1C1C1-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontWeight: 600 },
+        '.font-p13-5FE483-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#5FE483', fontWeight: 400 },
         '.font-p13-FFFFFF-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#FFFFFF', fontWeight: 400 },
         '.font-p13-A2A3BA-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BA', fontWeight: 400 },
         '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 600 },

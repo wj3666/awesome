@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
         if (resp.code == 1) {
             // console.log("dsadsa",response)
             response.data = resp.data;
-            console.log("res.data:",response.data) 
+            // console.log("res.data:",response.data) 
             const { authorization } = response.headers
             authorization && localStorage.setItem("token", authorization)
             return response;
