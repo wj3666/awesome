@@ -15,7 +15,7 @@ export default class CompressStore {
 
     @action init(){
         this.imgListData = [];
-        // this.imgListCompressData = [];
+        this.imgListCompressData = [];
         this.isShowChoseList = false;
         this.imgUrl = [];
         this.isStartCompress = false;
