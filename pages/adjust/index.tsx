@@ -20,7 +20,7 @@ const AdujstBlock = observer(() => {
   const onDrop = (e) => {
     // console.log("ee", e)
     stores.compressStore.setImgListData(e);
-    stores.compressStore.changeIsShowChoseList(true);
+    stores.adjustStore.changeIsShowChoseList(true);
       getImageWH(e)
   }
   const getImageWH = async (e) => {

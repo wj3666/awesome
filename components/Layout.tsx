@@ -3,11 +3,11 @@ import Sidebar from './Sidebar'
 import TopHeader from './TopHeader'
 import stores from '../lib/stores/stores';
 import { observer } from 'mobx-react'
-import axios from 'axios';
 import Contact from './Contact';
 import { useRouter } from 'next/router';
 import CompressChoseList from './ChoseList/Compress';
 import TailorChoseList from './ChoseList/Tailor';
+import Adjust from './ChoseList/Adjust';
 
 type Props = {
   currenTal?: string;
@@ -40,12 +40,15 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
           {
             router.pathname != "/home" &&
               router.pathname === "/compress" ?  // 压缩
-               stores.compressStore.isShowChoseList && <CompressChoseList />
+              stores.compressStore.isShowChoseList && <CompressChoseList />
               :
               router.pathname === "/tailor" ?  // 裁剪
-               stores.tailorStore.isShowChoseList && <TailorChoseList />
-              :
-              <div></div>
+                stores.tailorStore.isShowChoseList && <TailorChoseList />
+                :
+                router.pathname === "/adjust" ?  // 调整
+                  stores.adjustStore.isShowChoseList && <Adjust />
+                  :
+                  <div></div>
           }
         </div>
       </div>

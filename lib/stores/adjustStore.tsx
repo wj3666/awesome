@@ -13,6 +13,7 @@ export default class AdjustStore {
     initialHeight = []
     adjustLock = true
     adjustButton = false
+    isShowChoseList=false
     setDimensionsWidth(width: number) {
         this.dimensionsWidth = this.dimensionsWidth.concat(width)
         this.initialWidth = this.initialWidth.concat(width)
@@ -91,5 +92,9 @@ export default class AdjustStore {
             res=>{
             console.log("返回结果",res)
         })
+    }
+    changeIsShowChoseList=(v:boolean)=>{
+        this.isShowChoseList=v
+
     }
 }

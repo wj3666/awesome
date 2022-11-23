@@ -11,8 +11,23 @@ export class NBString {
       return str;
     }
   }
+  static getImgSize(imgSize: number) {
+    if (imgSize / 1024 < 1024) {
+      return Math.ceil(Number((imgSize / 1024))); //Kb
+    } else {
+      return Number((imgSize / 1024 / 1024).toFixed(2)); //Mb
+    }
+  }
   static getImgSizeMb(imgSize: number) {
-    return (imgSize / 1024 / 1024).toFixed(2)
+    return Number((imgSize / 1024 / 1024).toFixed(2)); //Mb
+  }
+  static getImgSizeUnit(imgSize: number) {
+    if (imgSize / 1024 < 1024) {
+      return false
+    } else {
+      return true
+    }
+
   }
   static textIsNull(val) { //判断输入框是否为空(包括空格 回车)
     if (val.replace(/\s/g, '').length > 0) {
