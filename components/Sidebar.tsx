@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import stores from '../lib/stores/stores';
@@ -80,7 +80,15 @@ function Sidebar() {
     var pathName: string = "";
     const router = useRouter();
     pathName = router.pathname;
-
+    useEffect(() => {
+        if (stores.adjustStore.initialWidth.length != 0||stores.adjustStore.initialHeight.length!=0) {
+            stores.adjustStore.dimensionsWidth = []
+            stores.adjustStore.dimensionsHeight = []
+            stores.adjustStore.initialWidth = []
+            stores.adjustStore.initialHeight = []
+            stores.adjustStore.changeIsShowChoseList(false)
+        }
+    })
     return (
         // <div className={`h-full  overflow-hidden bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
         // <div className={ `mt-23 h-full overflow-x-auto  1279sc-max:22   bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 12879sc-max:w-22 w-22 " : " transition-width duration-500  1279sc-max:w-22  w-60.5"}`}>
@@ -155,7 +163,7 @@ function Sidebar() {
                                         }
                                         className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`}
                                     />
-                                    <p className={` text-left 1279sc-max:hidden  ${tabNav.isSelected(data,pathName) ? "font-p15-FFFFFF-w500" : "font-p15-FFFFFF-w400"} ${appStore.showMenu ? "hidden" : "ml-5"}`}>
+                                    <p className={` text-left 1279sc-max:hidden  ${tabNav.isSelected(data, pathName) ? "font-p15-FFFFFF-w500" : "font-p15-FFFFFF-w400"} ${appStore.showMenu ? "hidden" : "ml-5"}`}>
                                         {t(`sidebar.${index}`)}
                                     </p>
                                 </button>
