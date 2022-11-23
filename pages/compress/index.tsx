@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
 import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import IconButton from '../../components/IconButton'
 
 const Compress = () => {
   useEffect(() => {
@@ -62,8 +63,8 @@ const CompressPage = observer(() => {
             <>
               <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
               <div className='flex flex-row'>
-                <button className='w-10.5 h-10.5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconFolderGoogleDrive /></button>
-                <button className='w-10.5 h-10.5 ml-5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconDropbox /></button>
+                <IconButton icon={<IconFolderGoogleDrive />}/>
+                <IconButton className='ml-5' icon={<IconDropbox />}/>
               </div>
             </>
           }

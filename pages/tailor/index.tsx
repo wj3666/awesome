@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone'
 import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
 import { observer } from 'mobx-react-lite';
 import Cropper from 'cropperjs';
+import IconButton from '../../components/IconButton'
 export default function Tailor() {
   return (
     <Layout>
@@ -24,8 +25,6 @@ const TailorPage = observer(() => {
     } else {
       stores.tailorStore.setImgData(e[0]);
       stores.tailorStore.onchangeIsShowChoseList(true);
-
-      // console.log(cropper)
     }
   }
 
@@ -67,8 +66,8 @@ const TailorPage = observer(() => {
           <>
             <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
             <div className='flex flex-row'>
-              <button className='w-10.5 h-10.5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconFolderGoogleDrive /></button>
-              <button className='w-10.5 h-10.5 ml-5 rounded-full bg-nb-2F63AE flex items-center justify-center'><IconDropbox /></button>
+              <IconButton icon={<IconFolderGoogleDrive />} />
+              <IconButton className='ml-5' icon={<IconDropbox />} />
             </div>
           </>
         }
@@ -78,34 +77,44 @@ const TailorPage = observer(() => {
 })
 
 const TailorBlock = observer(() => {
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const img:any = document.getElementById("cropper-container");
-      const cropper = new Cropper(img, {
+      const img: any = document.getElementById("cropper-container");
+      stores.tailorStore.initCropper(new Cropper(img, {
         viewMode: 1,
         dragMode: 'none',
-        initialAspectRatio: 1,
+        // initialAspectRatio: 1,
+        // aspectRatio: 1,
         background: false,
         autoCropArea: 0.6,
         zoomOnWheel: false,
         crop(event) {
-          console.log(event.detail.x);
-          console.log(event.detail.y);
-          console.log(event.detail.width);
-          console.log(event.detail.height);
-          console.log(event.detail.rotate);
-          console.log(event.detail.scaleX);
-          console.log(event.detail.scaleY);
+          stores.tailorStore.setCropperBox(event.detail.width, event.detail.height, event.detail.x, event.detail.y)
+          // console.log(event.detail.x);
+          // console.log(event.detail.y);
+          // console.log(event.detail.width);
+          // console.log(event.detail.height);
+          // console.log(event.detail.rotate);
+          // console.log(event.detail.scaleX);
+          // console.log(event.detail.scaleY);
         },
-      })
+      }))
+      // cropper.setCropBoxData()
     }
   }, [])
   return (
     <div className='h-full flex flex-col items-center'>
-      <div className='w-187.5 h-20 flex-none bg-nb-2E2F30'>ADs</div>
-      <div className='w-170.75 flex-grow mt-3.5 '>
-        <img src={URL.createObjectURL(stores.tailorStore.imgData)} id='cropper-container' className='hidden' />
-      </div> 
+      <div className='w-187.5 h-20 flex-none bg-nb-2E2F30'>
+        <img src={stores.tailorStore.cropperImgData} alt="" />
+      </div>
+      <div className='w-170.75 flex-grow mt-3.5'>
+        {stores.tailorStore.isCropper ?
+          <img src={URL.createObjectURL(stores.tailorStore.cropperImgData)} className="w-full h-full object-contain" />
+          :
+          <img src={URL.createObjectURL(stores.tailorStore.imgData)} id='cropper-container' className='hidden' />
+        }
+      </div>
     </div>
   )
 })
