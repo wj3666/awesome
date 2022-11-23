@@ -6,7 +6,6 @@ import Dropzone from 'react-dropzone'
 import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
 import { observer } from 'mobx-react-lite';
 import Cropper from 'cropperjs';
-
 export default function Tailor() {
   return (
     <Layout>
@@ -16,12 +15,7 @@ export default function Tailor() {
 }
 
 const TailorPage = observer(() => {
-  let img
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      img = document.body.querySelector("#cropper-container");
-    }
-  }, [])
+
 
 
   const onDrop = (e) => {
@@ -31,11 +25,7 @@ const TailorPage = observer(() => {
       stores.tailorStore.setImgData(e[0]);
       stores.tailorStore.onchangeIsShowChoseList(true);
 
-      const image = new Image();
-      image.src = URL.createObjectURL(e[0]);
-      // const cropper = new Cropper(image, {
-      //     container: img
-      // })
+      // console.log(cropper)
     }
   }
 
@@ -87,16 +77,38 @@ const TailorPage = observer(() => {
   )
 })
 
-const TailorBlock = () => {
+const TailorBlock = observer(() => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const img:any = document.getElementById("cropper-container");
+      const cropper = new Cropper(img, {
+        viewMode: 1,
+        dragMode: 'none',
+        initialAspectRatio: 1,
+        background: false,
+        autoCropArea: 0.6,
+        zoomOnWheel: false,
+        crop(event) {
+          console.log(event.detail.x);
+          console.log(event.detail.y);
+          console.log(event.detail.width);
+          console.log(event.detail.height);
+          console.log(event.detail.rotate);
+          console.log(event.detail.scaleX);
+          console.log(event.detail.scaleY);
+        },
+      })
+    }
+  }, [])
   return (
     <div className='h-full flex flex-col items-center'>
       <div className='w-187.5 h-20 flex-none bg-nb-2E2F30'>ADs</div>
-      <img id='cropper-container' className='w-170.75 flex-grow mt-3.5 bg-gray-600'>
-
-      </img>
+      <div className='w-170.75 flex-grow mt-3.5 '>
+        <img src={URL.createObjectURL(stores.tailorStore.imgData)} id='cropper-container' className='hidden' />
+      </div> 
     </div>
   )
-}
+})
 
 export const getStaticProps = async ({ locale }) => ({
   props: {

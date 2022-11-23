@@ -294,3 +294,14 @@ export const IconDropbox = () => (
         <path fillRule="evenodd" clipRule="evenodd" d="M7.64833 0L13 4.19575L5.28883 8.66667L0 4.68975L7.64833 0ZM13 4.19575L20.7112 8.66667L26 4.68975L18.3517 0L13 4.19575ZM0 13.7269L5.28883 9.75L13 14.2209L7.64833 18.4167L0 13.7269ZM20.7112 9.75L13 14.222L18.3517 18.4167L26 13.7269L20.7112 9.75ZM13 15.1667L18.3105 19.3483L20.5833 17.94V19.5184L13 23.8333L5.41667 19.5184V17.94L7.6895 19.3483L13 15.1667Z" fill="white" />
     </svg>
 )
+
+export const IconLarge = () => (
+    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" clipRule="evenodd" d="M0 7L4 1L8 7H0Z" fill="#CFD0E4" />
+    </svg>
+)
+export const IconSmall = () => (
+    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" clipRule="evenodd" d="M0 1L4 7L8 1H0Z" fill="#CFD0E4" />
+    </svg>
+)

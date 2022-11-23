@@ -4,7 +4,7 @@ import homeStore from "./homeStore";
 import loginSign from "./loginSignStore";
 import paymentStore from "./paystore";
 import CompressStore from "./compressStore";
-import TailorStore from "./tailotStore";
+import TailorStore from "./tailorStore";
 
 const compressStore = new CompressStore();
 const tailorStore = new TailorStore();
