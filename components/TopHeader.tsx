@@ -19,7 +19,7 @@ function TopHeader() {
     const elementUserRef = useRef(null)
     const avatarImgRef = useRef<any>();
     const { data: seesion } = useSession()
-    // console.log("111",appStore.user.id)
+
     const avatarUpload = (e) => {
         let file = e.target.files[0];
         let fileSize = (file.size) / 1024;
@@ -43,7 +43,7 @@ function TopHeader() {
         console.log("1111", file)
         appStore.uploadAvatar(fileInfo, appStore.user.id)
     }
-    console.log("头像信息：", appStore.user.header_img)
+
     const handleChange = (e: any) => {
         e.stopPropagation()
         if (rctangle) {
@@ -58,12 +58,13 @@ function TopHeader() {
         setHanderUser(false)
         localStorage.removeItem("token")
         loginSignStore.setTokenMessage(false)
+        appStore.getUsers()
     }
-    const GoogleLoginOut=()=>{
+    const GoogleLoginOut = () => {
         signOut()
         localStorage.removeItem("token")
     }
-    
+
     useEffect(() => {
         addEventListener('click', (e) => {
             setIsShowSwitchLanguage(false);
@@ -91,7 +92,7 @@ function TopHeader() {
                                 avatarImgRef.current.click()
                             }}
                             className="relative">
-                            {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={seesion.user.image} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                            {seesion.user.image != '' ? <img className='w-16 h-16 object-over ' src={seesion.user.image} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
                             <div>
                                 <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
                                     stopPropagation(e)
@@ -178,7 +179,7 @@ function TopHeader() {
                     <button className='h-23 ml-7.75 ' onClick={() => appStore.setShowMenu()}><img className={` ${appStore.showMenu ? " transition-rotate duration-500 rotate-90" : " transition-rotate duration-300 rotate-0"} `} src='/icon_menu.png' /></button>
 
                     <h1 className={`cursor-pointer ml-5 `}><img className='w-40' src='/Logo_AwesomeImg.svg' /></h1>
-                    
+
                 </div>
 
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
@@ -199,20 +200,24 @@ function TopHeader() {
                         </div>
                     </div>
                     {
-                        loginSignStore.tokenMessage ? <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden ' onClick={(e) => {
-                            stopPropagation(e)
-                            setHanderUser(!headerUser)
-                            setIsShowSwitchLanguage(false)
-                        }} ref={elementUserRef}>
-                            {appStore.user.header_img !== null ? <img className='w-10 h-10 ' src={`${appStore.user.header_img}`} /> : <img className='w-10 h-10 ' src='/NFTelk.png' />}
-                        </div> : seesion ? <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden '
-                            onClick={(e) => {
+                        loginSignStore.tokenMessage ?
+                            <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden ' onClick={(e) => {
                                 stopPropagation(e)
                                 setHanderUser(!headerUser)
                                 setIsShowSwitchLanguage(false)
-                            }}
-                        ><img className='w-10 h-10 ' src={seesion.user.image} /></div>
-                            : <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
+                            }} ref={elementUserRef}>
+                                {appStore.user.header_img !== null ? <img className='w-10 h-10 ' src={`${appStore.user.header_img}`} /> : <img className='w-10 h-10 ' src='/NFTelk.png' />}
+                            </div>
+                            : seesion ?
+                                <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden '
+                                    onClick={(e) => {
+                                        stopPropagation(e)
+                                        setHanderUser(!headerUser)
+                                        setIsShowSwitchLanguage(false)
+                                    }}
+                                ><img className='w-10 h-10 ' src={seesion.user.image} /></div>
+                                :
+                                <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
                     }
 
                     {/* <div className='1024sc:hidden w-15'><img src='/icon_menu.png' /></div> */}

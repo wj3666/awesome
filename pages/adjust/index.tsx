@@ -59,10 +59,10 @@ const AdujstBlock = observer(() => {
                           </div>
                           <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-FFFFFF-w400'>
                             <p>{NBString.truncateString(item.name, 18, 6)}</p>
-                            <div className='flex flex-row items-center justify-around bg-red-700 w-85 h-9 font-p13-CFD0E4-sem'>
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-sem ml-2'>px</span></p>
+                            <div className='flex flex-row items-center justify-around bg-red-700 w-85 h-9 font-p13-CFD0E4-w400'>
+                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                               <Arrow />
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-sem ml-2'>px</span></p>
+                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                             </div>
                           </div>
                         </div>
@@ -77,12 +77,12 @@ const AdujstBlock = observer(() => {
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
                             <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
                           </div>
-                          <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-ffffff-re'>
+                          <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-FFFFFF-w400'>
                             <p>{item.name}</p>
-                            <div className='flex flex-row items-center justify-around w-85 h-9 font-p13-CFD0E4-sem'>
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-sem ml-2'>px</span></p>
+                            <div className='flex flex-row items-center justify-around w-85 h-9 font-p13-CFD0E4-w400'>
+                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                               <Arrow />
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-sem ml-2'>px</span></p>
+                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                             </div>
                           </div>
                         </div>

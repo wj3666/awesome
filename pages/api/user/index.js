@@ -4,8 +4,7 @@ import SQL from '../../../lib/util/SQL'
 
 const handle=nc()
 .get(async(req,res)=>{
-    const token=req.headers.authorization
-    console.log(req.body)
+    const token=req.headers.authorization?.split(' ')[1]
     const decode =JWT.verify(token)
     var email=''
     if(decode.email==undefined){
@@ -14,7 +13,7 @@ const handle=nc()
        email=decode.email
     }
     if(!decode){
-        res.status(400).send({ code:1,data: 'error' })
+        res.send({ code:1,data: 'error' })
     }else{
         var user= await SQL.getUserEamil(email)
         var startTime=user.pay_time

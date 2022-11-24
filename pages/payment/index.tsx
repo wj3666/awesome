@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import React, { useEffect, useState, Fragment, useRef } from 'react'
 import appStore from '../../lib/stores/appstore'
 import stores from '../../lib/stores/stores'
@@ -30,6 +30,7 @@ const people = [
     { name: 'WechatPayment', svg: <Wechat /> },
 ]
 const Payment = () => {
+    const router=useRouter()
     const { data: seesion } = useSession()
     const { t } = useTranslation('subscrible')
     const [selected, setSelected] = useState(people[0])
@@ -63,27 +64,24 @@ const Payment = () => {
     }
     const alipyPayment = () => {
         if (choiceFees) {
-            appStore.getUsers()
             var money = 3
-            if (appStore.user.id == undefined && !seesion) {
-                return Router.push('/login')
+            if (appStore.user?.id == undefined && !seesion) {
+                return router.push('/login')
             }
-            var id = appStore.user.id
+            var id = appStore.user?.id
             paymentStore.alipayMethod(id, money)
         } else {
             var money = 30
-            if (appStore.user.id == undefined&&!seesion) {
-                return Router.push('/login')
+            if (appStore.user?.id == undefined && !seesion) {
+                return router.push('/login')
             }
-            var id = appStore.user.id
+            var id = appStore.user?.id
             paymentStore.alipayMethod(id, money)
         }
     }
     useEffect(() => {
-        if (appStore.user.id == undefined) {
-            appStore.getUsers()
-        }
-    })
+        appStore.getUsers()
+    }, [])
     return (
         <>
             <div className=' w-screen h-screen bg-nb-sidebar-grey flex flex-row  justify-center'>

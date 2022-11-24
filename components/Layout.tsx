@@ -19,14 +19,9 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
   const router = useRouter();
   const { appStore, loginSignStore } = stores
   useEffect(() => {
-    console.log("loginSignStore.tokenMessage",loginSignStore.tokenMessage)
+    appStore.getUsers()
     if (localStorage.getItem("token") == null) {
         loginSignStore.setTokenMessage(false)
-        // setHanderUser(false)
-    } else {
-        //查询登录用户是否登录和功能权限
-        appStore.getUsers()
-
     }
   }, [])
   return (

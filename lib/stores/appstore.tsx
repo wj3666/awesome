@@ -41,7 +41,7 @@ class AppStore {
         HomeApi.getUser().then(
             data=>{
                 if(data==='error'){
-                    this.setUser({})
+                    this.setUser(null)
                     loginSign.setTokenMessage(false)
                 }else{
                     // console.log("getuser",data)
@@ -72,13 +72,15 @@ class AppStore {
     
     //用户信息
     setUser = (data: any) => {
-        // console.log("dasada",data)
-        this.user = data[0]
-        // console.log(toJS(this.user))
-        if(this.user.author==1){
-            this.setUserPrivilege(true)
+        if(data==null){
+            this.user=null
+            this.setUserPrivilege(false)
+        }else{
+            this.user=data[0]
+            if(this.user.author==1){
+                this.setUserPrivilege(true)
+            }
         }
-        // console.log("user:", this.user)
     }
     //修改用户功能权限
     setUserPrivilege=(v:boolean)=>{

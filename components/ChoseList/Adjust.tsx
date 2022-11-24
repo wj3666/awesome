@@ -167,7 +167,7 @@ const Index = observer(() => {
                                                                             stores.adjustStore.adjustWidth(idx, e.target.value)
                                                                         }}
                                                                     />
-                                                                    <span className="ffont-p13-CFD0E4-w400 mb-1 mr-1">px</span>
+                                                                    <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
                                                                     <div className="flex flex-col ">
                                                                         <button className="border border-dashed w-2.5 cursor-default"
                                                                             onClick={() => stores.adjustStore.addWidth(idx)}

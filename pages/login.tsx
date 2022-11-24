@@ -29,7 +29,7 @@ const LogIn = ({ providers }) => {
 //登录
 const LoginMoal = observer(({ providers }: any) => {
     const { data: session } = useSession()
-    console.log("session", session)
+    // console.log("session", session)
     const { t } = useTranslation('common');
     const [emailVal, setUserName] = useState('')
     const [password, setPassword] = useState('')

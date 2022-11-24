@@ -14,7 +14,7 @@ const Index = observer(() => {
         stores.compressStore.setImgListData(e);
         stores.compressStore.changeIsShowChoseList(true);
     }
-    const compressImg = async () => {
+    const compressImg =  () => {
         stores.compressStore.onChangeStartCompress(true);
         for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
             if (stores.appStore.userPrivilege) {
@@ -22,6 +22,7 @@ const Index = observer(() => {
                     quality: 0.6,
                     success(result: any) {
                         const formData = new FormData();
+                        console.log(result)
                         formData.append('file', result, result.name);
                         stores.compressStore.upload(formData, i)
                         stores.compressStore.setImgListCompressData(formData.get("file"), i);

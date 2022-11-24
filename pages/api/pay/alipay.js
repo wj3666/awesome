@@ -49,7 +49,7 @@ const handle = nc()
                 parmentUrl:resp
             }})
         })
-        console.log(result)
+        // console.log("返回结果",result)
         //对接支付宝成功返回的数据,
        
         //写到这里以上时可以自己测试一下，测试的时候一定要无痕浏览
