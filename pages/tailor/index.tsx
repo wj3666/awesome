@@ -34,9 +34,9 @@ const TailorPage = observer(() => {
       <div className={`flex flex-col items-center justify-center ${stores.tailorStore.isShowChoseList && 'h-full'}`}>
         {!stores.tailorStore.isShowChoseList &&
           <div>
-            <p className='font-p36-ffffff-sem'>调整图像的大小</p>
-            <p className='font-p20-FFFFFF-sem mt-9'>通过像素设定范围，裁剪<span className='font-p20-4C90FE-w600 italic'> JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG</span> 或 <span className='font-p20-4C90FE-w600 italic'>GIF</span>文件。</p>
-            <p className='font-p20-FFFFFF-sem mt-4'>在线裁剪你的图像文件</p>
+            <p className='font-p36-FFFFFF-w600'>调整图像的大小</p>
+            <p className='font-p20-FFFFFF-w400 mt-9'>通过像素设定范围，裁剪<span className='font-p20-4C90FE-w600 italic'> JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG</span> 或 <span className='font-p20-4C90FE-w600 italic'>GIF</span>文件。</p>
+            <p className='font-p20-FFFFFF-w400 mt-4'>在线裁剪你的图像文件</p>
           </div>
         }
         {/* <img id='image' src='/1.jpeg' className='w-170.75'></img> */}
@@ -64,7 +64,7 @@ const TailorPage = observer(() => {
 
         {!stores.tailorStore.isShowChoseList &&
           <>
-            <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
+            <p className='font-p15-FFFFFF-w400 mb-5.75'>Or</p>
             <div className='flex flex-row'>
               <IconButton icon={<IconFolderGoogleDrive />} />
               <IconButton className='ml-5' icon={<IconDropbox />} />

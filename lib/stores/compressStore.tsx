@@ -32,7 +32,9 @@ export default class CompressStore {
     }
 
     @action setImgListCompressData(data, idx) {
+        console.log("新文件1",this.imgListCompressData[idx],idx)
         this.imgListCompressData[idx] = data;
+        console.log("新文件2",this.imgListCompressData[idx],idx)
     }
 
     @action onChangeStartCompress(v: boolean) {

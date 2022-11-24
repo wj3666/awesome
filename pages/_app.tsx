@@ -13,9 +13,7 @@ function MyApp({ Component, pageProps:{session,...pageProps}}:AppProps) {
     <SessionProvider  session={session}>
     <Component {...pageProps} />
     </SessionProvider>
-
   )
 }
-
 
 export default appWithTranslation(observer(MyApp)) 

@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import CompressChoseList from './ChoseList/Compress';
 import TailorChoseList from './ChoseList/Tailor';
 import Adjust from './ChoseList/Adjust';
+import { GetStaticProps } from 'next'
+import axios from 'axios';
 
 type Props = {
   currenTal?: string;
@@ -15,9 +17,17 @@ type Props = {
 }
 const Layout = ({ currenTal = "HOME", children }: Props) => {
   const router = useRouter();
-  const { appStore, homeStore } = stores
+  const { appStore, loginSignStore } = stores
   useEffect(() => {
+    console.log("loginSignStore.tokenMessage",loginSignStore.tokenMessage)
+    if (localStorage.getItem("token") == null) {
+        loginSignStore.setTokenMessage(false)
+        // setHanderUser(false)
+    } else {
+        //查询登录用户是否登录和功能权限
+        appStore.getUsers()
 
+    }
   }, [])
   return (
     <div className="flex flex-col w-full min-h-screen bg-nb-0E0E12 ">

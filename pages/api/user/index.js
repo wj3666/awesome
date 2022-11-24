@@ -5,6 +5,7 @@ import SQL from '../../../lib/util/SQL'
 const handle=nc()
 .get(async(req,res)=>{
     const token=req.headers.authorization
+    console.log(req.body)
     const decode =JWT.verify(token)
     var email=''
     if(decode.email==undefined){

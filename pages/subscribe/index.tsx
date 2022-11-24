@@ -137,11 +137,11 @@ const Schememonth = () => {
         <>
             <div className='flex flex-col items-center mt-23 w-full h-full  '>
                 <div className='flex flex-col justify-center items-center space-y-6  w-full h-1/6 '>
-                    <p className='font-p36-ffffff-sem'>{t('subscrible.title')}</p>
+                    <p className='font-p36-FFFFFF-w600'>{t('subscrible.title')}</p>
                     <div className='relative w-57 h-10 rounded-2xl bg-nb-2E2F30'>
-                        <button className={`${showLeft ? "absolute w-30 h-9 bg-nb-4C90FE rounded-2xl font-p16-FFFFFF-re left-0.5 top-0.5 z-[10]" : "absolute w-30 h-9 bg-nb-2E2F30 rounded-l-2xl font-p16-A2A3BC-re left-0.5 top-0.5"}`} onClick={() => handleLeft()}>{t('subscrible.monthFees')}</button>
-                        <button className={`${showRight ? "absolute w-30 h-9 bg-nb-4C90FE rounded-2xl font-p16-FFFFFF-re right-0.5 top-0.5 z-[10]" : "absolute w-30 h-9 bg-nb-2E2F30 rounded-r-2xl font-p16-A2A3BC-re right-0.5 top-0.5"}`} onClick={() => handleRight()}>{t('subscrible.yearFees')}</button>
-                        <div className={`absolute w-14.5 h-6 rounded-br-2xl rounded-t-2xl bg-ng-FFB400 -right-10 -top-2  z-[20] text-center font-p13-191919-sem font-bold ${showRight ? "" : "hidden"}`}><p className='leading-6 '>-16.7%</p></div>
+                        <button className={`${showLeft ? "absolute w-30 h-9 bg-nb-4C90FE rounded-2xl font-p16-FFFFFF-w700 left-0.5 top-0.5 z-[10]" : "absolute w-30 h-9 bg-nb-2E2F30 rounded-l-2xl font-p16-A2A3BC-w400 left-0.5 top-0.5"}`} onClick={() => handleLeft()}>{t('subscrible.monthFees')}</button>
+                        <button className={`${showRight ? "absolute w-30 h-9 bg-nb-4C90FE rounded-2xl font-p16-FFFFFF-w700 right-0.5 top-0.5 z-[10]" : "absolute w-30 h-9 bg-nb-2E2F30 rounded-r-2xl font-p16-A2A3BC-w400 right-0.5 top-0.5"}`} onClick={() => handleRight()}>{t('subscrible.yearFees')}</button>
+                        <div className={`absolute w-14.5 h-6 rounded-br-2xl rounded-t-2xl bg-ng-FFB400 -right-10 -top-2  z-[20] text-center font-p13-191919-w700  ${showRight ? "" : "hidden"}`}><p className='leading-6 '>-16.7%</p></div>
                     </div>
                 </div>
                 <div className='flex flex-row justify-center items-center space-x-14 w-full h-3/5 '  >
@@ -152,13 +152,13 @@ const Schememonth = () => {
                                     <div className='relative rounded-2xl h-20 w-full '><div className='absolute -top-5 left-4'>{data.svg}</div></div>
                                     {
                                         index === 0 ? <div className='flex flex-row h-25 w-full '>
-                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4 w-3/4 h-full'><p className='font-p26-FFFFFF-sem font-bold'>{t(`subscrible.version.${index}`)}</p><p className='font-p13-CFD0E4-sem'>{t(`subscrible.versionDetail.${index}`)}</p></div>
-                                            <div className='flex flex-row justify-end items-end mt-1 mr-3  w-1/4 h-full'><p className=' font-p40-FFFFFF-sem font-bold mb-3'>$</p><p className='font-p60-FFFFFF-sem font-bold'  >{data.fees}</p></div>
+                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4 w-3/4 h-full'><p className='font-p26-FFFFFF-w700'>{t(`subscrible.version.${index}`)}</p><p className='font-p13-CFD0E4-w400'>{t(`subscrible.versionDetail.${index}`)}</p></div>
+                                            <div className='flex flex-row justify-end items-end mt-1 mr-3  w-1/4 h-full'><p className=' font-p40-FFFFFF-w700  mb-3'>$</p><p className='font-p60-FFFFFF-w700 ml-3 '  >{data.fees}</p></div>
                                         </div> : index === 1 ? <div className='flex flex-row h-30 w-full '>
-                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4  w-3/4  h-full'><p className='font-p26-FFFFFF-sem font-bold  w-70 text-left'>{t(`subscrible.version.${index}`)}</p><p className='font-p13-CFD0E4-sem w-64  text-left'>{t(`subscrible.versionDetail.${index}`)}</p><p className='font-p13-CFD0E4-sem text-left'>{t(`subscrible.versionDetail.3`)}<span className='font-p14-4C90FE-sems font-bold '>$30</span></p></div>
-                                            <div className='flex flex-row justify-end items-end mr-3  mt-1 w-1/4   h-full'><p className='font-p40-FFFFFF-sem font-bold mb-3'>$</p><p className='font-p60-FFFFFF-sem font-bold' >3</p></div>
+                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4  w-58  h-full'><p className='font-p26-FFFFFF-w700   w-70 text-left'>{t(`subscrible.version.${index}`)}</p><p className='font-p13-CFD0E4-w400 w-64  text-left'>{t(`subscrible.versionDetail.${index}`)}</p><p className='font-p13-CFD0E4-w400 text-left'>{t(`subscrible.versionDetail.3`)}<span className='font-p13-4C90FE-w400 '>$30</span></p></div>
+                                            <div className='flex flex-row justify-end items-end mr-3  mt-1 w-30  h-full'><p className='font-p40-FFFFFF-w700 mr-2 mb-3'>$</p><p className='font-p60-FFFFFF-w700 ' >3</p></div>
                                         </div> : index === 2 ? <div className='flex flex-row h-25 w-full '>
-                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4 w-3/4  h-full'><p className='font-p26-FFFFFF-sem font-bold'>{t(`subscrible.version.${index}`)}</p><p className='font-p13-CFD0E4-sem font-p13-CFD0E4-sem text-left'>{t(`subscrible.versionDetail.${index}`)}</p></div>
+                                            <div className='flex flex-col justify-center space-y-2  items-start ml-4 w-3/4  h-full'><p className='font-p26-FFFFFF-w700 '>{t(`subscrible.version.${index}`)}</p><p className=' font-p13-CFD0E4-w400 text-left'>{t(`subscrible.versionDetail.${index}`)}</p></div>
                                         </div> : ""
                                     }
                                     <div className='flex flex-col justify-center  h-60 w-full    '>
@@ -166,7 +166,7 @@ const Schememonth = () => {
                                             functionMessageChildren[index].map((item, value) =>
                                                 <div className='ml-4 flex flex-row justify-start space-x-4 h-15 mt-2  w-70  text-left' key={item.id}>
                                                     <div className=''>{item.svg}</div>
-                                                    <p className={`flex flex-row  font-normal font-p14-CFD0E4-sem w-full  text-left  `}>{t(`subscrible.funcDetailOne.${index}.${value}`)}</p>
+                                                    <p className={`flex flex-row  font-normal font-p14-CFD0E4-w400 w-full  text-left  `}>{t(`subscrible.funcDetailOne.${index}.${value}`)}</p>
                                                 </div>
 
 
@@ -174,7 +174,7 @@ const Schememonth = () => {
                                         }
                                     </div>
                                     <div className='h-20 w-full flex flex-row justify-center  '>
-                                        <button className={`w-50 h-10.5 ${data.id === 2 ? "bg-ng-FFB400" : "bg-nb-2F63AE "} rounded-2xl`} key={data.id} onClick={() => {
+                                        <button className={`w-50 h-10.5 ${data.id === 2 ? "bg-ng-FFB400" : "bg-nb-2F63AE "} rounded-2xl ${data.id!=2? "font-p16-FFFFFF-w700":"font-p16-222325-w700"} `} key={data.id} onClick={() => {
                                             if (data.id === 3) {
                                                 appStore.setShowContactModel(true)
                                             } else if (data.id === 2) {

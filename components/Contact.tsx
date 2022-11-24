@@ -30,26 +30,26 @@ function Contact() {
               <div className='h-12 w-full flex flex-row justify-end items-center '><button className='mr-2' onClick={() => appStore.setShowContactModel(false)}><Cancel /></button></div>
               <div className='w-full h-22 flex flex-col justify-center  items-center space-y-3 '>
                 <img src='/Logo_AwesomeImg.svg' />
-                <p className='font-p15-C8C8C8-sem'>{t('contact.connect')}</p>
+                <p className='font-p15-C8C8C8-w400'>{t('contact.connect')}</p>
               </div>
               {
                 !showSccess ?
                   <div>
                     <div className='flex flex-row justify-around h-24 w-full '>
                       <div className='flex flex-col h-full w-74  justify-center space-y-2'>
-                        <p className='font-p15-CFD0E4-sem'>{t('contact.email')}</p>
-                        <input type="text" onChange={(e) => { setEmail(e.target.value) }} value={email} className={`w-full h-10.5 rounded-xl border px-10  bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${email === '' ? "" : "font-p15-ffffff-sem"} `} placeholder="Name@xxxx.com" />
+                        <p className='font-p15-CFD0E4-w500'>{t('contact.email')}</p>
+                        <input type="text" onChange={(e) => { setEmail(e.target.value) }} value={email} className={`w-full h-10.5 rounded-xl border px-10  bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${email === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder="Name@xxxx.com" />
                       </div>
                       <div className='flex flex-col h-full w-74  justify-center space-y-2'>
-                        <p className='font-p15-CFD0E4-sem'>{t('contact.name')}</p>
-                        <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-2  bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={t('contact.nameHint')} />
+                        <p className='font-p15-CFD0E4-w500'>{t('contact.name')}</p>
+                        <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-2  bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder={t('contact.nameHint')} />
                       </div>
                     </div>
                     <div className='w-full h-70 flex flex-row justify-center '>
-                      <textarea onChange={(e) => { setContents(e.target.value) }} value={contents} className={`w-156 pl-3 h-70 rounded-xl border  bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${contents === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={t('contact.content')} ></textarea>
+                      <textarea onChange={(e) => { setContents(e.target.value) }} value={contents} className={`w-156 pl-3 h-70 rounded-xl border  bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${contents === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder={t('contact.content')} ></textarea>
                     </div>
                     <div className='flex flex-row justify-end items-center h-24  w-full'>
-                      <button className='w-49 h-13.25 bg-nb-4C90FE rounded-2xl mr-4 font-p16-FFFFFF-re' onClick={() => setShowSccess(true)}>{t('contact.send')}</button>
+                      <button className='w-49 h-13.25 bg-nb-4C90FE rounded-2xl mr-4 font-p16-FFFFFF-w500' onClick={() => setShowSccess(true)}>{t('contact.send')}</button>
                     </div>
                   </div> :
                   <Transition.Child
@@ -61,8 +61,8 @@ function Contact() {
                     leaveTo="opacity-0"
                   >
                     <div className='flex flex-row justify-center items-center  w-full h-70  '><Succeed /></div>
-                    <p className='font-p26-FFFFFF-sem font-sans text-center' >{t('contact.succeed')}</p>
-                    <button className='font-p16-FFFFFF-re w-74.5 h-10.5 bg-nb-2F63AE rounded-2xl mt-10 ml-45 ' onClick={()=>{appStore.setShowContactModel(false);setShowSccess(false)}}>{t('contact.closed')}</button>
+                    <p className='font-p26-FFFFFF-w400 font-sans text-center' >{t('contact.succeed')}</p>
+                    <button className='font-p16-FFFFFF-w700 w-74.5 h-10.5 bg-nb-2F63AE rounded-2xl mt-10 ml-45 ' onClick={()=>{appStore.setShowContactModel(false);setShowSccess(false)}}>{t('contact.closed')}</button>
                   </Transition.Child>
               }
             </Dialog.Panel>

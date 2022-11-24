@@ -41,8 +41,8 @@ const AdujstBlock = observer(() => {
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.adjustStore.imgListData.length == 0 &&
             <div>
-              <div className='font-p36-ffffff-sem'>调整图像的大小</div>
-              <div className='font-p20-FFFFFF-sem mt-10.5 w-147'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-sem italic'>JPG</span>、<span className='font-p20-4C90FE-sem italic'>PNG</span>、<span className='font-p20-4C90FE-sem italic'>SVG</span>或<span className='font-p20-4C90FE-sem italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</div>
+              <div className='font-p36-FFFFFF-w600'>调整图像的大小</div>
+              <div className='font-p20-FFFFFF-w400  mt-10.5 w-147'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-w600 italic'>JPG</span>、<span className='font-p20-4C90FE-w600 italic'>PNG</span>、<span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</div>
             </div>
           }
 
@@ -57,7 +57,7 @@ const AdujstBlock = observer(() => {
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
                             <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
                           </div>
-                          <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-ffffff-re'>
+                          <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-FFFFFF-w400'>
                             <p>{NBString.truncateString(item.name, 18, 6)}</p>
                             <div className='flex flex-row items-center justify-around bg-red-700 w-85 h-9 font-p13-CFD0E4-sem'>
                               <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-sem ml-2'>px</span></p>
@@ -108,7 +108,7 @@ const AdujstBlock = observer(() => {
           </div>
           {stores.adjustStore.imgListData.length == 0 &&
             <>
-              <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
+              <p className='font-p15-FFFFFF-w400 mb-5.75'>Or</p>
               <div className='flex flex-row'>
                 <button className='mr-5'><Ellipse1 /></button>
                 <button><Ellipse2 /></button>

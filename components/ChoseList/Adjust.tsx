@@ -99,11 +99,11 @@ const Index = observer(() => {
                                     :
                                     <>
                                         <div className="flex flex-row  w-72.5 mt-4 ">
-                                            <div className={`flex flex-row items-center ${choiceMode ? "font-p18-FFFFFF-sem" : "font-p15-A2A3BA-re"} space-x-2 cursor-default`}
+                                            <div className={`flex flex-row items-center ${choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"} space-x-2 cursor-default`}
                                                 onClick={() => setchoiceMode(true)}>
                                                 {choiceMode ? <div className="border border-dashed border-gray-500"><ChoicePixel1 /></div> : <div className="border border-dashed border-gray-500"> <ChoicePixel2 /></div>}
                                                 <p>按像素</p></div>
-                                            <div className={`flex flex-row items-center  ${!choiceMode ? "font-p18-FFFFFF-sem" : "font-p15-A2A3BA-re"}  font-p15-A2A3BC-re space-x-2 ml-14 cursor-default`}
+                                            <div className={`flex flex-row items-center  ${!choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"}  font-p15-A2A3BA-w400 space-x-2 ml-14 cursor-default`}
                                                 onClick={() => setchoiceMode(false)}>{choiceMode ? <div className="border border-dashed border-gray-500"><ChoicePercentage2 /></div> : <div className="border border-dashed border-gray-500"> <ChoicePercentage1 /></div>}
                                                 <p>按百分比</p></div>
                                         </div>
@@ -167,7 +167,7 @@ const Index = observer(() => {
                                                                             stores.adjustStore.adjustWidth(idx, e.target.value)
                                                                         }}
                                                                     />
-                                                                    <span className="font-p13-CFD0E4-sem mb-1 mr-1">px</span>
+                                                                    <span className="ffont-p13-CFD0E4-w400 mb-1 mr-1">px</span>
                                                                     <div className="flex flex-col ">
                                                                         <button className="border border-dashed w-2.5 cursor-default"
                                                                             onClick={() => stores.adjustStore.addWidth(idx)}
@@ -190,7 +190,7 @@ const Index = observer(() => {
                                                                         type="text" value={stores.adjustStore.dimensionsHeight[idx]}
                                                                         onChange={(e) => stores.adjustStore.adjustHeight(idx, e.target.value)}
                                                                     />
-                                                                    <span className="font-p13-CFD0E4-sem mb-1 mr-1">px</span>
+                                                                    <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
                                                                     <div className="flex flex-col ">
                                                                         <button className="border border-dashed w-2.5 cursor-default"
                                                                             onClick={() => stores.adjustStore.addHeight(idx)}
@@ -218,7 +218,7 @@ const Index = observer(() => {
                                                                                         {({ selected }) => (
 
                                                                                             <div className={`${selected ? 'bg-nb-222325 ' : ''} flex flex-row justify-between items-center w-70  h-12 '`} >
-                                                                                                <p className="ml-4 font-p16-FFFFFF-re">{category.name}</p>
+                                                                                                <p className="ml-4 font-p16-FFFFFF-w600">{category.name}</p>
                                                                                                 <div className="mr-5">{selected ? <SelectMult /> : ""}</div>
                                                                                             </div>
 

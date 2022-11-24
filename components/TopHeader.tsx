@@ -65,14 +65,6 @@ function TopHeader() {
     }
     
     useEffect(() => {
-        console.log(loginSignStore.tokenMessage)
-        if (localStorage.getItem("token") == null) {
-            loginSignStore.setTokenMessage(false)
-            // setHanderUser(false)
-        } else {
-            appStore.getUsers()
-
-        }
         addEventListener('click', (e) => {
             setIsShowSwitchLanguage(false);
             setHanderUser(false)
@@ -112,18 +104,18 @@ function TopHeader() {
                     <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
-                            <div className='flex flex-row justify-center space-x-1 '><span className=' '>{seesion.user.email}</span>
-                                {appStore.userAthor ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
+                            <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{seesion.user.email}</span>
+                                {appStore.userPrivilege ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
                             </div>
-                            <p>{seesion.user.name}</p>
+                            <p className='font-p13-A2A3BC-w400'>{seesion.user.name}</p>
                         </div>
                         <div> </div>
                         <div className='w-4/5 border border-black '></div>
                         {rctangle ?
                             <div className=' rounded-b-2xl w-59 h-16'>
                                 <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
-                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-sem'>{t('header.userHeader.userSetting')}</p></div>
-                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => GoogleLoginOut()}><Userexit /><p className='font-p13-CFD0E4-sem cursor-default'>{t('header.userHeader.logout')}</p></div>
+                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-w400'>{t('header.userHeader.userSetting')}</p></div>
+                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => GoogleLoginOut()}><Userexit /><p className='font-p13-CFD0E4-w400 cursor-default'>{t('header.userHeader.logout')}</p></div>
                                 </div>
                                 <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
                                     handleChange(e)
@@ -156,18 +148,18 @@ function TopHeader() {
                     <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
-                            <div className='flex flex-row justify-center space-x-1 '><span className=' '>{appStore.user.email}</span>
-                                {appStore.userAthor ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
+                            <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{appStore.user.email}</span>
+                                {appStore.userPrivilege ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
                             </div>
-                            <p>1543872008@qq.com</p>
+                            <p className='font-p13-A2A3BC-w400'>用户名字</p>
                         </div>
                         <div> </div>
                         <div className='w-4/5 border border-black '></div>
                         {rctangle ?
                             <div className=' rounded-b-2xl w-59 h-16'>
                                 <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
-                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-sem'>{t('header.userHeader.userSetting')}</p></div>
-                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => handleExit()}><Userexit /><p className='font-p13-CFD0E4-sem cursor-default'>{t('header.userHeader.logout')}</p></div>
+                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-w400'>{t('header.userHeader.userSetting')}</p></div>
+                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => handleExit()}><Userexit /><p className='font-p13-CFD0E4-w400 cursor-default'>{t('header.userHeader.logout')}</p></div>
                                 </div>
                                 <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
                                     handleChange(e)
@@ -190,18 +182,18 @@ function TopHeader() {
                 </div>
 
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
-                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'> <div className="border-2 border-dashed border-gray-500"><Subscribe /></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
+                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'> <div className="border-2 border-dashed border-gray-500"><Subscribe /></div><p className=' font-p15-FFFFFF-w500'>{t('header.subscribe')}</p></div></Link></button>
                     <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e) => {
                         setIsShowSwitchLanguage(!isShowSwitchLanguage)
                         setHanderUser(false)
                         stopPropagation(e)
-                    }}><p className={`flex flex-row justify-between font-p15-f9f9f9-re items-center ${router.locale == 'en' ? "ml-4" : ""} `}><span className='mr-2'><Language /></span>{router.locale === 'en' ? "EN" : "ZH"}</p></button>
+                    }}><p className={`flex flex-row justify-between font-p15-FFFFFF-w500 items-center ${router.locale == 'en' ? "ml-4" : ""} `}><span className='mr-2'><Language /></span>{router.locale === 'en' ? "EN" : "ZH"}</p></button>
                     <div className={`fixed  top-16 rigth-0 ${!isShowSwitchLanguage && 'hidden'}`}>
                         <div className="w-24 rounded-2xl bg-nb-sidebar-grey shadow-card">
-                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'en' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-t-2xl">
+                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'en' }) }} className="w-full h-11 font-p13-FFFFFF-w400 hover:bg-nb-23232B rounded-t-2xl">
                                 English
                             </button>
-                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'zh' }) }} className="w-full h-11 font-p15-f9f9f9-re hover:bg-nb-23232B rounded-b-2xl">
+                            <button onClick={() => { router.push({ pathname, query }, asPath, { locale: 'zh' }) }} className="w-full h-11 font-p13-FFFFFF-w400 hover:bg-nb-23232B rounded-b-2xl">
                                 简体中文
                             </button>
                         </div>

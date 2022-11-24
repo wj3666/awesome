@@ -17,7 +17,7 @@ const Index = observer(() => {
     const compressImg = async () => {
         stores.compressStore.onChangeStartCompress(true);
         for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
-            if (NBString.getImgSizeMb(stores.compressStore.imgListData[i].size) < 5) {
+            if (stores.appStore.userPrivilege) {
                 new Compressor(stores.compressStore.imgListData[i], {
                     quality: 0.6,
                     success(result: any) {
@@ -30,9 +30,25 @@ const Index = observer(() => {
                         console.log(err.message);
                     },
                 })
+            } else {
+                if (NBString.getImgSizeMb(stores.compressStore.imgListData[i].size) < 5) {
+                    new Compressor(stores.compressStore.imgListData[i], {
+                        quality: 0.6,
+                        success(result: any) {
+                            const formData = new FormData();
+                            formData.append('file', result, result.name);
+                            stores.compressStore.upload(formData, i)
+                            stores.compressStore.setImgListCompressData(formData.get("file"), i);
+                        },
+                        error(err) {
+                            console.log(err.message);
+                        },
+                    })
+                }
             }
         }
     }
+
     return (
         <div className='flex-none w-72.5 pt-23 sticky top-0 h-screen'>
             <div className="outer-container">
@@ -77,7 +93,6 @@ const Index = observer(() => {
                         {/* 图片列表 */}
                         <ul>
                             {stores.compressStore.imgListCompressData.map((item, idx) => {
-                                console.log(item)
                                 return (
                                     // <ImgInfoList key={item.name + idx} item={item} idx={idx} />
                                     <li key={item.name + idx} className='h-14 w-full flex flex-row items-center'>
@@ -101,7 +116,7 @@ const Index = observer(() => {
                                                             </div>
                                                             :
                                                             <div className='font-p13-A2A3BA-w400 mt-1'>
-                                                                {NBString.getImgSizeMb(item.size) >= 5 ? <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
+                                                                {!stores.appStore.userPrivilege ? NBString.getImgSizeMb(item.size) >= 5 && <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
                                                             </div>
                                                         }
                                                     </>

@@ -33,8 +33,8 @@ const CompressPage = observer(() => {
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.compressStore.imgListData.length == 0 &&
             <div>
-              <p className='font-p36-ffffff-sem'>压缩图像文件</p>
-              <p className='font-p20-FFFFFF-sem mt-10.5'>压缩<span className='font-p20-4C90FE-w600 italic'>JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG、</span><span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</p>
+              <p className='font-p36-FFFFFF-w600'>压缩图像文件</p>
+              <p className='font-p20-FFFFFF-w400 mt-10.5'>压缩<span className='font-p20-4C90FE-w600 italic'>JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG、</span><span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</p>
             </div>
           }
 
@@ -61,10 +61,10 @@ const CompressPage = observer(() => {
 
           {stores.compressStore.imgListData.length == 0 &&
             <>
-              <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
+              <p className='font-p15-FFFFFF-w400 mb-5.75'>Or</p>
               <div className='flex flex-row'>
-                <IconButton icon={<IconFolderGoogleDrive />}/>
-                <IconButton className='ml-5' icon={<IconDropbox />}/>
+                <IconButton icon={<IconFolderGoogleDrive />} />
+                <IconButton className='ml-5' icon={<IconDropbox />} />
               </div>
             </>
           }
@@ -109,10 +109,10 @@ const ImgInfo = observer(({ item, idx }) => {
       <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
         <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
       </div>
-      <div className='mt-3 mb-0.75 flex justify-between font-p12-ffffff-re'>
+      <div className='mt-3 mb-0.75 flex justify-between font-p12-FFFFFF-w400'>
         <p>{NBString.truncateString(item.name, 18, 6)}</p>
 
-        <p className={`${NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
+        <p className={`${stores.appStore.userPrivilege ? "":NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
           &gt; {NBString.getImgSizeUnit(stores.compressStore.imgListCompressData[idx]?.size) ? NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Mb" : NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Kb"}
         </>
         }

@@ -16,7 +16,7 @@ class AppStore {
     showContactModel: boolean = false
     temporaryAvatar = '';
     user: User = {} as User
-    userAthor=false
+    userPrivilege=false  //用户功能权限
     //侧边菜单栏  
     setShowMenu() {
         if (this.showMenu) {
@@ -70,17 +70,20 @@ class AppStore {
             })
         }
     
-    //登录信息
+    //用户信息
     setUser = (data: any) => {
         // console.log("dasada",data)
         this.user = data[0]
         // console.log(toJS(this.user))
         if(this.user.author==1){
-            this.userAthor=true
+            this.setUserPrivilege(true)
         }
-        console.log("user:", this.user)
+        // console.log("user:", this.user)
     }
-
+    //修改用户功能权限
+    setUserPrivilege=(v:boolean)=>{
+        this.userPrivilege=v
+    }
     // 上传头像
     uploadAvatar = (fileInfo: any, id: any) => {
         HomeApi.upload(fileInfo).then(

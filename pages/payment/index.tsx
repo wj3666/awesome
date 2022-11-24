@@ -92,25 +92,25 @@ const Payment = () => {
                         <div className=' flex flex-col space-y-3 h-140 w-94.5  '>
                             <div className='flex flex-col justify-center items-center space-y-5 w-full h-30 '>
                                 <img className='w-50' src='/Logo_awesomeImg.svg' />
-                                <p className='font-p15-C8C8C8-sem'>{t('payment.payTitle')}</p>
+                                <p className='font-p15-C8C8C8-w500'>{t('payment.payTitle')}</p>
                             </div>
                             <div className='flex flex-row justify-around w-full  h-40  '>
                                 <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer ${choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(true)}>
-                                    <p className='font-p20-FFFFFF-sem'>{t('payment.monthly')}</p>
-                                    <div className='flex flex-row justify-around w-full '><span className={`${!choiceFees ? "font-p50-CFD0E4-sem " : "font-p50-FFFFFF-sem"}  font-normal font-sans`}>$ 3</span></div>
+                                    <p className='font-p20-FFFFFF-w700'>{t('payment.monthly')}</p>
+                                    <div className='flex flex-row justify-around w-full '><span className={`${!choiceFees ? "font-p50-FFFFFF-w400 " : "font-p50-FFFFFF-w400"}  font-normal font-sans`}>$ 3</span></div>
                                 </div>
                                 <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer  ${!choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(false)}>
-                                    <p className='font-p20-FFFFFF-sem'>{t('payment.yearly')}</p>
-                                    <div className='flex flex-row justify-around w-full '><span className={`${choiceFees ? "font-p50-CFD0E4-sem" : "font-p50-FFFFFF-sem"}  font-normal font-sans`}>$ 30</span></div>
+                                    <p className='font-p20-FFFFFF-w700'>{t('payment.yearly')}</p>
+                                    <div className='flex flex-row justify-around w-full '><span className={`${choiceFees ? "font-p50-FFFFFF-w400" : "font-p50-FFFFFF-w400"}  font-normal font-sans`}>$ 30</span></div>
                                 </div>
                             </div>
                             <div className={`flex flex-col items-center  justify-start w-full ${showPaymentMethod === 0 ? "h-25" : "h-27"}`}>
-                                <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>{t('payment.method')}</p>
+                                <p className='relative  h-7 w-full font-p15-CFD0E4-w500'>{t('payment.method')}</p>
                                 {/* <img src='/Vector.png' className='absolute'/> */}
                                 <div className=" w-full h-10.5  ">
                                     <Listbox value={selected} onChange={setSelected} >
                                         <div className="relative w-full  h-10.5  ">
-                                            <Listbox.Button className=" w-full h-10.5 border border-nb-CFD0E466 font-p15-ffffff-sem cursor-default  rounded-xl pl-3 bg-nb-CFD0E44D  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                            <Listbox.Button className=" w-full h-10.5 border border-nb-CFD0E466 font-p15-CFD0E4-w500 cursor-default  rounded-xl pl-3 bg-nb-CFD0E44D  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                                                 <span className="flex flex-row   block truncate">{selected.svg}{`\u00A0`}
                                                     {selected.name === 'Master-Card' && t('payment.payMthods.0')}
                                                     {selected.name === 'Paypal' && t('payment.payMthods.1')}
@@ -145,7 +145,7 @@ const Payment = () => {
                                                                     <div className='flex flex-row'>
                                                                         <div className="w-6 border-dashed border border-CFD0E466 ...">{method.svg}</div>
                                                                         <span
-                                                                            className={`block truncate font-p15-ffffff-sem ${selected ? 'font-medium' : 'font-normal'
+                                                                            className={`ml-2 block truncate font-p15-CFD0E4-w500 ${selected ? 'font-medium' : 'font-normal'
                                                                                 }`}
                                                                         >
                                                                             {t(`payment.payMthods.${personIdx}`)}
@@ -169,28 +169,28 @@ const Payment = () => {
 
                             {
                                 showPaymentMethod === 0 ? <div className='flex flex-col items-center  justify-start w-full h-30  '>
-                                    <p className='relative  h-7 w-full font-p15-CFD0E4-sem'>{t('payment.cardDetail')}</p>
+                                    <p className='relative  h-7 w-full font-p15-CFD0E4-w500'>{t('payment.cardDetail')}</p>
                                     {/* <img src='/Vector.png' className='absolute'/> */}
-                                    <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-ffffff-sem"} `} placeholder={`${t('payment.cardNumber')} \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
+                                    <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder={`${t('payment.cardNumber')} \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
                                 </div> : ""
                             }
                             <div className='w-full h-12.5'>
                                 {
-                                    showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-re   bg-nb-4C90FE rounded-xl">{t('payment.Premium')}</button> :
-                                        showPaymentMethod === 1 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonPaypal /></button> :
-                                            showPaymentMethod === 2 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonApplePay /></button> :
-                                                showPaymentMethod === 3 ? <button onClick={() => alipyPayment()} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
-                                                    showPaymentMethod === 4 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl"><ButtonWechat /></button> : ""
+                                    showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-w500   bg-nb-4C90FE rounded-xl">{t('payment.Premium')}</button> :
+                                        showPaymentMethod === 1 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonPaypal /></button> :
+                                            showPaymentMethod === 2 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500m   bg-nb-4C90FE rounded-xl"><ButtonApplePay /></button> :
+                                                showPaymentMethod === 3 ? <button onClick={() => alipyPayment()} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
+                                                    showPaymentMethod === 4 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonWechat /></button> : ""
                                 }
                             </div>
                             <div className='flex flex-col justify-center items-center w-full  '>
                                 <span className=" inset-y-0 right-2  flex items-center pl-3 space-x-2 ">
                                     <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-re'>{t('payment.cancel')}</p>
+                                    <p className='font-p12-A2A3BC-w500'>{t('payment.cancel')}</p>
                                 </span>
                                 <span className="inset-y-0 right-2  flex items-center pl-3 space-x-1 ">
                                     <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-re'>{t('payment.back')}</p>
+                                    <p className='font-p12-A2A3BC-w500'>{t('payment.back')}</p>
                                 </span>
                             </div>
                         </div>
@@ -200,10 +200,10 @@ const Payment = () => {
                     <div className='flex flex-col justify-start  items-center  h-160 w-94.5 '>
                         <div className='w-65 h-74.5 '><img src='/imgPremium.svg' /></div>
                         <div className='flex flex-col items-center h-60 w-94.5 '>
-                            <p className='font-p26-FFFFFF-sem font-sans'>{t('payment.Upgrade')}</p>
+                            <p className='font-p26-FFFFFF-w400 font-sans'>{t('payment.Upgrade')}</p>
                             {
                                 conditionMessage.message.map((items, indexs) =>
-                                    <div key={indexs} className='ml-20 mt-5 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-sem'>{t(`payment.rightTitle.${indexs}`)}</p></div>
+                                    <div key={indexs} className='ml-20 mt-5 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-w300'>{t(`payment.rightTitle.${indexs}`)}</p></div>
                                 )
                             }
                         </div>

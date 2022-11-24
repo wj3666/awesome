@@ -81,7 +81,6 @@ function Sidebar() {
     const router = useRouter();
     pathName = router.pathname;
     useEffect(() => {
-
     })
     return (
         // <div className={`h-full  overflow-hidden bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
