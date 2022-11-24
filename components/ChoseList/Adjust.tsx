@@ -9,7 +9,6 @@ import Dropzone from 'react-dropzone';
 
 const Index = observer(() => {
     const [multiple, setMultiple] = useState(0) //1：25% 2：50% 3:75%
-    console.log(multiple)
     const categories = [
         {
             id: 0,

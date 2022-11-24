@@ -190,7 +190,7 @@ function TopHeader() {
                 </div>
 
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
-                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'><div><Subscribe /></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
+                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'> <div className="border-2 border-dashed border-gray-500"><Subscribe /></div><p className=' font-p15-f9f9f9-re'>{t('header.subscribe')}</p></div></Link></button>
                     <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e) => {
                         setIsShowSwitchLanguage(!isShowSwitchLanguage)
                         setHanderUser(false)

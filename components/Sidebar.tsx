@@ -81,7 +81,7 @@ function Sidebar() {
     const router = useRouter();
     pathName = router.pathname;
     useEffect(() => {
-       
+
     })
     return (
         // <div className={`h-full  overflow-hidden bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>
@@ -151,12 +151,14 @@ function Sidebar() {
                                         : "bg-transparent hover:bg-nb-0E0E12"
                                         }`}
                                 >
-                                    <img
-                                        src={
-                                            data.normalImage
-                                        }
-                                        className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`}
-                                    />
+                                    <div className="border-2 border-dashed border-gray-500">
+                                        <img
+                                            src={
+                                                data.normalImage
+                                            }
+                                            className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`}
+                                        />
+                                    </div>
                                     <p className={` text-left 1279sc-max:hidden  ${tabNav.isSelected(data, pathName) ? "font-p15-FFFFFF-w500" : "font-p15-FFFFFF-w400"} ${appStore.showMenu ? "hidden" : "ml-5"}`}>
                                         {t(`sidebar.${index}`)}
                                     </p>
@@ -169,14 +171,14 @@ function Sidebar() {
                 <div className='w-full py-5'>
                     <Link href={`/setting`}>
                         <button className={`flex flex-row items-center w-full h-15 1280sc:pl-7.75 1279sc-max:justify-center ${pathName.startsWith('/setting') ? "bg-nb-2F63AE" : "bg-transparent hover:bg-nb-0E0E12"} `}>
-                            <img src='/icon_setting.svg' className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`} />
+                        <div className="border-2 border-dashed border-gray-500"><img src='/icon_setting.svg' className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`} /></div>
                             <p className={`ml-5 overflow-hidden text-left 1279sc-max:hidden ${pathName.startsWith('/help') ? "font-p15-FFFFFF-w500" : "font-p15-FFFFFF-w400"} ${appStore.showMenu ? " transition-width duration-300 hidden" : " transition-width duration-300 w-40"}`} >{t('sidebar.11')}</p>
                         </button>
 
                     </Link>
                     <Link href={`/help`}>
                         <button className={`flex flex-row h-15 1280sc:pl-7.75 1279sc-max:justify-center w-full items-center ${pathName.startsWith('/help') ? "bg-nb-2F63AE" : "bg-transparent hover:bg-nb-0E0E12"} `}>
-                            <img src='/icon_help.svg' className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`} />
+                        <div className="border-2 border-dashed border-gray-500">  <img src='/icon_help.svg' className={`w-6 h-6 transition-ml ${appStore.showMenu ? "duration-500" : "duration-300"}`} /></div>
                             <p className={`ml-5 overflow-hidden text-left 1279sc-max:hidden ${pathName.startsWith('/help') ? "font-p15-FFFFFF-w500" : "font-p15-FFFFFF-w400"}  ${appStore.showMenu ? " transition-width duration-300 hidden" : " transition-width duration-300 w-40"}`} >{t('sidebar.12')}</p>
                         </button>
                     </Link>
