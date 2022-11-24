@@ -130,7 +130,7 @@ const Index = observer(() => {
                                     compressImg()
                                 }
                             }}
-                            className={`absolute bottom-9 w-60.5 h-14.5 rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90 ${stores.compressStore.isStartCompress ? "bg-nb-191919" : "bg-nb-2F63AE"}`}>
+                            className={`absolute bottom-9 left-1/2 -translate-x-1/2 w-60.5 h-14.5 rounded-4.5 font-p20-FFFFFF-w700 hover:opacity-90 ${stores.compressStore.isStartCompress ? "bg-nb-191919" : "bg-nb-2F63AE"}`}>
                             <span>{stores.compressStore.process.length != 0 ? `下载全部图像（${stores.compressStore.process.length}）` : stores.compressStore.isStartCompress ? "加载中..." : "压缩多个图像文件"}</span>
                         </button>
                     </div>
