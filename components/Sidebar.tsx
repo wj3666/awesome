@@ -81,13 +81,7 @@ function Sidebar() {
     const router = useRouter();
     pathName = router.pathname;
     useEffect(() => {
-        if (stores.adjustStore.initialWidth.length != 0||stores.adjustStore.initialHeight.length!=0) {
-            stores.adjustStore.dimensionsWidth = []
-            stores.adjustStore.dimensionsHeight = []
-            stores.adjustStore.initialWidth = []
-            stores.adjustStore.initialHeight = []
-            stores.adjustStore.changeIsShowChoseList(false)
-        }
+       
     })
     return (
         // <div className={`h-full  overflow-hidden bg-nb-sidebar-grey  ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17  w-20 " : " transition-width duration-500  1279sc-max:w-17  w-60.5"}`}>

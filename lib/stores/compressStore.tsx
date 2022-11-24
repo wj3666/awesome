@@ -50,7 +50,6 @@ export default class CompressStore {
             data => {
                 this.imgListCompressData[i].imgUrl = data;
                 runInAction(() => {
-                    
                     this.imgUrl = this.imgUrl.concat(data);
                     // console.log({idx:i,url:data})
                     this.isStartCompress = false;

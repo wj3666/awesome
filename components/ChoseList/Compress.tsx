@@ -14,7 +14,6 @@ const Index = observer(() => {
         stores.compressStore.setImgListData(e);
         stores.compressStore.changeIsShowChoseList(true);
     }
-
     const compressImg = async () => {
         stores.compressStore.onChangeStartCompress(true);
         for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
@@ -78,6 +77,7 @@ const Index = observer(() => {
                         {/* 图片列表 */}
                         <ul>
                             {stores.compressStore.imgListCompressData.map((item, idx) => {
+                                console.log(item)
                                 return (
                                     // <ImgInfoList key={item.name + idx} item={item} idx={idx} />
                                     <li key={item.name + idx} className='h-14 w-full flex flex-row items-center'>
@@ -117,16 +117,14 @@ const Index = observer(() => {
                             onClick={() => {
                                 if (stores.compressStore.process.length != 0) {
                                     for (let i = 0; i < stores.compressStore.imgUrl.length; i++) {
-                                      
-                                            const link = document.createElement('a')
-                                            link.style.display = 'none'
-                                            link.href = stores.compressStore.imgUrl[i]
-                                            link.setAttribute(
-                                              'download',''
-                                            )
-                                            document.body.appendChild(link)
-                                            link.click()
-                                          
+                                        const link = document.createElement('a')
+                                        link.style.display = 'none'
+                                        link.href = stores.compressStore.imgUrl[i]
+                                        link.setAttribute(
+                                            'download', ''
+                                        )
+                                        document.body.appendChild(link)
+                                        link.click()
                                     }
                                 } else {
                                     compressImg()

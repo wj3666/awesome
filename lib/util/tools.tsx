@@ -70,8 +70,8 @@ export class NBString {
     })
   }
   //修改图片的宽高
-  static setImgWidHeigth = (file: any, newWidth: number, newHeight: number) => {
-    console.log("文件名字:", file)
+  static setImgWidHeigth = (file: any, newWidth: number, newHeight: number, multiple: number) => {
+    console.log("原来文件：", file)
     return new Promise<any>(function (resolve, reject): any {
       var reader = new FileReader()
       reader.readAsDataURL(file)
@@ -80,23 +80,43 @@ export class NBString {
         var imageObj = new Image()
         imageObj.src = replaceSrc
         imageObj.onload = function (): any {
-          var dataURL = NBString.AdjustImage(imageObj, newWidth, newHeight, file.type)
+          var width = imageObj.width
+          var height = imageObj.height
+          var dataURL
+          if (multiple != 0) {
+            dataURL = NBString.AdjustImage(imageObj, width, height, file.type, multiple)
+          } else {
+            dataURL = NBString.AdjustImage(imageObj, newWidth, newHeight, file.type, multiple)
+          }
           //为了兼容ios 需要dataURL -> blob->file
-          var blob=NBString.dataURLToBlob(dataURL)
-          var fileName=file.name.split('.')[0]
-          var newFile = NBString.blobToFile(blob,file.fileName)
-          console.log(newFile)
-          resolve(newFile)
+          var blob = NBString.dataURLToBlob(dataURL)
+          let files = new window.File([blob], file.name, { type: file.type })
+          // var newFile = NBString.blobToFile(blob,fileName)
+          resolve(files)
         }
       }
     })
   }
 
-  static AdjustImage = (img: any, width: number, height: number, type: string) => {
-    var canvas, ctx, img64
+  static AdjustImage = (img: any, width: number, height: number, type: string, multiple: number) => {
+    var canvas, ctx, img64, ratio
     canvas = document.querySelector('#canvasImg')
-    canvas.width = width
-    canvas.height = height
+    if (multiple != 0) {
+      if (multiple == 1) {
+        ratio = 3
+      } else if (multiple == 2) {
+        ratio = 2
+      } else if (multiple == 3) {
+        ratio = 4
+      }
+      width = width / ratio
+      height = height / ratio
+      canvas.width = width
+      canvas.height = height
+    } else {
+      canvas.width = width
+      canvas.height = height
+    }
     ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height)
     img64 = canvas.toDataURL(type, 1)
@@ -121,7 +141,7 @@ export class NBString {
     return theBlob;
   }
   //图片比例
-  static imageScale = (width: number, height: number, value, name) => {
+  static imageScale = (width: number, height: number, value: number, name: string) => {
     var scale = 1
     let num = 1
     if (name == 'W') {

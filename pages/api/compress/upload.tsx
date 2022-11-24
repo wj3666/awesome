@@ -7,7 +7,7 @@ export default async (req, res) => {
             const mw = upload.single('file')
             mw(req, res, resolve)
         })
-        // console.log(req.file)
+        // console.log("apifile",req.file)
         let filePath = req.file.destination + req.file.filename;
         let fileName = req.file.destination + req.file.originalname;
         // 文件重命名

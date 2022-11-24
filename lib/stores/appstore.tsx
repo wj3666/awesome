@@ -74,7 +74,7 @@ class AppStore {
     setUser = (data: any) => {
         // console.log("dasada",data)
         this.user = data[0]
-        console.log(toJS(this.user))
+        // console.log(toJS(this.user))
         if(this.user.author==1){
             this.userAthor=true
         }

@@ -5,29 +5,31 @@ import stores from '../lib/stores/stores'
 import { Showpassword, FaceBooklogo, Googlelogo } from '../components/Svg'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { NBString } from '../lib/util/tools'
 import appStore from '../lib/stores/appstore'
 import { verificationEmail, verificationPwd, verificationPwdRegister } from '../components/Loginverify'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import axios from 'axios'
-const LogIn = () => {
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
+type Props = {
+    children: React.ReactNode
+}
+const LogIn = ({ providers }) => {
     const { loginSignStore } = stores
 
     return (
         <>
             <div>
                 {
-                    loginSignStore.switchLoginSignView === 0 ? <LoginMoal /> : <SingUpModle />
+                    loginSignStore.switchLoginSignView === 0 ? <LoginMoal providers={providers} /> : <SingUpModle />
                 }
             </div>
         </>
     )
 
 }
+
 //登录
-const LoginMoal = observer(() => {
+const LoginMoal = observer(({ providers }: any) => {
     const { data: session } = useSession()
-    console.log("session",session)
+    console.log("session", session)
     const { t } = useTranslation('common');
     const [emailVal, setUserName] = useState('')
     const [password, setPassword] = useState('')
@@ -47,11 +49,11 @@ const LoginMoal = observer(() => {
                 setPwdTip(2)
             }
         }
-        
+
     }
-    if(session){
+    if (session) {
         router.push('/home')
-        
+
         appStore.googleLogin(session)
     }
     return (
@@ -94,19 +96,21 @@ const LoginMoal = observer(() => {
                             <button onClick={() => {
                                 submit()
                             }} className="w-full h-12.5  font-p15-CFD0E4-sem   bg-nb-4C90FE rounded-xl">{t('header.login.login')}</button>
-                            <div className=' w-full h-8 flex flex-row justify-center '><p className='font-p15-C8C8C8-sem'>{t('header.login.account')} <span onClick={() => loginSignStore.onchangeLogSignView(1)} className='font-p15-4C90FE-sem cursor-pointer'>{t('header.login.creatUser')}</span></p></div>
-                            <div className=' flex flex-row items-center '>
-                                <button onClick={() => {
-
-                                }} className="flex flex-row justify-center items-center space-x-2 w-full h-12.5  font-p15-CFD0E4-sem   bg-nb-435893 rounded-xl">
-                                    <FaceBooklogo />
-                                    <p>{t('header.login.loginMethodOne')}</p>
-                                </button>
+                            <div className=' w-full h-6 flex flex-row justify-center '><p className='font-p15-C8C8C8-sem'>{t('header.login.account')} <span onClick={() => loginSignStore.onchangeLogSignView(1)} className='font-p15-4C90FE-sem cursor-pointer'>{t('header.login.creatUser')}</span></p></div>
+                            <div>
+                                {
+                                    providers && Object.values(providers).map((provider: any) => (
+                                         <div className=' flex flex-row items-center mt-5' key={provider.name}>
+                                            <button onClick={() => signIn(provider.id)}
+                                                className="flex flex-row justify-center items-center space-x-2 w-full h-12.5  font-p15-CFD0E4-sem   bg-nb-435893 rounded-xl">
+                                               { provider.name === 'Facebook'? <FaceBooklogo />:<Googlelogo />}
+                                                <p>{t('header.login.loginMethodTwo')}</p>
+                                            </button>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                            <div className='h-20 flex flex-row items-center '><button onClick={() => signIn()} className="flex flex-row  justify-center items-center space-x-2 w-full h-12.5  font-p15-CFD0E4-sem   bg-black rounded-xl ">
-                                <Googlelogo />
-                                <p className='font-p15-ffffff-sem'>{t('header.login.loginMethodTwo')}</p>
-                            </button></div>
+                            
                         </div>
                     </div>
                 </div>
@@ -209,8 +213,13 @@ const SingUpModle = () => {
 
 export default observer(LogIn)
 
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...await serverSideTranslations(locale, ['common']),
-    },
-})
+
+export async function getServerSideProps({ ctx, locale }) {
+    const providers = await getProviders()
+    return {
+        props: {
+            providers,
+            ...await serverSideTranslations(locale, ['common']),
+        },
+    }
+}

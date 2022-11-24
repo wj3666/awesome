@@ -31,5 +31,8 @@ export default NextAuth({
         console.log("signIn",message)
     },
     async signOut(message) { console.log("signOut:",message) },
+  },
+  pages:{
+    signIn:'/login'
   }
 });

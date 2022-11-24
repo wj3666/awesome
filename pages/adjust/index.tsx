@@ -19,7 +19,7 @@ const Adjust = () => {
 const AdujstBlock = observer(() => {
   const onDrop = (e) => {
     // console.log("ee", e)
-    stores.compressStore.setImgListData(e);
+    stores.adjustStore.setImgListData(e);
     stores.adjustStore.changeIsShowChoseList(true);
       getImageWH(e)
   }
@@ -31,12 +31,15 @@ const AdujstBlock = observer(() => {
       stores.adjustStore.setDimensionsHeight(height)
     }
   }
-  
+  useEffect(()=>{
+     stores.adjustStore.init()
+
+  },[])
   return (
     <div className='flex flex-row justify-between h-full'>
       <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
         <div className='flex-grow flex flex-col items-center justify-center'>
-          {stores.compressStore.imgListData.length == 0 &&
+          {stores.adjustStore.imgListData.length == 0 &&
             <div>
               <div className='font-p36-ffffff-sem'>调整图像的大小</div>
               <div className='font-p20-FFFFFF-sem mt-10.5 w-147'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-sem italic'>JPG</span>、<span className='font-p20-4C90FE-sem italic'>PNG</span>、<span className='font-p20-4C90FE-sem italic'>SVG</span>或<span className='font-p20-4C90FE-sem italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</div>
@@ -44,11 +47,11 @@ const AdujstBlock = observer(() => {
           }
 
           <div className='mt-12.5 mb-4.5'>
-            {stores.compressStore.imgListData.length != 0 ?
+            {stores.adjustStore.imgListData.length != 0 ?
               <div className='mb-22'>
-                {stores.compressStore.imgListData.length > 1 ?
+                {stores.adjustStore.imgListData.length > 1 ?
                   <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
-                    {stores.compressStore.imgListData.map((item, idx) => {
+                    {stores.adjustStore.imgListData.map((item, idx) => {
                       return (
                         <div key={item.name + idx} className='w-85 h-82.75'>
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -68,7 +71,7 @@ const AdujstBlock = observer(() => {
                   </div>
                   :
                   <>
-                    {stores.compressStore.imgListData.map((item, idx) => {
+                    {stores.adjustStore.imgListData.map((item, idx) => {
                       return (
                         <div key={item.name + idx} className='w-85 h-82.75'>
                           <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -103,7 +106,7 @@ const AdujstBlock = observer(() => {
               </Dropzone>
             }
           </div>
-          {stores.compressStore.imgListData.length == 0 &&
+          {stores.adjustStore.imgListData.length == 0 &&
             <>
               <p className='font-p15-f9f9f9-re mb-5.75'>Or</p>
               <div className='flex flex-row'>
