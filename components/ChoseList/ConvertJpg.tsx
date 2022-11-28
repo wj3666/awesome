@@ -6,6 +6,10 @@ import { observer } from "mobx-react-lite";
 import { Circle } from 'rc-progress';
 
 const Index = observer(() => {
+    const onDrop = (e) => {
+        // console.log(e)
+        stores.convertJpgStore.setImgListData(e);
+    }
     const convertJpg =() => {
         stores.convertJpgStore.onChangeStartConvert(true)
         for (let i = 0; i < stores.convertJpgStore.imgListData.length; i++) {
@@ -43,7 +47,7 @@ const Index = observer(() => {
                             {/* 按钮 */}
                             <div className="flex items-center">
                                 <button className="w-10.5 h-10.5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
-                                    <Dropzone noDrag={true} onDrop={(e) => { }}>
+                                    <Dropzone noDrag={true} onDrop={(e) => { onDrop(e)}}>
                                         {({ getRootProps, getInputProps }) => (
                                             <div {...getRootProps()}>
                                                 <input {...getInputProps()} />

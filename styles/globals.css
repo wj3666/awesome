@@ -55,3 +55,6 @@ input::-webkit-inner-spin-button {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.selectBorder{
+  border: 1.5px solid rgba(162, 163, 188, 0.7);
+}

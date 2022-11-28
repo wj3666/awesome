@@ -9,7 +9,7 @@ import CompressChoseList from './ChoseList/Compress';
 import TailorChoseList from './ChoseList/Tailor';
 import Adjust from './ChoseList/Adjust';
 import ConvertJpg from './ChoseList/ConvertJpg'
-
+import JpgConvert from './ChoseList/JpgConvert'
 type Props = {
   currenTal?: string;
   children?: ReactNode
@@ -54,6 +54,9 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
                   :
                   router.pathname === "/convertjpg" ?  // 调整
                     stores.convertJpgStore.isShowChoseList && <ConvertJpg />
+                    :
+                    router.pathname === "/jpgconvert" ?  // 调整
+                    stores.jpgConvertStore.isShowChoseList && <JpgConvert />
                     :
                     <div></div>
           }

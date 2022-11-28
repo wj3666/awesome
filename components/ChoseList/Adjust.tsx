@@ -1,4 +1,4 @@
-import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive } from "../Svg";
+import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive,PixelAdd,PixleReduce } from "../Svg";
 import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
 import { observer } from "mobx-react-lite";
@@ -101,10 +101,10 @@ const Index = observer(() => {
                                         <div className="flex flex-row  w-72.5 mt-4 ">
                                             <div className={`flex flex-row items-center ${choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"} space-x-2 cursor-default`}
                                                 onClick={() => setchoiceMode(true)}>
-                                                {choiceMode ? <div className="border border-dashed border-gray-500"><ChoicePixel1 /></div> : <div className="border border-dashed border-gray-500"> <ChoicePixel2 /></div>}
+                                                {choiceMode ? <div className="border-2 border-dashed border-gray-500"><ChoicePixel1 /></div> : <div className="border-2 border-dashed border-gray-500"> <ChoicePixel2 /></div>}
                                                 <p>按像素</p></div>
                                             <div className={`flex flex-row items-center  ${!choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"}  font-p15-A2A3BA-w400 space-x-2 ml-14 cursor-default`}
-                                                onClick={() => setchoiceMode(false)}>{choiceMode ? <div className="border border-dashed border-gray-500"><ChoicePercentage2 /></div> : <div className="border border-dashed border-gray-500"> <ChoicePercentage1 /></div>}
+                                                onClick={() => setchoiceMode(false)}>{choiceMode ? <div className="border-2 border-dashed border-gray-500"><ChoicePercentage2 /></div> : <div className="border-2 border-dashed border-gray-500"> <ChoicePercentage1 /></div>}
                                                 <p>按百分比</p></div>
                                         </div>
                                         {/* 选择框条 */}
@@ -286,16 +286,7 @@ const Index = observer(() => {
     )
 })
 
-const PixelAdd = () => (
-    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7L4 1L8 7H0Z" fill="#CFD0E4" />
-    </svg>
-)
-const PixleReduce = () => (
-    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1L4 7L8 1H0Z" fill="#CFD0E4" />
-    </svg>
-)
+
 const AdjustLock = () => (
     <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.33957 6.4034H4.69786V4.38217C4.69786 3.66879 4.90374 3.11677 5.31551 2.72611C5.72727 2.33546 6.27005 2.14013 6.94385 2.14013C7.69251 2.14013 8.2852 2.33546 8.72192 2.72611C9.15865 3.11677 9.37701 3.66879 9.37701 4.38217V6.4034H11.6417V3.90658C11.6417 3.36306 11.5138 2.85633 11.258 2.38641C11.0022 1.91649 10.6591 1.50318 10.2286 1.1465C9.79813 0.789809 9.30526 0.509554 8.75 0.305732C8.19474 0.101911 7.61765 0 7.01872 0C6.34492 0 5.72415 0.101911 5.15642 0.305732C4.58868 0.509554 4.09581 0.789809 3.67781 1.1465C3.2598 1.50318 2.93226 1.91649 2.69519 2.38641C2.45811 2.85633 2.33957 3.36306 2.33957 3.90658V6.4034ZM13.635 7.75372C13.3917 7.53291 13.1016 7.42251 12.7647 7.42251H11.6417H9.37701H4.69786H2.33957H1.21658C0.879679 7.42251 0.592692 7.53291 0.355615 7.75372C0.118538 7.97452 0 8.23779 0 8.54352V13.9278C0 14.2109 0.0530303 14.477 0.159091 14.7261C0.265152 14.9752 0.414884 15.1932 0.608289 15.38C0.801693 15.5669 1.03565 15.7169 1.31016 15.8301C1.58467 15.9434 1.89037 16 2.22727 16H11.6791C12.016 16 12.3249 15.9434 12.6056 15.8301C12.8864 15.7169 13.1297 15.5612 13.3356 15.3631C13.5414 15.1649 13.7037 14.9328 13.8222 14.6667C13.9407 14.4006 14 14.1146 14 13.8089V8.54352C14 8.23779 13.8783 7.97452 13.635 7.75372Z" fill="#CFD0E4" />

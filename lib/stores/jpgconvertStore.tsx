@@ -1,6 +1,6 @@
 import { makeAutoObservable, toJS, runInAction } from "mobx";
-import { JpgConvert} from "../api/convertJpg";
-export default class ConvertJpgStore {
+import { ConvertJpg, JpgConvert } from "../api/convertJpg";
+export default class JpgconvertStore {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
@@ -10,7 +10,7 @@ export default class ConvertJpgStore {
     jpgUrl = [] //jpg文件存储路径
     process = [] //完成进程
     isStartConvert = false //是否开转换
-
+    isShowGiFMode=false  //是否显示GIF模块
     //初始化
     init = () => {
         this.imgListData = [] //初始传入的文件
@@ -20,6 +20,10 @@ export default class ConvertJpgStore {
         this.process = [] //完成进程
         this.isStartConvert = false //是否开转换
 
+    }
+    //设置gif显示
+    setIsShowGiFMode=(v:boolean)=>{
+        this.isShowGiFMode=v
     }
     //开始转换
     onChangeStartConvert(v: boolean) {
@@ -40,7 +44,7 @@ export default class ConvertJpgStore {
         this.isShowChoseList = v
     }
     //存图像文件+处理文件
-    uploadImage = (data: any, id: number) => {
+    uploadJPG = (data: any, id: number) => {
         JpgConvert.upload(data, id).then(res => {
             this.imgListConvertData[id].imgUrl = res
             console.log(this.imgListConvertData[id].imgUrl)

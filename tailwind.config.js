@@ -545,6 +545,7 @@ module.exports = {
         '.font-p15-FAB300-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#F29D8F', fontWeight: 500 },
         '.font-p15-4C90FE-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#4C90FE', fontWeight: 500 },
         '.font-p15-A2A3BA-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#A2A3BA', fontWeight: 400 },
+        '.font-p15-E4E4E4-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontWeight: 500 },
 
         '.font-p16-F9F9F9-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#F9F9F9', fontWeight: 700 },
         '.font-p16-A2A3BC-w400': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#A2A3BC', fontWeight: 400 },
@@ -553,6 +554,7 @@ module.exports = {
         '.font-p16-FFFFFF-w500': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontWeight: 500 },
         '.font-p16-FFFFFF-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontWeight: 600 },
         '.font-p18-FFFFFF-w500': { fontSize: '1.125rem', lineHeight: '1.3125rem', color: '#FFFFFF', fontWeight: 500 },
+        '.font-p16-4C90FE-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#4C90FE', fontWeight: 600 },
 
         '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 700 },
         '.font-p20-FFFFFF-w400': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 400 },

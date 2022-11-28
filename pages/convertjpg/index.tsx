@@ -10,6 +10,7 @@ import IconButton from '../../components/IconButton'
 
 const ConvertJpg = () => {
   useEffect(() => {
+    stores.convertJpgStore.init()
   }, [])
   return (
     <>

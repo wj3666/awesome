@@ -61,7 +61,7 @@ export default class AdjustStore {
     setAdjustLock(v: boolean) {
         this.adjustLock = v
     }
-    adjustWidth(id, value) {
+        adjustWidth(id, value) {
         var width = 0
         if (value == '' || isNaN(value)) {
             this.dimensionsHeight[id]=0
