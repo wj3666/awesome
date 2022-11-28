@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import Compressor from 'compressorjs';
 import { Circle } from 'rc-progress';
-import { toJS } from "mobx";
+
 
 const Index = observer(() => {
     const onDrop = (e) => {

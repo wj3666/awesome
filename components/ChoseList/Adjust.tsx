@@ -244,12 +244,15 @@ const Index = observer(() => {
                         </ul>
 
                         {/* 压缩按钮 */}
-                        <button className={`absolute bottom-9 w-60.5 h-14.5  rounded-4.5 font-p20-FFFFFF-w700  ${stores.adjustStore.adjustButton ? "bg-gray-500 cursor-not-allowed" : "bg-nb-2F63AE hover:opacity-90"}`}
+                        <button className={`absolute bottom-9 w-60.5 h-14.5  rounded-4.5 font-p20-FFFFFF-w700  ${stores.adjustStore.adjustButton ? "bg-gray-500 cursor-not-allowed" : "bg-nb-2F63AE hover:opacity-90"} 
+                        ${stores.adjustStore.isStartAdjust ? "bg-nb-191919" : "bg-nb-2F63AE"}
+                        `}
                             onClick={() => {
                                 if (stores.adjustStore.process.length != 0) {
                                     for (let i = 0; i < stores.adjustStore.imgURL.length; i++) {
                                         const link = document.createElement('a')
                                         link.style.display = 'none'
+                                        console.log(stores.adjustStore.imgURL[i])
                                         link.href = stores.adjustStore.imgURL[i]
                                         link.setAttribute(
                                             'download', ''
@@ -282,6 +285,7 @@ const Index = observer(() => {
         </div>
     )
 })
+
 const PixelAdd = () => (
     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7L4 1L8 7H0Z" fill="#CFD0E4" />

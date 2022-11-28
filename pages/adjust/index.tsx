@@ -42,7 +42,7 @@ const AdujstBlock = observer(() => {
           {stores.adjustStore.imgListData.length == 0 &&
             <div>
               <div className='font-p36-FFFFFF-w600'>调整图像的大小</div>
-              <div className='font-p20-FFFFFF-w400  mt-10.5 w-147'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-w600 italic'>JPG</span>、<span className='font-p20-4C90FE-w600 italic'>PNG</span>、<span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</div>
+              <div className='font-p20-FFFFFF-w400  mt-10.5 w-147'><p className='leading-10'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-w600 italic'>JPG</span>、<span className='font-p20-4C90FE-w600 italic'>PNG</span>、<span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</p></div>
             </div>
           }
 

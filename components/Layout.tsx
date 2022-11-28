@@ -8,8 +8,7 @@ import { useRouter } from 'next/router';
 import CompressChoseList from './ChoseList/Compress';
 import TailorChoseList from './ChoseList/Tailor';
 import Adjust from './ChoseList/Adjust';
-import { GetStaticProps } from 'next'
-import axios from 'axios';
+import ConvertJpg from './ChoseList/ConvertJpg'
 
 type Props = {
   currenTal?: string;
@@ -21,7 +20,7 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
   useEffect(() => {
     appStore.getUsers()
     if (localStorage.getItem("token") == null) {
-        loginSignStore.setTokenMessage(false)
+      loginSignStore.setTokenMessage(false)
     }
   }, [])
   return (
@@ -53,7 +52,10 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
                 router.pathname === "/adjust" ?  // 调整
                   stores.adjustStore.isShowChoseList && <Adjust />
                   :
-                  <div></div>
+                  router.pathname === "/convertjpg" ?  // 调整
+                    stores.convertJpgStore.isShowChoseList && <ConvertJpg />
+                    :
+                    <div></div>
           }
         </div>
       </div>

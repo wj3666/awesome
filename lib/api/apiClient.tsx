@@ -20,8 +20,8 @@ apiClient.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     const token = localStorage.getItem("token")
     //config请求对象
-    config.headers.Authorization = "bearer "+token //bearer:票根加不加无所谓
-    // console.log("config.header.Authorization:", config.headers.Authorization)
+    config.headers.Authorization = "bearer " + token //bearer:票根加不加无所谓
+    console.log("config.header.Authorization:", config.headers.Authorization)
     return config;
 }, function (error) {
     // 对请求错误做些什么
@@ -31,19 +31,13 @@ apiClient.interceptors.request.use(function (config) {
 
 apiClient.interceptors.response.use(
     function (response) {
-        // console.log("debug response data", response.data)
-        // console.log(response.data)
         let resp: generalResp = response.data;
         if (resp.code == 1) {
-            // console.log("dsadsa",response)
             response.data = resp.data;
-            // console.log("res.data:",response.data) 
             const { authorization } = response.headers
             authorization && localStorage.setItem("token", authorization)
             return response;
         } else {
-            // response.data = resp.msg;
-            // return response;
             return Promise.reject(resp.msg);
         }
     },
@@ -51,9 +45,6 @@ apiClient.interceptors.response.use(
         console.log("响应错误:", error.response)
         if (error.response?.status == 400) {
             localStorage.removeItem("token")
-        }
-        if(error.response?.status==500){
-            Router.push('/home')
         }
         return Promise.reject(error);
     }

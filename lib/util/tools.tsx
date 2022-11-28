@@ -79,6 +79,7 @@ export class NBString {
         var replaceSrc = evt.target.result
         var imageObj = new Image()
         imageObj.src = replaceSrc
+        console.log("路径",replaceSrc)
         imageObj.onload = function (): any {
           var width = imageObj.width
           var height = imageObj.height
@@ -108,6 +109,8 @@ export class NBString {
         ratio = 2
       } else if (multiple == 3) {
         ratio = 4
+      } else {
+        ratio = 1
       }
       width = width / ratio
       height = height / ratio

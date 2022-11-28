@@ -4,12 +4,13 @@ import homeStore from "./homeStore";
 import loginSign from "./loginSignStore";
 import paymentStore from "./paystore";
 import CompressStore from "./compressStore";
-
 import TailorStore from "./tailorStore";
 import AdjustStore from "./adjustStore";
+import ConvertJpgStore from "./convertjpgStore";
 const compressStore = new CompressStore();
 const tailorStore = new TailorStore();
 const adjustStore=new AdjustStore()
+const convertJpgStore=new ConvertJpgStore()
 const stores = {
     appStore:appStore,
     loginSignStore:loginSign,
@@ -17,7 +18,8 @@ const stores = {
     paymentStore:paymentStore,
     compressStore,
     tailorStore,
-    adjustStore
+    adjustStore,
+    convertJpgStore
 }
 export default stores;
 

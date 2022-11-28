@@ -133,11 +133,12 @@ export default class AdjustStore {
     adjustUpload = (file: any,i:number) => {
         AdjustApi.updateSize(file,i).then(
             data => {
-                console.log("返回的路径",data)
+                // console.log("返回的路径",data)
                 this.imgListAdjustData[i].imgURL=data;
                 console.log(this.imgListAdjustData[i].imgURL)
                 runInAction(()=>{
                     this.imgURL=this.imgURL.concat(data)
+                    this.isStartAdjust=false
                 })
             })
     }
