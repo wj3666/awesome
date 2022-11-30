@@ -26,7 +26,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/api/auth/[...nextauth].js", "pages/api/_middlewarejs", "middleware.ts", "lib/util/convertjpg.js"  ],
+, "pages/api/auth/[...nextauth].js", "pages/api/_middlewarejs", "middleware.ts", "lib/util/convertjpg.js", "lib/util/APITools.js", "pages/api/jpgconvert/upload.js"  ],
   "exclude": [
     "node_modules"
   ],

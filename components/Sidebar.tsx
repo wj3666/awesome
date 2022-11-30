@@ -139,13 +139,13 @@ function Sidebar() {
         // </div>
         // </div>
         <div className={`outer-container bg-nb-sidebar-grey ${appStore.showMenu ? " transition-width duration-300 1279sc-max:w-17 w-20 " : " transition-width duration-500  1279sc-max:w-17 w-60.5"}`}>
-            <div className='inner-container pt-23'>
+            <div className='inner-container  pt-23'>
                 <div className='pb-5'>
                     {tabNav.tabsMap.map(function (data, index) {
                         return (
                             <Link href={data.link} key={data.name}>
                                 <button
-                                    className={`flex flex-row h-15 justify-start 1279sc-max:justify-center items-center w-full pl-7.75 1279sc-max:pl-0 ${appStore.showMenu && 'pl-0 justify-center'}  ${tabNav.isSelected(data, pathName)
+                                    className={` flex flex-row h-15 justify-start 1279sc-max:justify-center items-center w-full pl-7.75 1279sc-max:pl-0 ${appStore.showMenu && 'pl-0 justify-center'}  ${tabNav.isSelected(data, pathName)
                                         ? "bg-nb-2F63AE"
                                         : "bg-transparent hover:bg-nb-0E0E12"
                                         }`}

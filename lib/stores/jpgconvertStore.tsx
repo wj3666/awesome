@@ -10,7 +10,14 @@ export default class JpgconvertStore {
     jpgUrl = [] //jpg文件存储路径
     process = [] //完成进程
     isStartConvert = false //是否开转换
-    isShowGiFMode=false  //是否显示GIF模块
+    isShowGiFMode = false  //是否显示GIF模块
+    GIFSeconds = '0.5' //gif每张间隔多少秒
+    isPlayBack = false //是否循环
+    addGIF = 0  //加数
+    choiceMode = false   //gif静态还是动态
+    moveUrl=[]   //得到动态图片存储的位置
+    gifUrl=''   //得到合成的gif存储位置
+    isFinish=false  //是否完成动态的gif转换
     //初始化
     init = () => {
         this.imgListData = [] //初始传入的文件
@@ -19,15 +26,34 @@ export default class JpgconvertStore {
         this.jpgUrl = [] //jpg文件存储路径
         this.process = [] //完成进程
         this.isStartConvert = false //是否开转换
+        this.isShowGiFMode = false  //是否显示GIF模块
+        this.GIFSeconds = '0.5' //gif每张间隔多少秒
+        this.isPlayBack = false //是否循环
+        this.addGIF = 0  //加数
+        this.choiceMode = false   //静态还是动态
 
     }
     //设置gif显示
-    setIsShowGiFMode=(v:boolean)=>{
-        this.isShowGiFMode=v
+    setIsShowGiFMode = (v: boolean) => {
+        this.isShowGiFMode = v
+    }
+    //设置静态或者动态
+    setChoiceMode = (v: boolean) => {
+        this.choiceMode = v
     }
     //开始转换
     onChangeStartConvert(v: boolean) {
         this.isStartConvert = v;
+    }
+    //从gif返回png
+    pngInit=()=>{
+        this.process=[]
+        for(let i=0;i<this.imgListConvertData.length;i++){
+            this.imgListConvertData[i].imgUrl=undefined
+        }
+        this.jpgUrl=[]
+        this.onChangeStartConvert(false)
+        this.setIsShowGiFMode(false)
     }
     //输入文件
     setImgListData = (data) => {
@@ -43,9 +69,36 @@ export default class JpgconvertStore {
     changeIsShowChoseList = (v: boolean) => {
         this.isShowChoseList = v
     }
-    //存图像文件+处理文件
-    uploadJPG = (data: any, id: number) => {
-        JpgConvert.upload(data, id).then(res => {
+    changeIsPlayBack = (v: boolean) => {
+        this.isPlayBack = v
+    }
+    //输入秒数
+    inputGIFSeconds = (value: any) => {
+        value = value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, '')
+        if (value != '') {
+        }
+        this.GIFSeconds = value
+
+    }
+    //增加秒数
+    addGIFSeccons = () => {
+        this.addGIF++
+        this.GIFSeconds = this.addGIF.toString()
+    }
+    //减少秒数
+    reduceGIFSeconds = () => {
+        if (parseFloat(this.GIFSeconds) < 1) {
+            this.GIFSeconds = '0'
+            return
+        } else {
+            let value = parseFloat(this.GIFSeconds)
+            value--
+            this.GIFSeconds = value.toString()
+        }
+    }
+    //存图像文件jpg转换为png
+    uploadJPG = (data: any, id: number, GIFMode: boolean) => {
+        JpgConvert.upload(data, id, GIFMode).then(res => {
             this.imgListConvertData[id].imgUrl = res
             console.log(this.imgListConvertData[id].imgUrl)
             runInAction(() => {
@@ -54,6 +107,21 @@ export default class JpgconvertStore {
             })
         })
     }
-
-
+    //存储准备转换成动态GIF的jpg
+    uploadGIF = (data: any, id:number) => {
+        JpgConvert.uploadGIF(data,id).then(res=>{
+        this.imgListConvertData[id].imgUrl = res
+         this.moveUrl=this.moveUrl.concat(res)
+        })
+    }
+    //生成动态gif
+    createMoveGIF=(moveUrl,seconds:string,playBack:boolean,width:number,height:number)=>{
+        JpgConvert.convertGIF(moveUrl,seconds,playBack,width,height).then(res=>{
+            runInAction(() => {
+                this.jpgUrl = this.jpgUrl.concat(res)
+                this.isStartConvert = false;
+                this.isFinish=true;
+            })
+        })
+    }
 }

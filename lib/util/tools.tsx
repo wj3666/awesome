@@ -1,4 +1,3 @@
-import stores from "../stores/stores";
 
 export class NBString {
   static truncateString(str: string, beforeLimit: number, afterLimit: number) {
@@ -79,7 +78,7 @@ export class NBString {
         var replaceSrc = evt.target.result
         var imageObj = new Image()
         imageObj.src = replaceSrc
-        console.log("路径",replaceSrc)
+        console.log("路径", replaceSrc)
         imageObj.onload = function (): any {
           var width = imageObj.width
           var height = imageObj.height
@@ -176,5 +175,6 @@ export class NBString {
       return false
     }
   }
+
 }
 

@@ -1,4 +1,4 @@
-import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive,PixelAdd,PixleReduce } from "../Svg";
+import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive,PixelAdd,PixleReduce,SaveSvg } from "../Svg";
 import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
 import { observer } from "mobx-react-lite";
@@ -303,12 +303,5 @@ const SelectMult = () => (
         <path d="M6.02905 11.0784L10.141 15.3413L16.0291 7.34131" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 )
-const SaveSvg = () => (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0909 4.04545C13.9909 4.04545 14.7273 4.78182 14.7273 5.68182V6.5H0V3.63636C0 2.73636 0.736364 2 1.63636 2H5.72727C5.97273 2 6.21818 2.12273 6.38182 2.28636L7.52727 3.71818C7.69091 3.92273 7.93636 4.04545 8.18182 4.04545H13.0909ZM11.0864 7.72727C10.0636 8.62727 9.40909 9.93636 9.40909 11.4091C9.40909 12.8818 10.0636 14.1909 11.0864 15.0909H1.63636C0.736364 15.0909 0 14.3545 0 13.4545V7.72727H11.0864Z" fill="#E4E4E4" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.3182 7.72729C12.2727 7.72729 10.6364 9.36366 10.6364 11.4091C10.6364 13.4546 12.2727 15.0909 14.3182 15.0909C16.3636 15.0909 18 13.4546 18 11.4091C18 9.36366 16.3636 7.72729 14.3182 7.72729ZM14.7273 9.36366V9.77275C14.7273 10.0182 14.5636 10.1818 14.3182 10.1818C14.0727 10.1818 13.9091 10.0182 13.9091 9.77275V9.36366H14.7273ZM15.5454 13.4546C15.9954 13.4546 16.3636 13.0864 16.3636 12.6364V10.1818C16.3636 9.73184 15.9954 9.36366 15.5454 9.36366H15.1364V10.5909C15.1364 10.8364 14.9727 11 14.7273 11H13.9091C13.6636 11 13.5 10.8364 13.5 10.5909V9.36366H13.0909C12.6409 9.36366 12.2727 9.73184 12.2727 10.1818V12.6364C12.2727 13.0864 12.6409 13.4546 13.0909 13.4546H15.5454Z" fill="#E4E4E4" />
-        <path d="M15.5455 11.8181H13.0909C12.8455 11.8181 12.6818 11.9818 12.6818 12.2272C12.6818 12.4727 12.8455 12.6363 13.0909 12.6363H15.5455C15.7909 12.6363 15.9546 12.4727 15.9546 12.2272C15.9546 11.9818 15.7909 11.8181 15.5455 11.8181Z" fill="#E4E4E4" />
-    </svg>
 
-)
 export default Index;
