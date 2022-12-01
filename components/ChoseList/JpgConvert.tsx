@@ -34,6 +34,10 @@ const PngMode = observer(() => {
             stores.jpgConvertStore.uploadJPG(fileInfo, i, stores.jpgConvertStore.isShowGiFMode)
         }
     }
+    //清除文件夹
+    const MkdirFile = (filePath: string) => {
+        stores.appStore.MkdirFile(filePath)
+    }
     return (
         <>
             <div className='flex-none w-72.5 pt-23 sticky top-0 h-screen'>
@@ -192,6 +196,7 @@ const PngMode = observer(() => {
                                             document.body.appendChild(link)
                                             link.click()
                                         }
+
                                     } else {
                                         jpgConvertPNG()
                                     }
@@ -219,6 +224,10 @@ const GifMode = observer(() => {
             alert('请导入正确格式的图片')
             return
         }
+    }
+    //清除文件夹
+    const MkdirFile = (filePath: string) => {
+        stores.appStore.MkdirFile(filePath)
     }
     //静态gif
     const jpgConvertStaticGIF = () => {
@@ -279,8 +288,13 @@ const GifMode = observer(() => {
                             </div>
                             <div className="flex flex-row  w-72.5 mt-4 ">
                                 <div className={`flex flex-row items-center ${!stores.jpgConvertStore.choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"} space-x-2 cursor-default`}
-                                    onClick={() => stores.jpgConvertStore.setChoiceMode(false)}>
-                                    {!stores.jpgConvertStore.choiceMode ? <div className="border-2 border-dashed border-gray-500"><StaticGIF1 /></div> : <div className="border-2 border-dashed border-gray-500"><StaticGIF2 /></div>}
+                                    onClick={() => {
+                                        if (stores.jpgConvertStore.process.length != 0) {
+                                           return
+                                        }
+                                        stores.jpgConvertStore.setChoiceMode(false)
+                                    }}>
+                                    {!stores.jpgConvertStore.choiceMode ? <div><StaticGIF1 /></div> : <div><StaticGIF2 /></div>}
                                     <p>静态GIF</p></div>
                                 <div id="moveGIF" className={`flex flex-row items-center  ${stores.jpgConvertStore.choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"}  font-p15-A2A3BA-w400 space-x-2 ml-14 cursor-default
                                 ${stores.jpgConvertStore.imgListConvertData.length < 2 ? "cursor-not-allowed" : ""}`}
@@ -288,9 +302,12 @@ const GifMode = observer(() => {
                                         if (stores.jpgConvertStore.imgListConvertData.length < 2) {
                                             return
                                         } else {
+                                            if (stores.jpgConvertStore.process.length != 0) {
+                                                return
+                                            }
                                             stores.jpgConvertStore.setChoiceMode(true)
                                         }
-                                    }}>{stores.jpgConvertStore.choiceMode ? <div className="border-2 border-dashed border-gray-500"><MoveGIF1 /></div> : <div className="border-2 border-dashed border-gray-500"><MoveGIF2 /></div>}
+                                    }}>{stores.jpgConvertStore.choiceMode ? <div><MoveGIF1 /></div> : <div><MoveGIF2 /></div>}
                                     <p>动态GIF</p>
                                 </div>
                                 {toolBox ? <div className=" rounded-2xl bg-nb-sidebar-grey shadow-card fixed right-1 top-54 font-p13-FFFFFF-w400 ">选择2个或更多图片来激活</div> : ""}
@@ -343,7 +360,7 @@ const GifMode = observer(() => {
                             {stores.jpgConvertStore.process.length != 0 ?
                                 <div>
                                     <div className='flex items-center cursor-pointer py-5.25'>
-                                        <div className="border-2 border-dashed border-gray-500"><SaveSvg /></div>
+                                        <div><SaveSvg /></div>
                                         <p className='font-p15-E4E4E4-w400 ml-3 '>存储</p>
                                     </div>
                                     {/* 按钮 */}
@@ -495,7 +512,7 @@ const GifMode = observer(() => {
                                             document.body.appendChild(link)
                                             link.click()
                                         }
-
+                                        MkdirFile('public/jpgConvert')
                                     } else {
                                         if (stores.jpgConvertStore.choiceMode) {
                                             jpgConvertMoveGIF()

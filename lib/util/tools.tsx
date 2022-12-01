@@ -1,4 +1,3 @@
-
 export class NBString {
   static truncateString(str: string, beforeLimit: number, afterLimit: number) {
     if (str?.length < (beforeLimit * 2)) {
@@ -78,7 +77,6 @@ export class NBString {
         var replaceSrc = evt.target.result
         var imageObj = new Image()
         imageObj.src = replaceSrc
-        console.log("路径", replaceSrc)
         imageObj.onload = function (): any {
           var width = imageObj.width
           var height = imageObj.height
@@ -175,6 +173,5 @@ export class NBString {
       return false
     }
   }
-
 }
 

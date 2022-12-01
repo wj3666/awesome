@@ -99,7 +99,14 @@ class AppStore {
             }
         )
     }
-
+    //清除文件夹
+    MkdirFile=(filePath:string)=>{
+        HomeApi.MkdirFile(filePath).then(
+            data=>{
+                console.log(data)
+            }
+        )
+    }
 }
 const appStore = new AppStore
 export default appStore

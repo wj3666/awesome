@@ -45,6 +45,17 @@ const Index = observer(() => {
                                 <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
                             </div>
                             {/* 按钮 */}
+                            {
+                                stores.convertJpgStore.process.length!=0?
+                                <div className="flex items-center opacity-50">
+                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                    <IconFolderGoogleDrive />
+                                </button>
+                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                    <IconDropbox />
+                                </button>
+                            </div>
+                            :
                             <div className="flex items-center">
                                 <button className="w-10.5 h-10.5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
                                     <Dropzone noDrag={true} onDrop={(e) => { onDrop(e)}}>
@@ -63,6 +74,7 @@ const Index = observer(() => {
                                     <IconDropbox />
                                 </button>
                             </div>
+                            }
                         </div>
                         {/* 水平线 */}
                         <div className='w-full h-0.25 my-4.375 bg-nb-222325' />

@@ -1,3 +1,4 @@
+import { chownSync } from "fs";
 import { makeObservable, observable, action, computed, runInAction, toJS } from "mobx";
 import { CompressApi, ImgUrlData, ProcessData } from "../api/compress";
 
@@ -45,8 +46,6 @@ export default class CompressStore {
         this.imgListCompressData[i].process = data;
         this.process = this.process.concat([{process:data,idx:i}]);
     }
-
-    
     @action upload(file, i: number){
         CompressApi.upload(file, i).then(
             data => {

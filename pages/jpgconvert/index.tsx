@@ -78,7 +78,6 @@ const JpgConvertPage = observer(() => {
           ADs
         </div>
       </div>
-
     </div>
   )
 })

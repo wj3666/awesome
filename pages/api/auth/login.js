@@ -10,13 +10,15 @@ const handle = nc().post(async (req, res) => {
   let image=req.body.data.user.image
 
   var isExist = await SQL.getUserEamil(email);
+  console.log("1111",isExist)
   if (isExist.length != 0) {
+    console.log("!!!1")
     const token = JWT.generate({ email }, "12h");
     res.header("Authorization", token);
     res.send({ code: 1, data: "success" });
   } else {
-     await SQL.insertUserSql(email, name,image);
-    const token = JWT.generate({ value }, "12h");
+    await SQL.insertUserSql(email, name,image);
+    const token = JWT.generate({ email }, "12h");
     res.header("Authorization", token);
     res.send({ code: 1, data: "success" });
   }

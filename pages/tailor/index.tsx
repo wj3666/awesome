@@ -30,8 +30,9 @@ const TailorPage = observer(() => {
 
 
   return (
+    <>
     <div className='flex flex-col items-center w-full h-full justify-center'>
-      <div className={`flex flex-col items-center justify-center ${stores.tailorStore.isShowChoseList && 'h-full'}`}>
+      <div className={` flex flex-col items-center justify-between ${stores.tailorStore.isShowChoseList && 'h-full'}`}>
         {!stores.tailorStore.isShowChoseList &&
           <div>
             <p className='font-p36-FFFFFF-w600'>调整图像的大小</p>
@@ -73,6 +74,10 @@ const TailorPage = observer(() => {
         }
       </div>
     </div>
+    <div className='flex-none  w-187.5 h-27.25 mx-auto  bg-nb-2E2F30 text-safe'>
+          ADs
+      </div>
+    </>
   )
 })
 

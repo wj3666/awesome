@@ -1,6 +1,5 @@
 import stores from "../stores/stores";
 import apiClient from "./apiClient"
-
 //其他格式转换为jpg
 export const ConvertJpg = {
     upload: async (fileInfo: any, i: number) => {
@@ -18,7 +17,7 @@ export const ConvertJpg = {
 }
 //jpg转换为png或静态gif
 export const JpgConvert={
-    upload: async (fileInfo: any, i: number,GIFMode:boolean) => {
+    uploadPNG: async (fileInfo: any, i: number,GIFMode:boolean) => {
         const res = await apiClient.post(`jpgconvert/upload`,
             fileInfo,
             { 
@@ -30,7 +29,7 @@ export const JpgConvert={
         const data = res.data
         return data
     },
-    //jpg转换为gif
+    //jpg转换为动态gif
     uploadGIF:async (fileInfo:any,id:number)=>{
         const res=await apiClient.post(`jpgconvert/uploadGIF`,
             fileInfo,)

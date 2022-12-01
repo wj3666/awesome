@@ -29,7 +29,6 @@ const LogIn = ({ providers }) => {
 //登录
 const LoginMoal = observer(({ providers }: any) => {
     const { data: session } = useSession()
-    // console.log("session", session)
     const { t } = useTranslation('common');
     const [emailVal, setUserName] = useState('')
     const [password, setPassword] = useState('')
@@ -146,9 +145,10 @@ const SingUpModle = () => {
         setPwdTip(pwdErr)
         if (emailErr == 0 && pwdErr == 0) {
             loginSignStore.register(emailVal, password)
-            setEmailTip(3)
+            if(stores.loginSignStore.registerErr){
+                setEmailTip(3)
+            }
         }
-
     }
     return (
         <>

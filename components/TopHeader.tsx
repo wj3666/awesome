@@ -106,7 +106,7 @@ function TopHeader() {
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
                             <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{seesion.user.email}</span>
-                                {appStore.userPrivilege ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
+                                {appStore.userPrivilege ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
                             </div>
                             <p className='font-p13-A2A3BC-w400'>{seesion.user.name}</p>
                         </div>
@@ -128,51 +128,53 @@ function TopHeader() {
                             }}><RctangleDown /></button >
                         }
                     </div>
-                </div> : <div ref={elementRef} className={`fixed rounded-2xl ${rctangle ? 'h-41' : 'h-29'} w-59 h-55 right-10 top-20 `}>
-                    <div className='absolute w-16 h-16  rounded-full left-20 top-6 border border-222325 overflow-hidden'>
-                        <button
-                            onClick={(e) => {
-                                stopPropagation(e)
-                                avatarImgRef.current.click()
-                            }}
-                            className="relative">
-                            {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${appStore.user.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
-                            <div>
-                                <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
+                </div>
+                    :
+                    <div ref={elementRef} className={`fixed rounded-2xl ${rctangle ? 'h-41' : 'h-29'} w-59 h-55 right-10 top-20 `}>
+                        <div className='absolute w-16 h-16  rounded-full left-20 top-6 border border-222325 overflow-hidden'>
+                            <button
+                                onClick={(e) => {
                                     stopPropagation(e)
-                                    e.currentTarget.value = null
-                                }} onChange={(e) => avatarUpload(e)} />
-                            </div>
-                        </button>
-                    </div>
-                    <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
-                    <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
-                        <div className='w-full h-9 bg-white invisible  '></div>
-                        <div className='flex flex-col w-59 h-16 '>
-                            <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{appStore.user.email}</span>
-                                {appStore.userPrivilege ? <div className='h-5 flex flex-col justify-end'><VIPlogo /></div> : ""}
-                            </div>
-                            <p className='font-p13-A2A3BC-w400'>用户名字</p>
-                        </div>
-                        <div> </div>
-                        <div className='w-4/5 border border-black '></div>
-                        {rctangle ?
-                            <div className=' rounded-b-2xl w-59 h-16'>
-                                <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
-                                    <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-w400'>{t('header.userHeader.userSetting')}</p></div>
-                                    <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => handleExit()}><Userexit /><p className='font-p13-CFD0E4-w400 cursor-default'>{t('header.userHeader.logout')}</p></div>
+                                    avatarImgRef.current.click()
+                                }}
+                                className="relative">
+                                {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${appStore.user.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                                <div>
+                                    <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
+                                        stopPropagation(e)
+                                        e.currentTarget.value = null
+                                    }} onChange={(e) => avatarUpload(e)} />
                                 </div>
-                                <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
-                                    handleChange(e)
-                                }
-                                }><RctangleTop /></button>
+                            </button>
+                        </div>
+                        <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
+                        <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
+                            <div className='w-full h-9 bg-white invisible  '></div>
+                            <div className='flex flex-col w-59 h-16 '>
+                                <div className='flex flex-row justify-center space-x-1'><span className=' font-p15-FFFFFF-w500'>{appStore.user.email}</span>
+                                    {appStore.userPrivilege ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
+                                </div>
+                                <p className='font-p13-A2A3BC-w400'>用户名字</p>
                             </div>
-                            : <button className='flex flec-row justify-center items-end w-full h-3 ' onClick={(e) => {
-                                handleChange(e)
-                            }}><RctangleDown /></button >
-                        }
-                    </div>
-                </div> : ""
+                            <div> </div>
+                            <div className='w-4/5 border border-black '></div>
+                            {rctangle ?
+                                <div className=' rounded-b-2xl w-59 h-16'>
+                                    <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
+                                        <div className='  flex felx-row space-x-1'><Userseting /><p className='font-p13-CFD0E4-w400'>{t('header.userHeader.userSetting')}</p></div>
+                                        <div className='  flex felx-row space-x-1 curcos-pointer' onClick={() => handleExit()}><Userexit /><p className='font-p13-CFD0E4-w400 cursor-default'>{t('header.userHeader.logout')}</p></div>
+                                    </div>
+                                    <button className='flex flec-row justify-center items-start w-full h-3 ' onClick={(e) => {
+                                        handleChange(e)
+                                    }
+                                    }><RctangleTop /></button>
+                                </div>
+                                : <button className='flex flec-row justify-center items-end w-full h-3 ' onClick={(e) => {
+                                    handleChange(e)
+                                }}><RctangleDown /></button >
+                            }
+                        </div>
+                    </div> : ""
             }
             <div className='flex flex-row justify-between  min-w-full  bg-nb-sidebar-grey h-23'>
                 <div className='h-23 pr-6.75 flex flex-row justify-start items-center bg-nb-sidebar-grey w-60.75 border-r border-nb-191919'>
@@ -183,7 +185,7 @@ function TopHeader() {
                 </div>
 
                 <div className='  1279sc-max:w-60 w-80   flex flex-row justify-around items-center'>
-                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'> <div className="border-2 border-dashed border-gray-500"><Subscribe /></div><p className=' font-p15-FFFFFF-w500'>{t('header.subscribe')}</p></div></Link></button>
+                    <button className=' 519sc-max:hidden 640sc 1280sc:w-15 1600sc:w-15  '><Link href={'subscribe'}><div className='flex flex-row justify-between  w-15  items-center space-x-1'> <div><Subscribe /></div><p className=' font-p15-FFFFFF-w500'>{t('header.subscribe')}</p></div></Link></button>
                     <button className='519sc-max:hidden 1279sc:w-15 w-12' onClick={(e) => {
                         setIsShowSwitchLanguage(!isShowSwitchLanguage)
                         setHanderUser(false)

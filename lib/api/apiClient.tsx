@@ -9,7 +9,7 @@ type generalResp = {
 }
 const apiClient = axios.create({
     baseURL: SERVER_BASE_URL,
-    timeout: 30000,
+    timeout: 600000,
 })
 // apiClient.defaults.headers.post["Content-Type"] =
 //   "application/x-www-form-urlencoded";

@@ -29,4 +29,11 @@ export const HomeApi={
         const data = response.data;
         return data;
     },
+    MkdirFile:async (filePath:string)=>{
+        const res=await  apiClient.post(`/mkdirfile`,{
+            filePath
+        })
+        const data=res.data
+        return data
+    }
 }

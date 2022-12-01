@@ -89,12 +89,6 @@ const Allcategory = () => {
         url: "htmlconvert",
         name: "HTML转图片",
         content: "将HTML中的网页转换为JPG或SVG。复制并粘贴网页的URL链接，然后单击，将其转换为图片。"
-      },
-      {
-        id: 11,
-      },
-      {
-        id: 12,
       }
     ]
   }
@@ -136,7 +130,7 @@ const Allcategory = () => {
               onClick={()=>{
                 router.push(item.url)
               }}
-              className='px-5 pt-5 pb-6.25 bg-nb-2E2F30 flex rounded-md shadow-card cursor-pointer'>
+              className='px-5 pt-5 pb-6.25 bg-nb-2E2F30 flex rounded-md shadow-card cursor-pointer 1279sc-max:h-37 h-50'>
                 <div>{item.svg}</div>
                 <div className='ml-4.5 text-left'>
                   <p className='font-p16-F9F9F9-w700'>{t(`sidebar.${index + 1}`)}</p>

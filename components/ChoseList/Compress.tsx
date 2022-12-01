@@ -14,7 +14,7 @@ const Index = observer(() => {
         stores.compressStore.setImgListData(e);
         stores.compressStore.changeIsShowChoseList(true);
     }
-    const compressImg =  () => {
+    const compressImg = () => {
         stores.compressStore.onChangeStartCompress(true);
         for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
             if (stores.appStore.userPrivilege) {
@@ -143,6 +143,13 @@ const Index = observer(() => {
                                         link.click()
                                     }
                                 } else {
+                                    if (stores.compressStore.imgListCompressData.length == 1) {
+                                        if (NBString.getImgSizeMb(stores.compressStore.imgListCompressData[0].size) >= 5) {
+                                            if (!stores.appStore.userPrivilege) {
+                                                return
+                                            }
+                                        }
+                                    }
                                     compressImg()
                                 }
                             }}

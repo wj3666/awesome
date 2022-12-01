@@ -20,6 +20,7 @@ class LoginSign {
             if(data==='success'){
                 console.log("注册成功")
                 this.onchangeLogSignView(0)
+                this.registerErr=false
             }else{
                 this.registerErr=true
             }

@@ -1,5 +1,6 @@
 import { makeAutoObservable, toJS, runInAction } from "mobx";
 import { ConvertJpg, JpgConvert } from "../api/convertJpg";
+
 export default class JpgconvertStore {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -98,7 +99,7 @@ export default class JpgconvertStore {
     }
     //存图像文件jpg转换为png
     uploadJPG = (data: any, id: number, GIFMode: boolean) => {
-        JpgConvert.upload(data, id, GIFMode).then(res => {
+        JpgConvert.uploadPNG(data, id, GIFMode).then(res => {
             this.imgListConvertData[id].imgUrl = res
             console.log(this.imgListConvertData[id].imgUrl)
             runInAction(() => {
@@ -117,11 +118,15 @@ export default class JpgconvertStore {
     //生成动态gif
     createMoveGIF=(moveUrl,seconds:string,playBack:boolean,width:number,height:number)=>{
         JpgConvert.convertGIF(moveUrl,seconds,playBack,width,height).then(res=>{
-            runInAction(() => {
-                this.jpgUrl = this.jpgUrl.concat(res)
-                this.isStartConvert = false;
-                this.isFinish=true;
-            })
+            if(res=='error'){
+                console.log(res)
+            }else{
+                runInAction(() => {
+                    this.jpgUrl = this.jpgUrl.concat(res)
+                    this.isStartConvert = false;
+                    this.isFinish=true;
+                })
+            }
         })
     }
 }

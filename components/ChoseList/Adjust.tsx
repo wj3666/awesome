@@ -1,4 +1,4 @@
-import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive,PixelAdd,PixleReduce,SaveSvg } from "../Svg";
+import { ChoicePercentage1, ChoicePercentage2, ChoicePixel1, ChoicePixel2, IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive, PixelAdd, PixleReduce, SaveSvg } from "../Svg";
 import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
 import { observer } from "mobx-react-lite";
@@ -23,11 +23,10 @@ const Index = observer(() => {
             name: "缩小75%"
         }
     ]
-    const [Lock, setLock] = useState(true)
     const [choiceMode, setchoiceMode] = useState(true)  //true像素,false百分比
-    const setImageWH = (files, widths, heights,multiple) => {
+    const setImageWH = (files, widths, heights, multiple) => {
         for (let i = 0; i < files.length; i++) {
-            NBString.setImgWidHeigth(files[i], widths[i], heights[i],multiple).then(data => {
+            NBString.setImgWidHeigth(files[i], widths[i], heights[i], multiple).then(data => {
                 console.log(data)
                 let fileInfo = new FormData()
                 if (data) {
@@ -57,7 +56,7 @@ const Index = observer(() => {
                                 <>
                                     <div>
                                         <div className='flex items-center cursor-pointer py-5.25'>
-                                            <div className="border border-dashed border-gray-500"><SaveSvg /></div>
+                                            <div><SaveSvg /></div>
 
                                             <p className='font-p15-E4E4E4-w400 ml-3'>存储</p>
                                         </div>
@@ -79,12 +78,11 @@ const Index = observer(() => {
                                     <>
                                         <div>
                                             <div className='flex items-center cursor-pointer py-5.25'>
-                                                <div className="border border-dashed border-gray-500"><SaveSvg /></div>
-                                                <p className='font-p14-CFD0E4-w400 pr-7'>所有图片尺寸调整完成，同时保持最佳质量和大小比例</p>
+                                                <div><SaveSvg /></div>
                                                 <p className='font-p15-E4E4E4-w400 ml-3'>存储</p>
                                             </div>
                                             {/* 按钮 */}
-                                            <div className="flex flex-row w-full justify-start ">
+                                            <div className="f   lex flex-row w-full justify-start ">
                                                 <button className="w-10.5 h-10.5  flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
                                                     <IconFolderGoogleDrive />
                                                 </button>
@@ -101,16 +99,49 @@ const Index = observer(() => {
                                         <div className="flex flex-row  w-72.5 mt-4 ">
                                             <div className={`flex flex-row items-center ${choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"} space-x-2 cursor-default`}
                                                 onClick={() => setchoiceMode(true)}>
-                                                {choiceMode ? <div className="border-2 border-dashed border-gray-500"><ChoicePixel1 /></div> : <div className="border-2 border-dashed border-gray-500"> <ChoicePixel2 /></div>}
+                                                {choiceMode ? <div ><ChoicePixel1 /></div> : <div> <ChoicePixel2 /></div>}
                                                 <p>按像素</p></div>
                                             <div className={`flex flex-row items-center  ${!choiceMode ? "font-p18-FFFFFF-w500" : "font-p15-A2A3BA-w400"}  font-p15-A2A3BA-w400 space-x-2 ml-14 cursor-default`}
-                                                onClick={() => setchoiceMode(false)}>{choiceMode ? <div className="border-2 border-dashed border-gray-500"><ChoicePercentage2 /></div> : <div className="border-2 border-dashed border-gray-500"> <ChoicePercentage1 /></div>}
+                                                onClick={() => setchoiceMode(false)}>{choiceMode ? <div><ChoicePercentage2 /></div> : <div> <ChoicePercentage1 /></div>}
                                                 <p>按百分比</p></div>
                                         </div>
                                         {/* 选择框条 */}
                                         <div className={`w-26 h-1 mt-1 bg-nb-4C90FE ${choiceMode ? "" : "ml-40"}`} />
                                         {/* 水平线 */}
                                         <div className='w-full h-0.25  bg-nb-222325' />
+                                        {
+                                            choiceMode ?
+                                                "" :
+                                                <>
+                                                    <div className="w-full  ">
+                                                        <div className="w-70 max-w-md  py-3 ">
+                                                            <Tab.Group
+                                                                onChange={(indexs) => setMultiple(indexs + 1)}
+                                                            >
+                                                                <Tab.List className="flex flex-col  w-70 ">
+                                                                    {categories.map((category, index) => {
+                                                                        return (
+                                                                            <>
+                                                                                <Tab  >
+                                                                                    {({ selected }) => (
+                                                                                        <div className={`${selected ? 'bg-nb-222325 ' : ''} flex flex-row justify-between items-center w-70  h-12 '`} >
+                                                                                            <p className="ml-4 font-p16-FFFFFF-w600">{category.name}</p>
+                                                                                            <div className="mr-5">{selected ? <SelectMult /> : ""}</div>
+                                                                                        </div>
+
+                                                                                    )}
+                                                                                </Tab>
+                                                                            </>
+                                                                        )
+                                                                    }
+                                                                    )}
+                                                                </Tab.List>
+
+                                                            </Tab.Group>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                        }
                                         {/* 图片列表 */}
                                         {choiceMode ? <p className="mt-5 font-p13-FFFFFF-w400">把所有图片的尺寸调整为以下精确尺寸 ：</p> : ""}
                                     </>
@@ -118,7 +149,37 @@ const Index = observer(() => {
                         <ul>
                             {stores.adjustStore.imgListAdjustData.map((item, idx) => {
                                 return (<>
-                                    {
+                                    {stores.adjustStore.process.length != 0 ?
+                                        <li key={item.name + idx} className='h-14 w-full flex flex-row items-center mt-4'>
+                                            <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
+                                            <div className='w-9 h-9 bg-nb-222325 ml-2'>
+                                                <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
+                                            </div>
+                                            <div className='ml-2.5 flex flex-col w-full '>
+                                                <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 6)}</p>
+                                                {
+                                                    item.imgURL != undefined ?
+                                                        <div className="mt-1 flex flex-row items-center justify-between">
+                                                            <p className="font-p13-5FE483-w400">完成</p>
+                                                            <a href={item.imgURL} download id={`download${idx}`} className="font-p13-4C90FE-w400 underline">下载</a>
+                                                        </div>
+                                                        :
+                                                        <>
+                                                            {
+                                                                stores.adjustStore.isStartAdjust ?
+                                                                    <div className='w-4 h-4 mt-1'>
+                                                                        <Circle strokeWidth={6} percent={item.process} />
+                                                                    </div>
+                                                                    :
+                                                                    <p className='font-p13-A2A3BA-w400 mt-1'>
+                                                                        等待中
+                                                                    </p>
+                                                            }
+                                                        </>
+                                                }
+                                            </div>
+                                        </li>
+                                        :
                                         stores.adjustStore.isStartAdjust ?
                                             <li key={item.name + idx} className='h-14 w-full flex flex-row items-center mt-4'>
                                                 <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
@@ -151,89 +212,61 @@ const Index = observer(() => {
                                             </li>
                                             :
                                             <li key={item.name + idx} className='h-14 w-full mt-4'>
-                                                {choiceMode ?
-                                                    <>
-                                                        <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
-                                                        <div className="w-full ">
-                                                            <div className="flex flex-row space-x-30 font-p13-A2A3BA-w400">
-                                                                <p>宽度</p>
-                                                                <p>高度</p>
-                                                            </div>
-                                                            <div className="flex flex-row justify-around space-x-3 items-center w-full h-7 mt-2 ">
-                                                                <div className="flex flex-row items-center  justify-center w-30 rounded-lg bg-nb-464546 h-7 ">
-                                                                    <input className="w-16 bg-nb-464546 rounded-lg px-1 focus:outline-none font-p13-A2A3BA-w400"
-                                                                        type="text" value={stores.adjustStore.dimensionsWidth[idx]}
-                                                                        onChange={(e) => {
-                                                                            stores.adjustStore.adjustWidth(idx, e.target.value)
-                                                                        }}
-                                                                    />
-                                                                    <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
-                                                                    <div className="flex flex-col ">
-                                                                        <button className="border border-dashed w-2.5 cursor-default"
-                                                                            onClick={() => stores.adjustStore.addWidth(idx)}
-                                                                        ><PixelAdd /></button>
-                                                                        <button className="border border-dashed w-2.5 cursor-default"
-                                                                            onClick={() => stores.adjustStore.subtractWidth(idx)}
-                                                                        ><PixleReduce /></button>
+                                                {
+                                                    choiceMode ?
+                                                        <>
+                                                            <p className='font-p13-FFFFFF-w400 w-2.75'>{idx + 1}.</p>
+                                                            <div className="w-full ">
+                                                                <div className="flex flex-row space-x-30 font-p13-A2A3BA-w400">
+                                                                    <p>宽度</p>
+                                                                    <p>高度</p>
+                                                                </div>
+                                                                <div className="flex flex-row justify-around space-x-3 items-center w-full h-7 mt-2 ">
+                                                                    <div className="flex flex-row items-center  justify-center w-30 rounded-lg bg-nb-464546 h-7 ">
+                                                                        <input className="w-16 bg-nb-464546 rounded-lg px-1 focus:outline-none font-p13-A2A3BA-w400"
+                                                                            type="text" value={stores.adjustStore.dimensionsWidth[idx]}
+                                                                            onChange={(e) => {
+                                                                                stores.adjustStore.adjustWidth(idx, e.target.value)
+                                                                            }}
+                                                                        />
+                                                                        <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
+                                                                        <div className="flex flex-col ">
+                                                                            <button className="border border-dashed w-2.5 cursor-default"
+                                                                                onClick={() => stores.adjustStore.addWidth(idx)}
+                                                                            ><PixelAdd /></button>
+                                                                            <button className="border border-dashed w-2.5 cursor-default"
+                                                                                onClick={() => stores.adjustStore.subtractWidth(idx)}
+                                                                            ><PixleReduce /></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="w-5 flex justify-center itmens-center border border-dashed border-gray-500 ">
+                                                                        <button className=" cursor-default "
+                                                                            onClick={() => {
+
+                                                                                stores.adjustStore.setAdjustLock(!stores.adjustStore.adjustLock)
+                                                                            }}
+                                                                        >{stores.adjustStore.adjustLock ? <AdjustLock /> : <AdjustUnlock />}</button>
+                                                                    </div>
+                                                                    <div className="flex flex-row items-center  justify-center w-30 rounded-lg bg-nb-464546 h-7 ">
+                                                                        <input className="w-16 bg-nb-464546 rounded-lg px-1 focus:outline-none font-p13-A2A3BA-w400"
+                                                                            type="text" value={stores.adjustStore.dimensionsHeight[idx]}
+                                                                            onChange={(e) => stores.adjustStore.adjustHeight(idx, e.target.value)}
+                                                                        />
+                                                                        <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
+                                                                        <div className="flex flex-col ">
+                                                                            <button className="border border-dashed w-2.5 cursor-default"
+                                                                                onClick={() => stores.adjustStore.addHeight(idx)}
+                                                                            ><PixelAdd /></button>
+                                                                            <button className="border border-dashed w-2.5 cursor-default"
+                                                                                onClick={() => stores.adjustStore.subtractHeight(idx)}
+                                                                            ><PixleReduce /></button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="w-5 flex justify-center itmens-center border border-dashed border-gray-500 ">
-                                                                    <button className=" cursor-default "
-                                                                        onClick={() => {
-                                                                            setLock(!Lock)
-                                                                            stores.adjustStore.setAdjustLock(!Lock)
-                                                                        }}
-                                                                    >{Lock ? <AdjustLock /> : <AdjustUnlock />}</button>
-                                                                </div>
-                                                                <div className="flex flex-row items-center  justify-center w-30 rounded-lg bg-nb-464546 h-7 ">
-                                                                    <input className="w-16 bg-nb-464546 rounded-lg px-1 focus:outline-none font-p13-A2A3BA-w400"
-                                                                        type="text" value={stores.adjustStore.dimensionsHeight[idx]}
-                                                                        onChange={(e) => stores.adjustStore.adjustHeight(idx, e.target.value)}
-                                                                    />
-                                                                    <span className="font-p13-CFD0E4-w400 mb-1 mr-1">px</span>
-                                                                    <div className="flex flex-col ">
-                                                                        <button className="border border-dashed w-2.5 cursor-default"
-                                                                            onClick={() => stores.adjustStore.addHeight(idx)}
-                                                                        ><PixelAdd /></button>
-                                                                        <button className="border border-dashed w-2.5 cursor-default"
-                                                                            onClick={() => stores.adjustStore.subtractHeight(idx)}
-                                                                        ><PixleReduce /></button>
-                                                                    </div>
-                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <div className="w-full  ">
-                                                            <div className="w-70 max-w-md  py-3 ">
-                                                                <Tab.Group
-                                                                    onChange={(indexs) => setMultiple(indexs+1)}
-                                                                >
-                                                                    <Tab.List className="flex flex-col  w-70 ">
-                                                                        {categories.map((category, index) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <Tab  >
-                                                                                        {({ selected }) => (
-
-                                                                                            <div className={`${selected ? 'bg-nb-222325 ' : ''} flex flex-row justify-between items-center w-70  h-12 '`} >
-                                                                                                <p className="ml-4 font-p16-FFFFFF-w600">{category.name}</p>
-                                                                                                <div className="mr-5">{selected ? <SelectMult /> : ""}</div>
-                                                                                            </div>
-
-                                                                                        )}
-                                                                                    </Tab>
-                                                                                </>
-                                                                            )
-                                                                        }
-                                                                        )}
-                                                                    </Tab.List>
-
-                                                                </Tab.Group>
-                                                            </div>
-                                                        </div>
-                                                    </>
+                                                        </>
+                                                        :
+                                                        ""
                                                 }
 
                                             </li>
@@ -263,9 +296,9 @@ const Index = observer(() => {
                                 } else {
                                     if (!stores.adjustStore.adjustButton) {
                                         if (choiceMode) {
-                                            setImageWH(stores.adjustStore.imgListData, stores.adjustStore.dimensionsWidth, stores.adjustStore.dimensionsHeight,0)
+                                            setImageWH(stores.adjustStore.imgListData, stores.adjustStore.dimensionsWidth, stores.adjustStore.dimensionsHeight, 0)
                                         } else {
-                                            setImageWH(stores.adjustStore.imgListData,0,0,multiple)
+                                            setImageWH(stores.adjustStore.imgListData, 0, 0, multiple)
                                         }
                                         stores.adjustStore.onChangeStartAdjust(true)
                                     } else {
@@ -276,7 +309,7 @@ const Index = observer(() => {
                         >
                             <span>{stores.adjustStore.process.length != 0 ? `下载全部图像（${stores.adjustStore.process.length}）` : stores.adjustStore.isStartAdjust ? "加载中..." : "压缩多个图像文件"}</span>
                         </button>
-                        <canvas id="canvasImg"  className="hidden">
+                        <canvas id="canvasImg" className="hidden">
 
                         </canvas>
                     </div>

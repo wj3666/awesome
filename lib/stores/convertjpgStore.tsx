@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS, runInAction } from "mobx";
-import { JpgConvert} from "../api/convertJpg";
+import { ConvertJpg, JpgConvert} from "../api/convertJpg";
 export default class ConvertJpgStore {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -41,7 +41,7 @@ export default class ConvertJpgStore {
     }
     //存图像文件+处理文件
     uploadImage = (data: any, id: number) => {
-        JpgConvert.upload(data, id).then(res => {
+        ConvertJpg.upload(data, id).then(res => {
             this.imgListConvertData[id].imgUrl = res
             console.log(this.imgListConvertData[id].imgUrl)
             runInAction(() => {
