@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS, runInAction } from "mobx";
-import { ConvertJpg, JpgConvert } from "../api/convertJpg";
+import {  JpgConvert } from "../api/convertJpg";
 
 export default class JpgconvertStore {
     constructor() {
@@ -51,6 +51,7 @@ export default class JpgconvertStore {
         this.process=[]
         for(let i=0;i<this.imgListConvertData.length;i++){
             this.imgListConvertData[i].imgUrl=undefined
+            this.imgListConvertData[i].process=undefined
         }
         this.jpgUrl=[]
         this.onChangeStartConvert(false)
@@ -97,14 +98,14 @@ export default class JpgconvertStore {
             this.GIFSeconds = value.toString()
         }
     }
-    //存图像文件jpg转换为png
-    uploadJPG = (data: any, id: number, GIFMode: boolean) => {
-        JpgConvert.uploadPNG(data, id, GIFMode).then(res => {
+    //存图像文件jpg转换为png/静态gif
+    uploadJPG = (data: any, id: number) => {
+        JpgConvert.uploadPNG(data, id).then(res => {
             this.imgListConvertData[id].imgUrl = res
-            console.log(this.imgListConvertData[id].imgUrl)
-            runInAction(() => {
+            console.log("res:",res)
+            runInAction(()=>{
                 this.jpgUrl = this.jpgUrl.concat(res)
-                this.isStartConvert = false;
+                this.isStartConvert=false
             })
         })
     }
@@ -112,7 +113,7 @@ export default class JpgconvertStore {
     uploadGIF = (data: any, id:number) => {
         JpgConvert.uploadGIF(data,id).then(res=>{
         this.imgListConvertData[id].imgUrl = res
-         this.moveUrl=this.moveUrl.concat(res)
+        this.moveUrl=this.moveUrl.concat(res)
         })
     }
     //生成动态gif

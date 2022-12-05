@@ -11,7 +11,6 @@ export default class AdjustStore {
     dimensionsHeight = []
     initialWidth = []
     initialHeight = []
-    adjustLock = true
     adjustButton = false
     isShowChoseList = false
     imgListData = [] //调整图片
@@ -24,7 +23,6 @@ export default class AdjustStore {
         this.dimensionsHeight = []
         this.initialWidth = []
         this.initialHeight = []
-        this.adjustLock = true
         this.adjustButton = false
         this.isShowChoseList = false
         this.imgListData = [] //调整图片
@@ -58,8 +56,11 @@ export default class AdjustStore {
         this.dimensionsHeight = this.dimensionsHeight.concat(height)
         this.initialHeight = this.initialHeight.concat(height)
     }
-    setAdjustLock(v: boolean) {
-        this.adjustLock = v
+    setAdjustLock(v: boolean,id) {
+        this.imgListAdjustData[id].lock=v
+    }
+    setLockHint(v:boolean,id){
+        this.imgListAdjustData[id].lockHint=v
     }
         adjustWidth(id, value) {
         var width = 0
@@ -67,7 +68,7 @@ export default class AdjustStore {
             this.dimensionsHeight[id]=0
         } else {
             width = parseInt(value)
-            if (this.adjustLock) {
+            if (this.imgListAdjustData[id].lock) {
                 let height = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], width, 'W')
                 this.dimensionsHeight[id] = height
             }
@@ -81,7 +82,7 @@ export default class AdjustStore {
             this.dimensionsWidth[id]=0
         } else {
             height = parseInt(value)
-            if (this.adjustLock) {
+            if (this.imgListAdjustData[id].lock) {
                 let width = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], height, 'H')
                 this.dimensionsWidth[id] = width
             }
@@ -92,7 +93,7 @@ export default class AdjustStore {
     //加宽度
     addWidth(id) {
         this.dimensionsWidth[id]++
-        if (this.adjustLock) {
+        if (this.imgListAdjustData[id].lock) {
             let scaleNum = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], this.dimensionsWidth[id], 'W')
             this.dimensionsHeight[id] = scaleNum
         }
@@ -101,7 +102,7 @@ export default class AdjustStore {
     // 减宽度
     subtractWidth(id) {
         this.dimensionsWidth[id]--
-        if (this.adjustLock) {
+        if (this.imgListAdjustData[id].lock) {
             let scaleNum = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], this.dimensionsWidth[id], 'W')
             this.dimensionsHeight[id] = scaleNum
         }
@@ -110,7 +111,7 @@ export default class AdjustStore {
     //加高度
     addHeight(id) {
         this.dimensionsHeight[id]++
-        if (this.adjustLock) {
+        if (this.imgListAdjustData[id].lock) {
             let scaleNum = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], this.dimensionsHeight[id], 'H')
             this.dimensionsWidth[id] = scaleNum
         }
@@ -119,7 +120,7 @@ export default class AdjustStore {
     //减高度
     subtractHeight(id) {
         this.dimensionsHeight[id]--
-        if (this.adjustLock) {
+        if (this.imgListAdjustData[id].lock) {
             let scaleNum = NBString.imageScale(this.initialWidth[id], this.initialHeight[id], this.dimensionsHeight[id], 'H')
             this.dimensionsWidth[id] = scaleNum
         }
@@ -135,7 +136,7 @@ export default class AdjustStore {
             data => {
                 // console.log("返回的路径",data)
                 this.imgListAdjustData[i].imgURL=data;
-                console.log(this.imgListAdjustData[i].imgURL)
+                // console.log(this.imgListAdjustData[i].imgURL)
                 runInAction(()=>{
                     this.imgURL=this.imgURL.concat(data)
                     this.isStartAdjust=false

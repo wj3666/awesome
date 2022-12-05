@@ -1,4 +1,4 @@
-import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive, } from "../Svg";
+import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive, SaveSvg, SaveToGoogleDrive } from "../Svg";
 import Dropzone from 'react-dropzone';
 import stores from "../../lib/stores/stores";
 import { NBString } from "../../lib/util/tools";
@@ -6,9 +6,16 @@ import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import Compressor from 'compressorjs';
 import { Circle } from 'rc-progress';
+import { useEffect, useState } from "react";
+import { JWT } from "../../lib/util/JWT";
+import { Profile } from '../../lib/models/user'
 
+interface Props {
+    profile?: Profile
+}
+const Index = observer(({ profile }: Props) => {
+    const [saveGoogleDrive, setSaveGoogleDrive] = useState(false)
 
-const Index = observer(() => {
     const onDrop = (e) => {
         // console.log(e)
         stores.compressStore.setImgListData(e);
@@ -17,7 +24,7 @@ const Index = observer(() => {
     const compressImg = () => {
         stores.compressStore.onChangeStartCompress(true);
         for (let i = 0; i < stores.compressStore.imgListData.length; i++) {
-            if (stores.appStore.userPrivilege) {
+            if (profile?.privilege) {
                 new Compressor(stores.compressStore.imgListData[i], {
                     quality: 0.6,
                     success(result: any) {
@@ -57,37 +64,84 @@ const Index = observer(() => {
                     <div className='flex-none relative w-72.5 h-full px-4.5 bg-nb-2E2F30 text-left '>
                         {/* 标题 */}
                         <div>
-                            <p className='py-5.25 font-p24-FFFFFF-w600'>{stores.compressStore.isStartCompress ? "正在压缩图片…" : "压缩图像文件"}</p>
+                            <p className='py-5.25 font-p24-FFFFFF-w600it'>{stores.compressStore.isStartCompress ? "正在压缩图片…" : "压缩图像文件"}</p>
                             <p className='font-p14-CFD0E4-w400 pr-7'>所有图片都将被压缩，同时保持最佳质量和大小比例</p>
                         </div>
                         {/* 水平线 */}
                         <div className='w-full h-0.25 mt-7.5 bg-nb-222325' />
                         {/* 选择添加更多图片 */}
-                        <div>
-                            <div className='flex items-center cursor-pointer py-5.25'>
-                                <IconAdd />
-                                <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
-                            </div>
-                            {/* 按钮 */}
-                            <div className="flex items-center">
-                                <button className="w-10.5 h-10.5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
-                                    <Dropzone noDrag={true} onDrop={(e) => { onDrop(e) }}>
-                                        {({ getRootProps, getInputProps }) => (
-                                            <div {...getRootProps()}>
-                                                <input {...getInputProps()} />
-                                                <IconDesktop />
-                                            </div>
-                                        )}
-                                    </Dropzone>
-                                </button>
-                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
-                                    <IconFolderGoogleDrive />
-                                </button>
-                                <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
-                                    <IconDropbox />
-                                </button>
-                            </div>
-                        </div>
+
+                        {/* 按钮 */}
+                        {
+                            stores.compressStore.process.length != 0 ?
+                                <>
+                                    <div className="relative">
+                                        <div className='flex items-center cursor-pointer py-5.25'>
+                                            <div><SaveSvg /></div>
+
+                                            <p className='font-p15-E4E4E4-w400 ml-3'>存储</p>
+                                        </div>
+                                        {/* 按钮 */}
+                                        <div className="flex flex-row w-full justify-start ">
+                                            <button className="w-10.5 h-10.5  flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all"
+                                                onMouseEnter={() => setSaveGoogleDrive(true)} onMouseLeave={() => setSaveGoogleDrive(false)}>
+                                                <IconFolderGoogleDrive />
+                                            </button>
+                                            <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                                <IconDropbox />
+                                            </button>
+                                        </div>
+                                        <div className="absolute top-27 left-1 ">
+                                            {saveGoogleDrive ? <SaveToGoogleDrive /> : ""}
+                                        </div>
+                                    </div>
+                                    {/* 水平线 */}
+                                    <div className='w-full h-0.25  bg-nb-222325 mt-4' />
+                                </>
+                                :
+                                stores.compressStore.isStartCompress ?
+                                    <div>
+                                        <div className='flex items-center cursor-pointer py-5.25'>
+                                            <div><SaveSvg /></div>
+                                            <p className='font-p15-E4E4E4-w400 ml-3'>存储</p>
+                                        </div>
+                                        {/* 按钮 */}
+                                        <div className="flex flex-row w-full justify-start ">
+                                            <button className="w-10.5 h-10.5  flex items-center justify-center bg-nb-2F63AE rounded-full  svg-2F63AE transition-all opacity-50">
+                                                <IconFolderGoogleDrive />
+                                            </button>
+                                            <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full  svg-2F63AE transition-all opacity-50">
+                                                <IconDropbox />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div>
+                                        <div className='flex items-center cursor-pointer py-5.25'>
+                                            <IconAdd />
+                                            <p className='font-p15-E4E4E4-w400 ml-3'>选择添加更多图片</p>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <button className="w-10.5 h-10.5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                                <Dropzone noDrag={true} onDrop={(e) => { onDrop(e) }}>
+                                                    {({ getRootProps, getInputProps }) => (
+                                                        <div {...getRootProps()}>
+                                                            <input {...getInputProps()} />
+                                                            <IconDesktop />
+                                                        </div>
+                                                    )}
+                                                </Dropzone>
+                                            </button>
+                                            <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                                <IconFolderGoogleDrive />
+                                            </button>
+                                            <button className="w-10.5 h-10.5 ml-5 flex items-center justify-center bg-nb-2F63AE rounded-full hover:bg-white svg-2F63AE transition-all">
+                                                <IconDropbox />
+                                            </button>
+                                        </div>
+                                    </div>
+                        }
+
                         {/* 水平线 */}
                         <div className='w-full h-0.25 my-4.375 bg-nb-222325' />
 
@@ -117,7 +171,7 @@ const Index = observer(() => {
                                                             </div>
                                                             :
                                                             <div className='font-p13-A2A3BA-w400 mt-1'>
-                                                                {!stores.appStore.userPrivilege ? NBString.getImgSizeMb(item.size) >= 5 && <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
+                                                                {!profile?.privilege ? NBString.getImgSizeMb(item.size) >= 5 && <p>(图片超过5MB<Link href={'/subscribe'} ><span className="font-p13-4C90FE-w600">升级</span></Link>继续压缩)</p> : <p>等待中</p>}
                                                             </div>
                                                         }
                                                     </>
@@ -145,7 +199,7 @@ const Index = observer(() => {
                                 } else {
                                     if (stores.compressStore.imgListCompressData.length == 1) {
                                         if (NBString.getImgSizeMb(stores.compressStore.imgListCompressData[0].size) >= 5) {
-                                            if (!stores.appStore.userPrivilege) {
+                                            if (!profile?.privilege) {
                                                 return
                                             }
                                         }

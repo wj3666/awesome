@@ -17,6 +17,7 @@ const Paystatus=(data:any)=>{
     )
 }
 Paystatus.getInitialProps = async (ctx:any) => {
+    console.log("111")
     const out_trade_no=ctx.req?.query.out_trade_no
     const trade_no =ctx.req?.query.trade_no
     const total_amount=ctx.req?.query.total_amount

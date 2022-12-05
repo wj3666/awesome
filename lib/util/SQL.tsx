@@ -29,6 +29,7 @@ const SQL = {
         return user[0]
     },
     authorById: "select author from user where id=?",
+    getUserById:"select * from user where id=?",
     updatePayStatusById: "update user set pay_time=?,end_time=? ,author=? where id=?",
     insertUserSql: async (email: string, name: string,image:string) => {
         let sql = "insert into user (email,name,header_img) values (?,?,?)"

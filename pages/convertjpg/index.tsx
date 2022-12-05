@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
-import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import { IconDropbox, IconFolderGoogleDrive, BackAddimage } from '../../components/Svg'
 import IconButton from '../../components/IconButton'
 
 const ConvertJpg = () => {
@@ -22,19 +22,37 @@ const ConvertJpg = () => {
 }
 const ConvertJpgPage = observer(() => {
   const onDrop = (e) => {
-    stores.convertJpgStore.setImgListData(e);
-    stores.convertJpgStore.changeIsShowChoseList(true);
+    let fileFormat = e[0].name.split('.')[1]
+    if (fileFormat == 'jpg' || fileFormat == 'jpeg') {
+      alert('请检查导入的图片格式')
+      return
+    } else {
+      stores.convertJpgStore.setImgListData(e);
+      stores.convertJpgStore.changeIsShowChoseList(true);
+    }
   }
 
 
   return (
     <div className='flex flex-row justify-between h-full'>
+      {
+        stores.convertJpgStore.process.length != 0 ?
+          <div className='fixed mt-12 ml-5'>
+            <button className="mt-4 w-17.5 h-8.5 bg-nb-2F63AE rounded-lg flex flex-row justify-center items-center space-x-1   font-p14-FFFFFF-w500"
+              onClick={() => {
+                stores.convertJpgStore.changeIsShowChoseList(false)
+                stores.convertJpgStore.init()
+              }}
+            ><BackAddimage /><p>返回</p></button>
+          </div>
+          : ""
+      }
       <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.convertJpgStore.imgListData.length == 0 &&
             <div>
-              <p className='font-p36-FFFFFF-w600'>其他图像文件转换至JPG</p>
-              <p className='font-p20-FFFFFF-w400 mt-10.5 leading-10 w-156'>转换<span className='font-p20-4C90FE-w600 italic'>PNG, GIF, TIF, PSD, SVG, WEBP, HEIC</span>或<span className='font-p20-4C90FE-w600 italic'>原始格式</span>至<span className='font-p20-4C90FE-w600 italic'>JPG</span>格式。在线批量转换多个<span className='font-p20-4C90FE-w600 italic'>图片</span>至<span className='font-p20-4C90FE-w600 italic'>JPG</span></p>
+              <p className='font-p36-FFFFFF-w600it'>其他图像文件转换至JPG文件</p>
+              <p className='font-p20-FFFFFF-w400 mt-10.5 leading-10 w-150'>转换<span className='font-p20-4C90FE-w600 italic'>PNG, GIF, TIF, PSD, SVG, WEBP, HEIC</span>或<span className='font-p20-4C90FE-w600 italic'>原始格式</span>至<span className='font-p20-4C90FE-w600 italic'>JPG</span>格式。在线批量转换多个<span className='font-p20-4C90FE-w600 italic'>图片</span>至<span className='font-p20-4C90FE-w600 italic'>JPG</span></p>
             </div>
           }
 
@@ -112,7 +130,7 @@ const ImgInfo = observer(({ item, idx }) => {
       <div className='mt-3 mb-0.75 flex justify-between font-p12-FFFFFF-w400'>
         <p>{NBString.truncateString(item.name, 18, 6)}</p>
 
-        <p className={`${stores.appStore.userPrivilege ? "":NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
+        <p className={`${stores.appStore.userPrivilege ? "" : NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
           &gt; {NBString.getImgSizeUnit(stores.compressStore.imgListCompressData[idx]?.size) ? NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Mb" : NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Kb"}
         </>
         }

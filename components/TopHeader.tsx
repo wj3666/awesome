@@ -4,9 +4,12 @@ import stores from '../lib/stores/stores';
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { JWT } from '../lib/util/JWT'
 import { signOut, useSession } from 'next-auth/react';
+import { Profile } from '../lib/models/user'
+
 function TopHeader() {
+    const [profile, setProfile] = useState<Profile>()
     const { t } = useTranslation('common')
     const [rctangle, setRctangle] = useState(true)
     const router = useRouter()
@@ -19,7 +22,6 @@ function TopHeader() {
     const elementUserRef = useRef(null)
     const avatarImgRef = useRef<any>();
     const { data: seesion } = useSession()
-
     const avatarUpload = (e) => {
         let file = e.target.files[0];
         let fileSize = (file.size) / 1024;
@@ -40,7 +42,6 @@ function TopHeader() {
             fileInfo.append('fileType', 'policy')
             // console.log(fileInfo.get('file'));
         }
-        console.log("1111", file)
         appStore.uploadAvatar(fileInfo, appStore.user.id)
     }
 
@@ -52,20 +53,27 @@ function TopHeader() {
             setRctangle(true)
         }
     }
+    //退出登录
     const handleExit = () => {
-        loginSignStore.setShowUserModel(false)
         setShowUserModel(false)
         setHanderUser(false)
         localStorage.removeItem("token")
-        loginSignStore.setTokenMessage(false)
-        appStore.getUsers()
+        setProfile(null)
     }
     const GoogleLoginOut = () => {
         signOut()
         localStorage.removeItem("token")
     }
-
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        const user = token ? JWT.verify(token) : false
+        if (user) {
+            setProfile(user)
+        } else {
+            localStorage.removeItem('token')
+            setProfile(null)
+            setHanderUser(false)
+        }
         addEventListener('click', (e) => {
             setIsShowSwitchLanguage(false);
             setHanderUser(false)
@@ -76,11 +84,11 @@ function TopHeader() {
                 setHanderUser(false)
             })
         }
-    }, [loginSignStore.tokenMessage, isShowSwitchLanguage, headerUser])
+    }, [])
+    
     const stopPropagation = (e) => {//阻止冒泡
         e.stopPropagation();
     }
-
     return (
         <>
             {
@@ -101,17 +109,17 @@ function TopHeader() {
                             </div>
                         </button>
                     </div>
-                    <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
+                    <div className='h-14  rounded-t-2xl  w-full bg-nb-191919  '></div>
                     <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
                         <div className='w-full h-9 bg-white invisible  '></div>
                         <div className='flex flex-col w-59 h-16 '>
-                            <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{seesion.user.email}</span>
-                                {appStore.userPrivilege ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
+                            <div className='flex flex-row justify-center space-x-1 '><span className=' font-p15-FFFFFF-w500'>{profile.email}</span>
+                                {profile.privilege === 1 ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
                             </div>
-                            <p className='font-p13-A2A3BC-w400'>{seesion.user.name}</p>
+                            <p className='font-p13-A2A3BC-w400'>{profile.name}</p>
                         </div>
                         <div> </div>
-                        <div className='w-4/5 border border-black '></div>
+                        <div className='w-4/5 h-0.25 bg-black '></div>
                         {rctangle ?
                             <div className=' rounded-b-2xl w-59 h-16'>
                                 <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
@@ -138,7 +146,7 @@ function TopHeader() {
                                     avatarImgRef.current.click()
                                 }}
                                 className="relative">
-                                {appStore.user.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${appStore.user.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                                {profile.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${profile.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
                                 <div>
                                     <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
                                         stopPropagation(e)
@@ -147,17 +155,17 @@ function TopHeader() {
                                 </div>
                             </button>
                         </div>
-                        <div className='h-14  rounded-t-2xl  w-full bg-black  '></div>
+                        <div className='h-14  rounded-t-2xl  w-full bg-nb-191919  '></div>
                         <div className={`flex flex-col   bg-nb-292A2D items-center rounded-b-2xl w-full`}>
                             <div className='w-full h-9 bg-white invisible  '></div>
                             <div className='flex flex-col w-59 h-16 '>
-                                <div className='flex flex-row justify-center space-x-1'><span className=' font-p15-FFFFFF-w500'>{appStore.user.email}</span>
-                                    {appStore.userPrivilege ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
+                                <div className='flex flex-row justify-center space-x-1'><span className=' font-p15-FFFFFF-w500'>{profile.email}</span>
+                                    {profile.privilege === 1 ? <div className='mb-2 mt-0.5'><VIPlogo /></div> : ""}
                                 </div>
-                                <p className='font-p13-A2A3BC-w400'>用户名字</p>
+                                <p className='font-p13-A2A3BC-w400'>{profile.name}</p>
                             </div>
                             <div> </div>
-                            <div className='w-4/5 border border-black '></div>
+                            <div className='w-4/5  h-0.25 bg-black '></div>
                             {rctangle ?
                                 <div className=' rounded-b-2xl w-59 h-16'>
                                     <div className='flex felx-row justify-around space-x-15  items-center w-full h-13 '>
@@ -202,24 +210,26 @@ function TopHeader() {
                         </div>
                     </div>
                     {
-                        loginSignStore.tokenMessage ?
+                        profile ? seesion ?
+                            <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden '
+                                onClick={(e) => {
+                                    stopPropagation(e)
+                                    setHanderUser(!headerUser)
+                                    setIsShowSwitchLanguage(false)
+                                }}
+                            ><img className='w-10 h-10 ' src={seesion.user.image} /></div>
+                            :
                             <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden ' onClick={(e) => {
                                 stopPropagation(e)
                                 setHanderUser(!headerUser)
                                 setIsShowSwitchLanguage(false)
                             }} ref={elementUserRef}>
-                                {appStore.user.header_img !== null ? <img className='w-10 h-10 ' src={`${appStore.user.header_img}`} /> : <img className='w-10 h-10 ' src='/NFTelk.png' />}
+                                {profile.header_img !== null ? <img className='w-10 h-10 ' src={`${profile.header_img}`} /> : <img className='w-10 h-10 ' src='/NFTelk.png' />}
                             </div>
-                            : seesion ?
-                                <div className='rounded-full w-10  h-10 cursor-default border border-222325 overflow-hidden '
-                                    onClick={(e) => {
-                                        stopPropagation(e)
-                                        setHanderUser(!headerUser)
-                                        setIsShowSwitchLanguage(false)
-                                    }}
-                                ><img className='w-10 h-10 ' src={seesion.user.image} /></div>
-                                :
-                                <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <Link href={'login'}><p className='font-p15-f9f9f9-re items-center'>{t('header.registerLogin')}</p></Link></div>
+                            :
+                            <div className='1279sc-max:hidden w-26 rounded-full h-10 bg-nb-2F63AE flex flex-row items-center justify-center cursor-pointer active:bg-blue-700'> <button onClick={() => {
+                                router.push('/login')
+                            }}><p className='font-p15-FFFFFF-w700 items-center'>{t('header.registerLogin')}</p></button></div>
                     }
 
                     {/* <div className='1024sc:hidden w-15'><img src='/icon_menu.png' /></div> */}
@@ -270,5 +280,6 @@ const Userexit = () => (
         <path d="M5.66667 9.16671L6.58333 8.25004L5.41667 7.08337L2.5 10L5.41667 12.9167L6.58333 11.6667L5.75 10.8334H10V9.16671H5.66667ZM5.83333 6.66671H7.5V5.00004H13.3333V15H7.5V13.3334H5.83333V16.6667H15V3.33337H5.83333V6.66671Z" fill="#CFD0E4" />
     </svg>
 )
+
 
 export default observer(TopHeader)

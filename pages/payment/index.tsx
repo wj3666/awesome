@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState, Fragment, useRef } from 'react'
 import appStore from '../../lib/stores/appstore'
 import stores from '../../lib/stores/stores'
@@ -22,7 +22,7 @@ const Paystate = () => {
     )
 }
 
-const people = [
+const paymethod = [
     { name: 'Master-Card', svg: <MasterCard /> },
     { name: 'Paypal', svg: <Paypal /> },
     { name: 'ApplePay', svg: <ApplePay /> },
@@ -30,10 +30,10 @@ const people = [
     { name: 'WechatPayment', svg: <Wechat /> },
 ]
 const Payment = () => {
-    const router=useRouter()
+    const router = useRouter()
     const { data: seesion } = useSession()
     const { t } = useTranslation('subscrible')
-    const [selected, setSelected] = useState(people[0])
+    const [selected, setSelected] = useState(paymethod[0])
     const [userName, setUserName] = useState('')
     const [choiceFees, setChoiceFees] = useState(false)
     const [showPaymentMethod, setShowPaymentMethod] = useState(0)//0:master-card 1:paypal 2:applepay 3:aplipay 4:wechat
@@ -85,128 +85,130 @@ const Payment = () => {
     return (
         <>
             <div className=' w-screen h-screen bg-nb-sidebar-grey flex flex-row  justify-center'>
-                <div className='bg-nb-sidebar-grey   h-screen w-5/12'>
-                    <div className=' flex flex-row justify-center items-center bg-loginbg-left bg-cover w-full h-full '>
-                        <div className=' flex flex-col space-y-3 h-140 w-94.5  '>
-                            <div className='flex flex-col justify-center items-center space-y-5 w-full h-30 '>
-                                <img className='w-50' src='/Logo_awesomeImg.svg' />
-                                <p className='font-p15-C8C8C8-w500'>{t('payment.payTitle')}</p>
-                            </div>
-                            <div className='flex flex-row justify-around w-full  h-40  '>
-                                <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer ${choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(true)}>
-                                    <p className='font-p20-FFFFFF-w700'>{t('payment.monthly')}</p>
-                                    <div className='flex flex-row justify-around w-full '><span className={`${!choiceFees ? "font-p50-FFFFFF-w400 " : "font-p50-FFFFFF-w400"}  font-normal font-sans`}>$ 3</span></div>
-                                </div>
-                                <div className={`flex flex-col justify-center items-center w-44 h-30 border border-CFD0E466 rounded-2xl cursor-pointer  ${!choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(false)}>
-                                    <p className='font-p20-FFFFFF-w700'>{t('payment.yearly')}</p>
-                                    <div className='flex flex-row justify-around w-full '><span className={`${choiceFees ? "font-p50-FFFFFF-w400" : "font-p50-FFFFFF-w400"}  font-normal font-sans`}>$ 30</span></div>
-                                </div>
-                            </div>
-                            <div className={`flex flex-col items-center  justify-start w-full ${showPaymentMethod === 0 ? "h-25" : "h-27"}`}>
-                                <p className='relative  h-7 w-full font-p15-CFD0E4-w500'>{t('payment.method')}</p>
-                                {/* <img src='/Vector.png' className='absolute'/> */}
-                                <div className=" w-full h-10.5  ">
-                                    <Listbox value={selected} onChange={setSelected} >
-                                        <div className="relative w-full  h-10.5  ">
-                                            <Listbox.Button className=" w-full h-10.5 border border-nb-CFD0E466 font-p15-CFD0E4-w500 cursor-default  rounded-xl pl-3 bg-nb-CFD0E44D  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                                <span className="flex flex-row   block truncate">{selected.svg}{`\u00A0`}
-                                                    {selected.name === 'Master-Card' && t('payment.payMthods.0')}
-                                                    {selected.name === 'Paypal' && t('payment.payMthods.1')}
-                                                    {selected.name === 'ApplePay' && t('payment.payMthods.2')}
-                                                    {selected.name === 'Aplipay' && t('payment.payMthods.3')}
-                                                    {selected.name === 'WechatPayment' && t('payment.payMthods.4')}
-                                                </span>
-                                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                                    <div className="w-full border-dashed border border-CFD0E466 mr-2"><Small aria-hidden="true" /></div>
-                                                </span>
-                                            </Listbox.Button>
-                                            <Transition
-                                                as={Fragment}
-                                                leave="transition ease-in duration-100"
-                                                leaveFrom="opacity-100"
-                                                leaveTo="opacity-0"
-                                            >
-                                                <Listbox.Options className="absolute border border-CFD0E466  mt-1 h-50 z-[10] w-full overflow-auto rounded-md bg-nb-282829 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                    {people.map((method, personIdx) => (
-                                                        <Listbox.Option
-                                                            key={personIdx}
-                                                            className={({ active }) =>
-                                                                `relative cursor-default select-none py-2 pl-3 pr-4 ${active ? 'bg-nb-121212 text-amber-900' : 'text-gray-900'
-                                                                }`
-                                                            }
-                                                            value={method}
-                                                            onClick={() => handleRefvalue(method)}
+                <div className='bg-nb-191919 h-screen w-1/2'>
+                    <div className=' bg-loginbg-left bg-cover  h-full w-full'>
 
-                                                        >
-                                                            {({ selected }) => (
-                                                                <>
-                                                                    <div className='flex flex-row'>
-                                                                        <div className="w-6 border-dashed border border-CFD0E466 ...">{method.svg}</div>
-                                                                        <span
-                                                                            className={`ml-2 block truncate font-p15-CFD0E4-w500 ${selected ? 'font-medium' : 'font-normal'
-                                                                                }`}
-                                                                        >
-                                                                            {t(`payment.payMthods.${personIdx}`)}
-                                                                        </span>
-                                                                    </div>
-                                                                    {selected ? (
-                                                                        <span className="absolute inset-y-0 right-2  flex items-center pl-3 ">
-                                                                            <CheckIcon className="h-5 w-5 text-safe " aria-hidden="true" />
-                                                                        </span>
-                                                                    ) : null}
-                                                                </>
-                                                            )}
-                                                        </Listbox.Option>
-                                                    ))}
-                                                </Listbox.Options>
-                                            </Transition>
-                                        </div>
-                                    </Listbox>
+                        <div className=' flex flex-row justify-center items-center  w-full h-full '>
+                            <div className=' relative space-y-3 h-160 w-94.5 '>
+                                <div className='flex flex-col justify-center items-center space-y-5 w-full h-30 '>
+                                    <img className='w-50' src='/Logo_awesomeImg.svg' />
+                                    <p className='font-p15-C8C8C8-w500'>{t('payment.payTitle')}</p>
                                 </div>
-                            </div>
+                                <div className='flex flex-row justify-around w-full h-36'>
+                                    <div className={`flex flex-col justify-center items-center w-44 h-30  border border-CFD0E466 rounded-2xl cursor-pointer ${choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(true)}>
+                                        <p className='font-p20-FFFFFF-w700'>{t('payment.monthly')}</p>
+                                        <div className='flex flex-row justify-around w-full '><span className={`${!choiceFees ? "font-p50-FFFFFF-w400 " : "font-p50-FFFFFF-w400"}  font-p50-FFFFFF-row`}>$ 3</span></div>
+                                    </div>
+                                    <div className={`flex flex-col justify-center items-center w-44 h-30  border   border-CFD0E466 rounded-2xl cursor-pointer  ${!choiceFees ? "bg-nb-4C90FE" : "bg-nb-CFD0E466"}`} onClick={() => setChoiceFees(false)}>
+                                        <p className='font-p20-FFFFFF-w700'>{t('payment.yearly')}</p>
+                                        <div className='flex flex-row justify-around w-full '><span className={`${choiceFees ? "font-p50-FFFFFF-w400" : "font-p50-FFFFFF-w400"}  font-p50-FFFFFF-row`}>$ 30</span></div>
+                                        <div className={`absolute w-14.5 h-6 rounded-br-2xl rounded-t-2xl bg-ng-FFB400 -right-6 top-33  z-[20] text-center font-p13-191919-w700  ${!choiceFees ? "" : "hidden"}`}><p className='leading-6 '>-16.7%</p></div>
+                                    </div>
+                                </div>
+                                <div className={`flex flex-col items-center  justify-start w-full ${showPaymentMethod === 0 ? "h-20" : "h-25"}`}>
+                                    <p className='relative  h-5 w-full font-p15-CFD0E4-w500'>{t('payment.method')}</p>
+                                    <div className=" w-full h-10.5 mt-2 ">
+                                        <Listbox value={selected} onChange={setSelected} >
+                                            <div className="relative w-full  h-10.5  ">
+                                                <Listbox.Button className=" w-full h-10.5 border border-nb-CFD0E466 font-p15-CFD0E4-w500 cursor-default  rounded-xl pl-3 bg-nb-CFD0E44D  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                                    <span className="flex flex-row   block truncate">{selected.svg}{`\u00A0`}
+                                                        {selected.name === 'Master-Card' && t('payment.payMthods.0')}
+                                                        {selected.name === 'Paypal' && t('payment.payMthods.1')}
+                                                        {selected.name === 'ApplePay' && t('payment.payMthods.2')}
+                                                        {selected.name === 'Aplipay' && t('payment.payMthods.3')}
+                                                        {selected.name === 'WechatPayment' && t('payment.payMthods.4')}
+                                                    </span>
+                                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                        <div className="w-full  mr-2"><Small aria-hidden="true" /></div>
+                                                    </span>
+                                                </Listbox.Button>
+                                                <Transition
+                                                    as={Fragment}
+                                                    leave="transition ease-in duration-100"
+                                                    leaveFrom="opacity-100"
+                                                    leaveTo="opacity-0"
+                                                >
+                                                    <Listbox.Options className="absolute border border-CFD0E466  mt-1 h-50 z-[10] w-full overflow-auto rounded-md bg-nb-282829 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                        {paymethod.map((method, personIdx) => (
+                                                            <Listbox.Option
+                                                                key={personIdx}
+                                                                className={({ active }) =>
+                                                                    `relative cursor-default select-none py-2 pl-3 pr-4 ${active ? 'bg-nb-121212 text-amber-900' : 'text-gray-900'
+                                                                    }`
+                                                                }
+                                                                value={method}
+                                                                onClick={() => handleRefvalue(method)}
 
-                            {
-                                showPaymentMethod === 0 ? <div className='flex flex-col items-center  justify-start w-full h-30  '>
-                                    <p className='relative  h-7 w-full font-p15-CFD0E4-w500'>{t('payment.cardDetail')}</p>
-                                    {/* <img src='/Vector.png' className='absolute'/> */}
-                                    <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder={`${t('payment.cardNumber')} \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
-                                </div> : ""
-                            }
-                            <div className='w-full h-12.5'>
+                                                            >
+                                                                {({ selected }) => (
+                                                                    <>
+                                                                        <div className='flex flex-row'>
+                                                                            <div className="w-6 border-dashed border border-CFD0E466 ...">{method.svg}</div>
+                                                                            <span
+                                                                                className={`ml-2 block truncate font-p15-CFD0E4-w500 ${selected ? 'font-medium' : 'font-normal'
+                                                                                    }`}
+                                                                            >
+                                                                                {t(`payment.payMthods.${personIdx}`)}
+                                                                            </span>
+                                                                        </div>
+                                                                        {selected ? (
+                                                                            <span className="absolute inset-y-0 right-2  flex items-center pl-3 ">
+                                                                                <CheckIcon className="h-5 w-5 text-safe " aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : null}
+                                                                    </>
+                                                                )}
+                                                            </Listbox.Option>
+                                                        ))}
+                                                    </Listbox.Options>
+                                                </Transition>
+                                            </div>
+                                        </Listbox>
+                                    </div>
+                                </div>
+
                                 {
-                                    showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-w500   bg-nb-4C90FE rounded-xl">{t('payment.Premium')}</button> :
-                                        showPaymentMethod === 1 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonPaypal /></button> :
-                                            showPaymentMethod === 2 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500m   bg-nb-4C90FE rounded-xl"><ButtonApplePay /></button> :
-                                                showPaymentMethod === 3 ? <button onClick={() => alipyPayment()} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
-                                                    showPaymentMethod === 4 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonWechat /></button> : ""
+                                    showPaymentMethod === 0 ? <div className='flex flex-col items-center  justify-start w-full h-28  '>
+                                        <p className='relative  h-7 w-full font-p15-CFD0E4-w500'>{t('payment.cardDetail')}</p>
+                                        {/* <img src='/Vector.png' className='absolute'/> */}
+                                        <input type="text" onChange={(e) => { setUserName(e.target.value) }} value={userName} className={`w-full h-10.5 rounded-xl border px-10 pr-4 bg-email-logo bg-no-repeat bg-left-2 border-nb-CFD0E466 bg-nb-CFD0E44D ${userName === '' ? "" : "font-p15-FFFFFF-w500"} `} placeholder={`${t('payment.cardNumber')} \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 MM/YY CVC`} />
+                                    </div> : ""
                                 }
-                            </div>
-                            <div className='flex flex-col justify-center items-center w-full  '>
-                                <span className=" inset-y-0 right-2  flex items-center pl-3 space-x-2 ">
-                                    <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-w500'>{t('payment.cancel')}</p>
-                                </span>
-                                <span className="inset-y-0 right-2  flex items-center pl-3 space-x-1 ">
-                                    <CheckIcon className="h-5 w-5 text-3DB39E" aria-hidden="true" />
-                                    <p className='font-p12-A2A3BC-w500'>{t('payment.back')}</p>
-                                </span>
+                                <div className='w-full h-12.5'>
+                                    {
+                                        showPaymentMethod === 0 ? <button onClick={() => { }} className="w-full h-12.5   font-p16-FFFFFF-w500   bg-nb-4C90FE rounded-xl">{t('payment.Premium')}</button> :
+                                            showPaymentMethod === 1 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonPaypal /></button> :
+                                                showPaymentMethod === 2 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500m   bg-nb-4C90FE rounded-xl"><ButtonApplePay /></button> :
+                                                    showPaymentMethod === 3 ? <button onClick={() => alipyPayment()} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonAlipay /></button> :
+                                                        showPaymentMethod === 4 ? <button onClick={() => { }} className="flex flex-row justify-center items-center w-full h-12.5   font-p15-CFD0E4-w500   bg-nb-4C90FE rounded-xl"><ButtonWechat /></button> : ""
+                                    }
+                                </div>
+                                <div className='flex flex-col justify-center items-center w-full  '>
+                                    <span className=" inset-y-0 right-2  flex items-center pl-3 space-x-2 ">
+                                        <CheckIcon className="h-5 w-5 text-3DB39E mt-3" aria-hidden="true" />
+                                        <p className='font-p12-A2A3BC-w500 mt-3'>{t('payment.cancel')}</p>
+                                    </span>
+                                    <span className="inset-y-0 right-2  flex items-center pl-3 space-x-1 ">
+                                        <CheckIcon className="h-5 w-5 text-3DB39E mt-3" aria-hidden="true" />
+                                        <p className='font-p12-A2A3BC-w500 mt-3'>{t('payment.back')}</p>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className=' flex flex-col   justify-center items-center bg-paymentbg-right bg-cover h-full  w-5/12'>
+                <div className=' flex flex-col   justify-center items-center bg-paymentbg-right bg-cover h-full  w-1/2'>
                     <div className='flex flex-col justify-start  items-center  h-160 w-94.5 '>
                         <div className='w-65 h-74.5 '><img src='/imgPremium.svg' /></div>
                         <div className='flex flex-col items-center h-60 w-94.5 '>
-                            <p className='font-p26-FFFFFF-w400 font-sans'>{t('payment.Upgrade')}</p>
+                            <p className='font-p26-FFFFFF-row'>{t('payment.Upgrade')}</p>
                             {
                                 conditionMessage.message.map((items, indexs) =>
-                                    <div key={indexs} className='ml-20 mt-5 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-w300'>{t(`payment.rightTitle.${indexs}`)}</p></div>
+                                    <div key={indexs} className='ml-10 mt-8 flex flex-row justify-start space-x-4 h-15 w-4/5  text-left' ><div><Chosen /></div><p className='font-normal font-p14-CFD0E4-row'>{t(`payment.rightTitle.${indexs}`)}</p></div>
                                 )
                             }
                         </div>
                     </div>
-
                 </div>
             </div>
         </>

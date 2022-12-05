@@ -10,19 +10,17 @@ import TailorChoseList from './ChoseList/Tailor';
 import Adjust from './ChoseList/Adjust';
 import ConvertJpg from './ChoseList/ConvertJpg'
 import JpgConvert from './ChoseList/JpgConvert'
+import { Profile } from '../lib/models/user';
+import HtmlConvert from '../components/ChoseList/HtmlConvert'
 type Props = {
   currenTal?: string;
   children?: ReactNode
+  profile?:Profile
 }
-const Layout = ({ currenTal = "HOME", children }: Props) => {
+const Layout = ({ currenTal = "HOME", children,profile }: Props) => {
   const router = useRouter();
   const { appStore, loginSignStore } = stores
-  useEffect(() => {
-    appStore.getUsers()
-    if (localStorage.getItem("token") == null) {
-      loginSignStore.setTokenMessage(false)
-    }
-  }, [])
+
   return (
     <div className="flex flex-col w-full min-h-screen bg-nb-0E0E12 ">
       <div className='flex flex-col  items-center w-full h-screen  text-center '>
@@ -44,7 +42,7 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
           {
             router.pathname != "/home" &&
               router.pathname === "/compress" ?  // 压缩
-              stores.compressStore.isShowChoseList && <CompressChoseList />
+              stores.compressStore.isShowChoseList && <CompressChoseList profile={profile} />
               :
               router.pathname === "/tailor" ?  // 裁剪
                 stores.tailorStore.isShowChoseList && <TailorChoseList />
@@ -58,6 +56,9 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
                     router.pathname === "/jpgconvert" ?  // 调整
                     stores.jpgConvertStore.isShowChoseList && <JpgConvert />
                     :
+                    router.pathname === "/htmlconvert" ?  // 调整
+                    stores.htmlconvertStore.isShowChoseList && <HtmlConvert />
+                    :
                     <div></div>
           }
         </div>
@@ -66,5 +67,4 @@ const Layout = ({ currenTal = "HOME", children }: Props) => {
     </div>
   )
 }
-
 export default observer(Layout);

@@ -2,9 +2,10 @@ import { observer } from "mobx-react";
 import { useEffect, useRef, useState } from "react";
 import stores from "../../lib/stores/stores";
 import IconButton from "../IconButton";
-import { IconDropbox, IconFolderGoogleDrive, IconLarge, IconSave, IconSmall } from "../Svg";
+import { IconDropbox, IconFolderGoogleDrive, IconLarge, IconSave, IconSmall, SaveToGoogleDrive } from "../Svg";
 
 const Index = observer(() => {
+    const [saveGoogleDrive, setSaveGoogleDrive] = useState(false)
 
     return (
         <div className='flex-none w-72.5 pt-23 sticky top-0 h-screen'>
@@ -24,12 +25,12 @@ const Index = observer(() => {
                                 <div className="flex justify-between items-center opacity-50">
                                     <span className="font-p13-FFFFFF-w400">宽度：</span>
                                     <div className=" h-7.5 p-1.5 bg-nb-464546 flex items-center rounded-md">
-                                    <div className="w-23 h-full bg-nb-464546 outline-none focus:text-white font-p13-A2A3BA-w400">{stores.tailorStore.cropperBoxWidth}</div>
+                                        <div className="w-23 h-full bg-nb-464546 outline-none focus:text-white font-p13-A2A3BA-w400">{stores.tailorStore.cropperBoxWidth}</div>
                                         <div className="ml-2 flex items-center">
                                             <span className="font-p13-CFD0E4-w400">px</span>
                                             <div className="flex flex-col ml-1.5">
                                                 <button ><IconLarge /></button>
-                                                <button  className="mt-1"><IconSmall /></button>
+                                                <button className="mt-1"><IconSmall /></button>
                                             </div>
                                         </div>
                                     </div>
@@ -38,7 +39,7 @@ const Index = observer(() => {
                                 <div className="flex justify-between items-center opacity-50">
                                     <span className="font-p13-FFFFFF-w400">高度：</span>
                                     <div className=" h-7.5 p-1.5 bg-nb-464546 flex items-center rounded-md">
-                                    <div className="w-23 h-full bg-nb-464546 outline-none focus:text-white font-p13-A2A3BA-w400">{stores.tailorStore.cropperBoxHeight}</div>
+                                        <div className="w-23 h-full bg-nb-464546 outline-none focus:text-white font-p13-A2A3BA-w400">{stores.tailorStore.cropperBoxHeight}</div>
                                         <div className="ml-2 flex items-center">
                                             <span className="font-p13-CFD0E4-w400">px</span>
                                             <div className="flex flex-col ml-1.5">
@@ -147,7 +148,7 @@ const Index = observer(() => {
                         }
                         {/* 存储 */}
                         {stores.tailorStore.isCropper &&
-                            <div className="mt-8">
+                            <div className="mt-8 relative">
                                 {/* 水平线 */}
                                 <div className='w-full h-0.25 bg-nb-222325' />
                                 <div>
@@ -156,9 +157,14 @@ const Index = observer(() => {
                                         <span className="ml-3 font-p15-E4E4E4-w400">存储</span>
                                     </div>
                                     <div className='flex flex-row items-center'>
-                                        <IconButton icon={<IconFolderGoogleDrive />} />
+                                        <div onMouseEnter={() => setSaveGoogleDrive(true)} onMouseLeave={() => setSaveGoogleDrive(false)}>
+                                            <IconButton icon={<IconFolderGoogleDrive />} />
+                                        </div>
                                         <IconButton className='ml-5' icon={<IconDropbox />} />
                                     </div>
+                                </div>
+                                <div className="absolute top-27 left-1 ">
+                                    {saveGoogleDrive ? <SaveToGoogleDrive /> : ""}
                                 </div>
                             </div>
                         }

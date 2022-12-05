@@ -8,3 +8,10 @@ export interface User{
     pay_time:number;
     end_time:number;
 } 
+export interface Profile {
+    id: number,
+    email: string,
+    name: string,
+    header_img: string
+    privilege: number
+}

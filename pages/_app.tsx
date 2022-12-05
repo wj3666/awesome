@@ -8,12 +8,17 @@ import { SessionProvider } from 'next-auth/react'
 
 import 'cropperjs/dist/cropper.css'
 
-function MyApp({ Component, pageProps:{session,...pageProps}}:AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider  session={session}>
-    <Component {...pageProps} />
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
     </SessionProvider>
   )
 }
-
+// MyApp.getInitialProps = async (context) => {
+//   const {req}=context.ctx
+//   console.log(req.headers)
+//   return{
+//   }
+// }
 export default appWithTranslation(observer(MyApp)) 

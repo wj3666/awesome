@@ -8,11 +8,13 @@ import TailorStore from "./tailorStore";
 import AdjustStore from "./adjustStore";
 import ConvertJpgStore from "./convertjpgStore";
 import JpgconvertStore from "./jpgconvertStore";
+import HtmlconvertStore from "./htmlconvertStore";
 const compressStore = new CompressStore();
 const tailorStore = new TailorStore();
 const adjustStore=new AdjustStore()
 const convertJpgStore=new ConvertJpgStore()
 const jpgConvertStore=new JpgconvertStore()
+const htmlconvertStore=new HtmlconvertStore()
 const stores = {
     appStore:appStore,
     loginSignStore:loginSign,
@@ -22,7 +24,8 @@ const stores = {
     tailorStore,
     adjustStore,
     convertJpgStore,
-    jpgConvertStore
+    jpgConvertStore,
+    htmlconvertStore
 }
 export default stores;
 

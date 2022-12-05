@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import Router from "next/router";
 import {PaymentApi} from '../api/payment' 
-
+import appStore from '../stores/appstore'
 class PaymentStore{
     constructor(){
         makeAutoObservable(this,{},{autoBind:true})

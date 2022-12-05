@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Compress, Adjust, Tailor, Convertjpg, Jpgconvert, Imgedit, Watermark, Originality, Rotate, Htmlconvert } from '../../components/Svg'
 import { useTranslation } from 'next-i18next'
-const Home = () => {
+import { GetServerSideProps } from 'next';
+
+const Home = (props) => {
   return (
+
     <>
       <Layout>
         <Allcategory />
       </Layout>
-
     </>
   )
 }
@@ -125,18 +127,18 @@ const Allcategory = () => {
         <div className='mt-15 grid grid-cols-4 grid-rows-3 gap-4.5'>
           {
             funcModel.model.map((item, index) => {
-              return index < 10 ? 
-              <div 
-              onClick={()=>{
-                router.push(item.url)
-              }}
-              className='px-5 pt-5 pb-6.25 bg-nb-2E2F30 flex rounded-md shadow-card cursor-pointer 1279sc-max:h-37 h-50'>
-                <div>{item.svg}</div>
-                <div className='ml-4.5 text-left'>
-                  <p className='font-p16-F9F9F9-w700'>{t(`sidebar.${index + 1}`)}</p>
-                  <p className='mt-3.75 font-p13-C1C1C1-w600'>{t(`home.homeFunc.${index}`)}</p>
-                </div>
-              </div> :
+              return index < 10 ?
+                <div
+                  onClick={() => {
+                    router.push(item.url)
+                  }}
+                  className='px-5 pt-5 pb-6.25 bg-nb-2E2F30 flex rounded-md shadow-card cursor-pointer 1279sc-max:h-37 h-50'>
+                  <div>{item.svg}</div>
+                  <div className='ml-4.5 text-left'>
+                    <p className='font-p16-F9F9F9-w700'>{t(`sidebar.${index + 1}`)}</p>
+                    <p className='mt-3.75 font-p13-C1C1C1-w600'>{t(`home.homeFunc.${index}`)}</p>
+                  </div>
+                </div> :
                 <div className=' bg-nb-2E2F30  rounded-md shadow-card '>
 
                 </div>
@@ -148,9 +150,12 @@ const Allcategory = () => {
   )
 }
 
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['common']),
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  return {
+    props: {
+      ...await serverSideTranslations(context.locale, ['common']),
+    },
   }
-})
+}
 export default observer(Home)

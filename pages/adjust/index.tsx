@@ -4,7 +4,7 @@ import Layout from '../../components/Layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
-import { IconAdd, IconDesktop, IconDropbox, IconFolderGoogleDrive, Ellipse1, Ellipse2 } from '../../components/Svg'
+import { Ellipse1, Ellipse2, BackAddimage } from '../../components/Svg'
 import stores from '../../lib/stores/stores'
 
 const Adjust = () => {
@@ -21,7 +21,7 @@ const AdujstBlock = observer(() => {
     // console.log("ee", e)
     stores.adjustStore.setImgListData(e);
     stores.adjustStore.changeIsShowChoseList(true);
-      getImageWH(e)
+    getImageWH(e)
   }
   const getImageWH = async (e) => {
     for (let i = 0; i < e.length; i++) {
@@ -31,26 +31,38 @@ const AdujstBlock = observer(() => {
       stores.adjustStore.setDimensionsHeight(height)
     }
   }
-  useEffect(()=>{
-     stores.adjustStore.init()
+  useEffect(() => {
+    stores.adjustStore.init()
 
-  },[])
+  }, [])
   return (
-    <div className='flex flex-row justify-between h-full'>
-      <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
+
+    <div className='flex flex-row justify-between h-full '>
+      {
+        stores.adjustStore.process.length != 0 ?
+          <div className='fixed mt-12 ml-5'>
+            <button className="mt-4 w-17.5 h-8.5 bg-nb-2F63AE rounded-lg flex flex-row justify-center items-center space-x-1   font-p14-FFFFFF-w500"
+              onClick={() => {
+                stores.adjustStore.changeIsShowChoseList(false)
+                stores.adjustStore.init()
+              }}
+            ><BackAddimage /><p>返回</p></button>
+          </div>
+          : ""
+      }
+      <div className='flex-grow flex flex-col items-center w-full h-full justify-between '>
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.adjustStore.imgListData.length == 0 &&
             <div>
-              <div className='font-p36-FFFFFF-w600'>调整图像的大小</div>
+              <div className='font-p36-FFFFFF-w600it'>调整图像的大小</div>
               <div className='font-p20-FFFFFF-w400  mt-10.5 w-147'><p className='leading-10'>通过设定新的高度和宽度来调<span className='font-p20-4C90FE-w600 italic'>JPG</span>、<span className='font-p20-4C90FE-w600 italic'>PNG</span>、<span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF文件</span>的尺寸。 可一次调整多个图像文件的尺寸</p></div>
             </div>
           }
-
-          <div className='mt-12.5 mb-4.5'>
+          <div className='relative mt-12.5 mb-4.5'>
             {stores.adjustStore.imgListData.length != 0 ?
               <div className='mb-22'>
                 {stores.adjustStore.imgListData.length > 1 ?
-                  <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
+                  <div className='grid grid-cols-2 gap-x-5 gap-y-14'>
                     {stores.adjustStore.imgListData.map((item, idx) => {
                       return (
                         <div key={item.name + idx} className='w-85 h-82.75'>
@@ -59,10 +71,10 @@ const AdujstBlock = observer(() => {
                           </div>
                           <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-FFFFFF-w400'>
                             <p>{NBString.truncateString(item.name, 18, 6)}</p>
-                            <div className='flex flex-row items-center justify-around  w-85 h-9 font-p13-CFD0E4-w400'>
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
+                            <div className='flex flex-row items-center justify-around  w-85 h-9 font-p13-CFD0E4-w400 mt-4'>
+                              <p className='leading-9 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                               <Arrow />
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
+                              <p className='leading-9 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                             </div>
                           </div>
                         </div>
@@ -79,10 +91,10 @@ const AdujstBlock = observer(() => {
                           </div>
                           <div className='mt-3 mb-0.75 flex flex-col items-start font-p12-FFFFFF-w400'>
                             <p>{item.name}</p>
-                            <div className='flex flex-row items-center justify-around w-85 h-9 font-p13-CFD0E4-w400'>
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
+                            <div className='flex flex-row items-center justify-around w-85 h-9 font-p13-CFD0E4-w400 mt-4'>
+                              <p className='leading-9 w-36.5 h-9 bg-nb-2E2F30 rounded-lg'>{stores.adjustStore.initialWidth[idx]}*{stores.adjustStore.initialHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                               <Arrow />
-                              <p className='leading-8 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
+                              <p className='leading-9 w-36.5 h-9 bg-nb-2F63AE rounded-lg '>{stores.adjustStore.dimensionsWidth[idx]}*{stores.adjustStore.dimensionsHeight[idx]}<span className='font-p13-CFD0E4-w400 ml-2'>px</span></p>
                             </div>
                           </div>
                         </div>

@@ -7,7 +7,6 @@ import { useTranslation } from 'next-i18next';
 
 
 class TabNav {
-
     tabsMap = [
         {
             name: "首页",

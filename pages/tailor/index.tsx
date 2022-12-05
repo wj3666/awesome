@@ -3,10 +3,11 @@ import Layout from '../../components/Layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import stores from '../../lib/stores/stores'
 import Dropzone from 'react-dropzone'
-import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import { IconDropbox, IconFolderGoogleDrive ,BackAddimage} from '../../components/Svg'
 import { observer } from 'mobx-react-lite';
 import Cropper from 'cropperjs';
 import IconButton from '../../components/IconButton'
+import { useRouter } from 'next/router'
 export default function Tailor() {
   return (
     <Layout>
@@ -16,7 +17,7 @@ export default function Tailor() {
 }
 
 const TailorPage = observer(() => {
-
+  const router =useRouter()
 
 
   const onDrop = (e) => {
@@ -31,11 +32,22 @@ const TailorPage = observer(() => {
 
   return (
     <>
+     {
+        stores.tailorStore.isCropper ?
+          <div className='fixed mt-12 ml-5'>
+            <button className="mt-4 w-17.5 h-8.5 bg-nb-2F63AE rounded-lg flex flex-row justify-center items-center space-x-1   font-p14-FFFFFF-w500"
+              onClick={() => {
+                location.reload()
+              }}
+            ><BackAddimage /><p>返回</p></button>
+          </div>
+          : ""
+      }
     <div className='flex flex-col items-center w-full h-full justify-center'>
       <div className={` flex flex-col items-center justify-between ${stores.tailorStore.isShowChoseList && 'h-full'}`}>
         {!stores.tailorStore.isShowChoseList &&
           <div>
-            <p className='font-p36-FFFFFF-w600'>调整图像的大小</p>
+            <p className='font-p36-FFFFFF-w600it'>调整图像的大小</p>
             <p className='font-p20-FFFFFF-w400 mt-9'>通过像素设定范围，裁剪<span className='font-p20-4C90FE-w600 italic'> JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG</span> 或 <span className='font-p20-4C90FE-w600 italic'>GIF</span>文件。</p>
             <p className='font-p20-FFFFFF-w400 mt-4'>在线裁剪你的图像文件</p>
           </div>
@@ -52,7 +64,7 @@ const TailorPage = observer(() => {
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <button className='w-67 h-26 active:bg-blue-400 bg-nb-2F63AE rounded-4.5'>
-                      <p className='font-p26-FFFFFF-w700'>选择一张张图片</p>
+                      <p className='font-p26-FFFFFF-w700'>选择一张图片</p>
                       <p className='font-p15-FFFFFF-w400 mt-2.75'>或者将一张图片拖动到这里</p>
                     </button>
                   </div>
@@ -96,13 +108,6 @@ const TailorBlock = observer(() => {
         zoomOnWheel: false,
         crop(event) {
           stores.tailorStore.setCropperBox(event.detail.width, event.detail.height, event.detail.x, event.detail.y)
-          // console.log(event.detail.x);
-          // console.log(event.detail.y);
-          // console.log(event.detail.width);
-          // console.log(event.detail.height);
-          // console.log(event.detail.rotate);
-          // console.log(event.detail.scaleX);
-          // console.log(event.detail.scaleY);
         },
       }))
       // cropper.setCropBoxData()

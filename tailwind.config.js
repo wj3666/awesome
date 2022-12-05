@@ -8,10 +8,6 @@ module.exports = {
   // important: true,
   darkMode: false, // or 'media' or 'class'
   theme: {
-    fontFamily:{
-      'sans': ['sans-serif'],
-      'serif': ['Merriweather', 'serif'],
-    },
     borderColor: theme => ({
       ...theme('colors'),
       DEFAULT: theme('colors.gray.300', 'currentColor'),
@@ -20,6 +16,7 @@ module.exports = {
       'danger': '#e3342f',
       '222325':'#222325',
       'CFD0E466':"#CFD0E466",
+      '4C90FE':"#4C90FE"
     }),
     extend: {
       backgroundSize: {
@@ -34,7 +31,8 @@ module.exports = {
         'email-logo': "url('/Vector.png')",
         "password-logo": "url('/Password-2.png')",
         "paymentbg-right":"url('/Paymentbg-right.png')",
-        "bg-succeed":"url('/Bg-Succeed.png')"
+        "bg-succeed":"url('/Bg-Succeed.png')",
+        'html-logo':"url('/icon_html.png')"
       },
       backgroundPosition: {
         left: 'left',
@@ -91,7 +89,9 @@ module.exports = {
         "nb-121212": "#121212",
         "nb-3DB39E": "#3DB39E",
         "nb-222325": "#222325",
-        "nb-464546": "#464546"
+        "nb-464546": "#464546",
+        "nb-181818":"#181818",
+        "nb-373838":"#373838"
       },
       textColor: {
         'primary': '#3490dc',
@@ -327,6 +327,7 @@ module.exports = {
         '110': '27.5rem',
         '111': '27.75rem',
         '116.25': '29.0625rem',
+        '114':'28rem',
         '120': '30rem',
         '122': '30.5rem',
         '124': '31rem',
@@ -349,6 +350,7 @@ module.exports = {
         '146': '36.5rem',
         '147': '36.75rem',
         '148': '37rem',
+        '150':'37.5rem',
         '152': '38rem',
         '154': '38.3rem',
         '156': '39rem',
@@ -371,6 +373,7 @@ module.exports = {
         '187.5': '46.875rem',
         '192': '48rem',
         '195': '48.75rem',
+        '199':'49.125rem',
         '199.5': '49.875rem',
         '200': '50rem',
         '201': '50.25rem',
@@ -519,56 +522,73 @@ module.exports = {
     plugin(function ({ addComponents }) {
       const texts = {
 
-        '.font-p12-FFFFFF-w400': { fontSize: '0.75rem', lineHeight: '1rem', color: '#FFFFFF', fontWeight: 400 },
-        '.font-p12-A2A3BC-w500': { fontSize: '0.75rem', lineHeight: '1rem', color: '#A2A3BC', fontWeight: 500 },
+        '.font-p12-FFFFFF-w400': { fontSize: '0.75rem', lineHeight: '1rem', color: '#FFFFFF', fontFamily: 'Roboto-Regular' },
+        '.font-p12-A2A3BC-w500': { fontSize: '0.75rem', lineHeight: '1rem', color: '#A2A3BC', fontFamily: 'Roboto-Medium' },
 
-        '.font-p13-C1C1C1-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontWeight: 600 },
-        '.font-p13-FFFFFF-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#FFFFFF', fontWeight: 400 },
-        '.font-p13-A2A3BA-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BA', fontWeight: 400 },
-        '.font-p13-4C90FE-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 400 },
-        '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 600 },
-        '.font-p13-5FE483-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#5FE483', fontWeight: 400 },
-        '.font-p13-CFD0E4-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#CFD0E4', fontWeight: 400 },
-        '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 600 },
-        '.font-p13-4C90FE-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontWeight: 400 },
+        '.font-p13-C1C1C1-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#C1C1C1', fontFamily: 'Roboto-Bold' },
+        '.font-p13-FFFFFF-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#FFFFFF', fontFamily: 'Roboto-Regular' },
+        '.font-p13-A2A3BA-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BA', fontFamily: 'Roboto-Regular' },
+        '.font-p13-4C90FE-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontFamily: 'Roboto-Regular' },
+        '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontFamily: 'Roboto-Bold' },
+        '.font-p13-5FE483-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#5FE483', fontFamily: 'Roboto-Regular' },
+        '.font-p13-CFD0E4-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#CFD0E4', fontFamily: 'Roboto-Regular' },
+        '.font-p13-4C90FE-w600': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontFamily: 'Roboto-Bold' },
+        '.font-p13-4C90FE-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontFamily: 'Roboto-Regular' },
+        '.font-p13-EA472B-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#EA472B', fontFamily: 'Roboto-Regular' },
+        '.font-p13-4C90FE-w700': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#4C90FE', fontFamily: 'Roboto-Bold' },
 
-        '.font-p13-A2A3BC-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BC', fontWeight: 400 },
-        '.font-p13-191919-w700': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#191919', fontWeight: 700 },
-        '.font-p14-CFD0E4-w400': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontWeight: 400 },
-        '.font-p14-CFD0E4-w300': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontWeight: 300 },
-        '.font-p15-FFFFFF-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontWeight: 500 },
-        '.font-p15-E4E4E4-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontWeight: 400 },
-        '.font-p15-FFFFFF-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontWeight: 400 },
-        '.font-p15-C8C8C8-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontWeight: 400 },
-        '.font-p15-C8C8C8-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontWeight: 500 },
-        '.font-p15-CFD0E4-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#CFD0E4', fontWeight: 500 },
-        '.font-p15-FAB300-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#F29D8F', fontWeight: 500 },
-        '.font-p15-4C90FE-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#4C90FE', fontWeight: 500 },
-        '.font-p15-A2A3BA-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#A2A3BA', fontWeight: 400 },
-        '.font-p15-E4E4E4-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontWeight: 500 },
+        '.font-p13-A2A3BC-w400': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#A2A3BC', fontFamily: 'Roboto-Regular' },
+        '.font-p13-191919-w700': { fontSize: '0.8125rem', lineHeight: '1.125rem', color: '#191919', fontFamily: 'Roboto-Bold' },
+        '.font-p14-CFD0E4-w400': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontFamily: 'Roboto-Regular' },
+        '.font-p14-CFD0E4-w300': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontFamily: 'Roboto-Light' },
+        '.font-p14-FFFFFF-w400': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#FFFFFF', fontFamily: 'Roboto-Regular' },
+        '.font-p14-FFFFFF-row': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#FFFFFF', fontFamily: 'Rowdies-Regular' },
+        '.font-p14-CFD0E4-row': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#CFD0E4', fontFamily: 'Rowdies-Light' },
+        '.font-p14-FFFFFF-w500': { fontSize: '0.875rem', lineHeight: '1.125rem', color: '#FFFFFF', fontFamily: 'Roboto-Medium' },
 
-        '.font-p16-F9F9F9-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#F9F9F9', fontWeight: 700 },
-        '.font-p16-A2A3BC-w400': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#A2A3BC', fontWeight: 400 },
-        '.font-p16-FFFFFF-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontWeight: 700 },
-        '.font-p16-222325-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#222325', fontWeight: 700 },
-        '.font-p16-FFFFFF-w500': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontWeight: 500 },
-        '.font-p16-FFFFFF-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontWeight: 600 },
-        '.font-p18-FFFFFF-w500': { fontSize: '1.125rem', lineHeight: '1.3125rem', color: '#FFFFFF', fontWeight: 500 },
-        '.font-p16-4C90FE-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#4C90FE', fontWeight: 600 },
+        '.font-p15-FFFFFF-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontFamily: 'Roboto-Medium' },
+        '.font-p15-E4E4E4-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontFamily: 'Roboto-Regular' },
+        '.font-p15-FFFFFF-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontFamily: 'Roboto-Regular' },
+        '.font-p15-C8C8C8-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#C8C8C8', fontFamily: 'Roboto-Regular' },
+        '.font-p15-C8C8C8-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#C8C8C8', fontFamily: 'Roboto-Medium' },
+        '.font-p15-CFD0E4-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#CFD0E4', fontFamily: 'Roboto-Medium' },
+        '.font-p15-FAB300-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#FAB300', fontFamily: 'Roboto-Medium' },
+        '.font-p15-4C90FE-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#4C90FE', fontFamily: 'Roboto-Medium' },
+        '.font-p15-A2A3BA-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#A2A3BA', fontFamily: 'Roboto-Regular' },
+        '.font-p15-E4E4E4-w500': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#E4E4E4', fontFamily: 'Roboto-Medium' },
+        '.font-p15-F9F9F9-w400': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#F9F9F9', fontFamily: 'Roboto-Regular' },
+        '.font-p15-FFFFFF-w700': { fontSize: '0.9375rem', lineHeight: '1.15rem', color: '#ffffff', fontFamily: 'Roboto-Bold' },
 
-        '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 700 },
-        '.font-p20-FFFFFF-w400': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 400 },
+        '.font-p16-F9F9F9-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#F9F9F9', fontFamily: 'Roboto-Bold' },
+        '.font-p16-A2A3BC-w400': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#A2A3BC', fontFamily: 'Roboto-Regular' },
+        '.font-p16-FFFFFF-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontFamily: 'Roboto-Bold' },
+        '.font-p16-222325-w700': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#222325', fontFamily: 'Roboto-Bold' },
+        '.font-p16-FFFFFF-w500': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontFamily: 'Roboto-Medium' },
+        '.font-p16-FFFFFF-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#FFFFFF', fontFamily: 'Roboto-Bold' },
+        '.font-p18-FFFFFF-w500': { fontSize: '1.125rem', lineHeight: '1.3125rem', color: '#FFFFFF', fontFamily: 'Roboto-Medium' },
+        '.font-p16-4C90FE-w600': { fontSize: '1rem', lineHeight: '1.171875rem', color: '#4C90FE', fontFamily: 'Roboto-Bold' },
+        '.font-p18-FFFFFF-w900': { fontSize: '1.125rem', lineHeight: '1.3125rem', color: '#FFFFFF', fontFamily: 'Roboto-Black' },
 
-        '.font-p20-4C90FE-w600': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#4C90FE', fontWeight: 700 },
-        '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 700 },
-        '.font-p24-FFFFFF-w600': { fontSize: '1.5rem', lineHeight: '1.75rem', color: '#FFFFFF', fontWeight: 600 },
-        '.font-p26-FFFFFF-w700': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontWeight: 700 },
-        '.font-p26-FFFFFF-w400': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontWeight: 400 },
-        '.font-p36-FFFFFF-w600': { fontSize: '2.25rem', lineHeight: '2.625rem', color: '#FFFFFF',fontWeight: 600 },
-        '.font-p40-FFFFFF-w700': { fontSize: '2.5rem', lineHeight: '2.9375rem', color: '#FFFFFF',fontWeight: 700 },
-        '.font-p50-FFFFFF-w400': { fontSize: '3.125rem', lineHeight: '3.875rem', color: '#FFFFFF',fontWeight: 400 },
+        '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Roboto-Bold' },
+        '.font-p20-FFFFFF-w400': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Roboto-Regular' },
+        '.font-p20-FFFFFF-row': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Rowdies-Regular' },
 
-        '.font-p60-FFFFFF-w700': { fontSize: '3.75rem', lineHeight: '4.375rem', color: '#FFFFFF',fontWeight: 700 },
+        '.font-p20-4C90FE-w600': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#4C90FE', fontFamily: 'Roboto-Bold' },
+        '.font-p20-FFFFFF-w700': { fontSize: '1.25rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Roboto-Bold' },
+        '.font-p24-FFFFFF-w600': { fontSize: '1.5rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Roboto-Bold' },
+        '.font-p24-FFFFFF-w600it': { fontSize: '1.5rem', lineHeight: '1.75rem', color: '#FFFFFF', fontFamily: 'Roboto-BoldItalic' },
+
+        '.font-p26-FFFFFF-w700': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontFamily: 'Roboto-Bold' },
+        '.font-p26-FFFFFF-w400': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontFamily: 'Roboto-Regular' },
+        '.font-p26-FFFFFF-row': { fontSize: '1.625rem', lineHeight: '2rem', color: '#FFFFFF',fontFamily: 'Rowdies-Regular' },
+        '.font-p36-FFFFFF-w600it': { fontSize: '2.25rem', lineHeight: '2.625rem', color: '#FFFFFF',fontFamily: 'Roboto-BoldItalic' },
+
+        '.font-p36-FFFFFF-w600': { fontSize: '2.25rem', lineHeight: '2.625rem', color: '#FFFFFF',fontFamily: 'Roboto-Bold' },
+        '.font-p40-FFFFFF-w700': { fontSize: '2.5rem', lineHeight: '2.9375rem', color: '#FFFFFF',fontFamily: 'Roboto-Bold' },
+        '.font-p50-FFFFFF-w400': { fontSize: '3.125rem', lineHeight: '3.875rem', color: '#FFFFFF',fontFamily: 'Roboto-Regular' },
+        '.font-p50-FFFFFF-row': { fontSize: '3.125rem', lineHeight: '3.875rem', color: '#FFFFFF',fontFamily: 'Rowdies-Regular' },
+
+        '.font-p60-FFFFFF-w700': { fontSize: '3.75rem', lineHeight: '4.375rem', color: '#FFFFFF',fontFamily: 'Roboto-Bold' },
       
       }
 

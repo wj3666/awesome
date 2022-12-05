@@ -5,7 +5,7 @@ const sharp = require("sharp");
 
 
 const handler = nc().post(Upload.single("file"), (req, res) => {
-  console.log("file:", req.body.GIFMode);
+  // console.log("file:", req.body.GIFMode);
   let filePath = req.file.destination + req.file.filename;
   let fileName = req.file.destination + req.file.originalname; //原来文件路径+文件名+后缀
   let newFileName = req.file.originalname.split(".")[0];
@@ -14,14 +14,14 @@ const handler = nc().post(Upload.single("file"), (req, res) => {
     if (err) {
       res.json({ code: "-2", msg: "文件写入失败" });
     } else {
-      console.log("成功");
-      console.log(req.file.destination + req.file.originalname);
+      // console.log("成功");
+      // console.log(req.file.destination + req.file.originalname);
       let path = req.file.destination + req.file.originalname;
       if (req.body.GIFMode) {
         sharp(path).gif().toFile("public/jpgConvert/" + newFileName + ".gif")
           .then((info) => {
             let newJpegName = newFileName + ".gif";
-            console.log(newJpegName);
+            // console.log(newJpegName);
             res.json({
               code: "1",
               msg: "success",
@@ -35,7 +35,7 @@ const handler = nc().post(Upload.single("file"), (req, res) => {
         sharp(path).png().toFile("public/jpgConvert/" + newFileName + ".png")
           .then((info) => {
             let newJpegName = newFileName + ".png";
-            console.log(newJpegName);
+            // console.log(newJpegName);
             res.json({
               code: "1",
               msg: "success",

@@ -24,14 +24,14 @@ const handler = nc()
           quality: 100,
           chromaSubsampling: "4:4:4",
         })
-        .toFile("public/convertJpg/" + newFileName + ".jpg")
+        .toFile("public/jpgConvert/" + newFileName + ".jpg")
         .then((info) => {
           let newJpegName = newFileName + ".jpg";
           console.log(newJpegName)
           res.json({
             code: "1",
             msg: "success",
-            data: `http://localhost:3000/convertJpg/${newJpegName}`,
+            data: `http://localhost:3000/jpgCovert/${newJpegName}`,
           });
         })
         .catch((err) => {

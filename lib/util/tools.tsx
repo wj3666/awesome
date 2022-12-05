@@ -1,3 +1,4 @@
+import axios from "axios";
 export class NBString {
   static truncateString(str: string, beforeLimit: number, afterLimit: number) {
     if (str?.length < (beforeLimit * 2)) {
@@ -69,7 +70,7 @@ export class NBString {
   }
   //修改图片的宽高
   static setImgWidHeigth = (file: any, newWidth: number, newHeight: number, multiple: number) => {
-    console.log("原来文件：", file)
+    // console.log("原来文件：", file)
     return new Promise<any>(function (resolve, reject): any {
       var reader = new FileReader()
       reader.readAsDataURL(file)
@@ -87,7 +88,11 @@ export class NBString {
             dataURL = NBString.AdjustImage(imageObj, newWidth, newHeight, file.type, multiple)
           }
           //为了兼容ios 需要dataURL -> blob->file
+          // console.log("dataURL", dataURL)
           var blob = NBString.dataURLToBlob(dataURL)
+          if(blob=='err'){
+            resolve(blob)
+          }
           let files = new window.File([blob], file.name, { type: file.type })
           // var newFile = NBString.blobToFile(blob,fileName)
           resolve(files)
@@ -124,15 +129,20 @@ export class NBString {
   }
   // 将base64转化为blob
   static dataURLToBlob = (dataurl) => {
-    var arr = dataurl.split(","),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+    try {
+      var arr = dataurl.split(",")
+      var mime = arr[0].match(/:(.*?);/)[1] && arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    } catch (error) {
+      var err='err'
+      return err
     }
-    return new Blob([u8arr], { type: mime });
   }
   //将blob转化为file
   static blobToFile = (theBlob: any, fileName) => {

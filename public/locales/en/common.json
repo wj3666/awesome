@@ -21,7 +21,7 @@
     "register": {
       "passWordHint": "6+ Character, 1 Capital letter",
       "passWordErr": "Password format problem",
-      "haveMember": "Already a member",
+      "haveMember": "Already a member?",
       "creatUser": " Create an account",
       "signIn": "Sign in"
     },

@@ -1,11 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html,
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url(../public/font/Roboto-Regular.ttf);
+}
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url(../public/font/Roboto-Light.ttf);
+}
+@font-face {
+  font-family: 'Roboto-Black';
+  src: url(../public/font/Roboto-Black.ttf);
+}
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url(../public/font/Roboto-Bold.ttf);
+}
+@font-face {
+  font-family: 'Roboto-BoldItalic';
+  src: url(../public/font/Roboto-BoldItalic.ttf);
+}
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url(../public/font/Roboto-Medium.ttf);
+}
+@font-face {
+  font-family: 'Rowdies-Bold';
+  src: url(../public/font/Rowdies-Bold.ttf);
+}
+@font-face {
+  font-family: 'Rowdies-Light';
+  src: url(../public/font/Rowdies-Light.ttf);
+}
+@font-face {
+  font-family: 'Rowdies-Regular';
+  src: url(../public/font/Rowdies-Regular.ttf);
+}
+html{
+  font-family: Roboto-Regular;
+}
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto;
+  
 }
 
 a {
@@ -57,4 +96,7 @@ input::-webkit-inner-spin-button {
 }
 .selectBorder{
   border: 1.5px solid rgba(162, 163, 188, 0.7);
+}
+.caretColor{
+  caret-color: #4C90FE;
 }

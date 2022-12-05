@@ -17,7 +17,7 @@ export const ConvertJpg = {
 }
 //jpg转换为png或静态gif
 export const JpgConvert={
-    uploadPNG: async (fileInfo: any, i: number,GIFMode:boolean) => {
+    uploadPNG: async (fileInfo: any, i: number) => {
         const res = await apiClient.post(`jpgconvert/upload`,
             fileInfo,
             { 

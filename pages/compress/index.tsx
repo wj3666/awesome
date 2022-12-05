@@ -5,22 +5,32 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
-import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import { IconDropbox, IconFolderGoogleDrive,BackAddimage } from '../../components/Svg'
 import IconButton from '../../components/IconButton'
+import { JWT } from '../../lib/util/JWT'
+import { Profile } from '../../lib/models/user'
 
 const Compress = () => {
+  const [profile, setProfile] = useState<Profile>()
   useEffect(() => {
     stores.compressStore.init()
+    const token = localStorage.getItem('token')
+    const user =token? JWT.verify(token):false
+    if (user) {
+      setProfile(user)
+    }else{
+      setProfile(null)
+    }
   }, [])
   return (
     <>
-      <Layout>
-        <CompressPage />
+      <Layout profile={profile}>
+        <CompressPage props={profile} />
       </Layout>
     </>
   )
 }
-const CompressPage = observer(() => {
+const CompressPage = observer(({ props }) => {
   const onDrop = (e) => {
     stores.compressStore.setImgListData(e);
     stores.compressStore.changeIsShowChoseList(true);
@@ -29,6 +39,18 @@ const CompressPage = observer(() => {
 
   return (
     <div className='flex flex-row justify-between h-full'>
+      {
+        stores.compressStore.process.length != 0 ?
+          <div className='fixed mt-12 ml-5'>
+            <button className="mt-4 w-17.5 h-8.5 bg-nb-2F63AE rounded-lg flex flex-row justify-center items-center space-x-1   font-p14-FFFFFF-w500"
+              onClick={() => {
+                stores.compressStore.changeIsShowChoseList(false)
+                stores.compressStore.init()
+              }}
+            ><BackAddimage /><p>返回</p></button>
+          </div>
+          : ""
+      }
       <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.compressStore.imgListData.length == 0 &&
@@ -40,7 +62,7 @@ const CompressPage = observer(() => {
 
           <div className='mt-12.5 mb-4.5'>
             {stores.compressStore.imgListData.length != 0 ?
-              <CompressBlock />
+              <CompressBlock props={props} />
               :
               <Dropzone onDrop={(e) => { onDrop(e) }}>
                 {({ getRootProps, getInputProps }) => (
@@ -78,14 +100,14 @@ const CompressPage = observer(() => {
   )
 })
 
-const CompressBlock = () => {
+const CompressBlock = ({ props }) => {
   return (
     <div className='mb-22'>
       {stores.compressStore.imgListData.length > 1 ?
         <div className='grid grid-cols-2 gap-x-5 gap-y-6.75'>
           {stores.compressStore.imgListData.map((item, idx) => {
             return (
-              <ImgInfo key={item.name + idx} item={item} idx={idx} />
+              <ImgInfo key={item.name + idx} item={item} idx={idx} props={props} />
             )
           })}
         </div>
@@ -93,7 +115,7 @@ const CompressBlock = () => {
         <>
           {stores.compressStore.imgListData.map((item, idx) => {
             return (
-              <ImgInfo key={item.name + idx} item={item} idx={idx} />
+              <ImgInfo key={item.name + idx} item={item} idx={idx} props={props} />
             )
           })
           }
@@ -103,7 +125,7 @@ const CompressBlock = () => {
   )
 }
 
-const ImgInfo = observer(({ item, idx }) => {
+const ImgInfo = observer(({ item, idx, props }) => {
   return (
     <div className='w-85 h-82.75'>
       <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
@@ -112,7 +134,7 @@ const ImgInfo = observer(({ item, idx }) => {
       <div className='mt-3 mb-0.75 flex justify-between font-p12-FFFFFF-w400'>
         <p>{NBString.truncateString(item.name, 18, 6)}</p>
 
-        <p className={`${stores.appStore.userPrivilege ? "":NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
+        <p className={`${props?.privilege ? "" : NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
           &gt; {NBString.getImgSizeUnit(stores.compressStore.imgListCompressData[idx]?.size) ? NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Mb" : NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Kb"}
         </>
         }

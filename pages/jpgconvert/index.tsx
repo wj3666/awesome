@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Dropzone from 'react-dropzone'
 import { NBString } from '../../lib/util/tools'
 import stores from '../../lib/stores/stores'
-import { IconDropbox, IconFolderGoogleDrive } from '../../components/Svg'
+import { IconDropbox, IconFolderGoogleDrive ,BackAddimage} from '../../components/Svg'
 import IconButton from '../../components/IconButton'
 
 const ConvertJpg = () => {
@@ -33,11 +33,23 @@ const JpgConvertPage = observer(() => {
   }
   return (
     <div className='flex flex-row justify-between h-full'>
+      {
+        stores.jpgConvertStore.process.length != 0 ?
+          <div className='fixed mt-12 ml-5'>
+            <button className="mt-4 w-17.5 h-8.5 bg-nb-2F63AE rounded-lg flex flex-row justify-center items-center space-x-1   font-p14-FFFFFF-w500"
+              onClick={() => {
+                stores.jpgConvertStore.changeIsShowChoseList(false)
+                stores.jpgConvertStore.init()
+              }}
+            ><BackAddimage /><p>返回</p></button>
+          </div>
+          : ""
+      }
       <div className='flex-grow flex flex-col items-center w-full h-full justify-between'>
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.jpgConvertStore.imgListData.length == 0 &&
             <div>
-              <p className='font-p36-FFFFFF-w600'>JPG文件转换至</p>
+              <p className='font-p36-FFFFFF-w600it'>JPG文件转换至</p>
               <p className='font-p20-FFFFFF-w400 mt-9 leading-10 w-90'>转换JPG<span className='font-p20-4C90FE-w600 italic'>PNG, GIF</span>格式。</p>
               <p className='font-p20-FFFFFF-w400  w-90'>在线批量转换多个<span className='font-p20-4C90FE-w600 italic'>JPG</span>至<span className='font-p20-4C90FE-w600 italic'>其他图像文件</span></p>
             </div>
