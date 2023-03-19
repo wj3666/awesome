@@ -19,7 +19,7 @@ const SQL = {
         var user = await db.query(sql, email)
         return user[0]
     },
-    registerUser: async (email: string, password: string,) => {
+    registerUser: async (email: string, password: string) => {
         let sql = "insert into user (email,password,author) values (?,?,?)"
         await db.query(sql, [email, password, 0])
     },

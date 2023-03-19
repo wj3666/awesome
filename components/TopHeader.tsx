@@ -22,7 +22,7 @@ function TopHeader() {
     const elementUserRef = useRef(null)
     const avatarImgRef = useRef<any>();
     const { data: seesion } = useSession()
-    const avatarUpload = (e) => {
+    const avatarUpload = (e,profileId) => {
         let file = e.target.files[0];
         let fileSize = (file.size) / 1024;
         if (fileSize > 1024 * 5) {
@@ -42,7 +42,8 @@ function TopHeader() {
             fileInfo.append('fileType', 'policy')
             // console.log(fileInfo.get('file'));
         }
-        appStore.uploadAvatar(fileInfo, appStore.user.id)
+        console.log("1111",profileId)
+        appStore.uploadAvatar(fileInfo, profileId)
     }
 
     const handleChange = (e: any) => {
@@ -105,7 +106,7 @@ function TopHeader() {
                                 <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
                                     stopPropagation(e)
                                     e.currentTarget.value = null
-                                }} onChange={(e) => avatarUpload(e)} />
+                                }} onChange={(e) => avatarUpload(e,profile.id)} />
                             </div>
                         </button>
                     </div>
@@ -146,12 +147,12 @@ function TopHeader() {
                                     avatarImgRef.current.click()
                                 }}
                                 className="relative">
-                                {profile.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${profile.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
+                                {profile.header_img !== null ? <img className='w-16 h-16 object-over ' src={`${stores.appStore.user.header_img}`} /> : <img className='w-16 h-16' src='/NFTelk.png' />}
                                 <div>
                                     <input ref={avatarImgRef} type="file" name='file' className='hidden' onClick={(e) => {
                                         stopPropagation(e)
                                         e.currentTarget.value = null
-                                    }} onChange={(e) => avatarUpload(e)} />
+                                    }} onChange={(e) => avatarUpload(e,profile.id)} />
                                 </div>
                             </button>
                         </div>

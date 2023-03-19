@@ -9,18 +9,15 @@ const router = createRouter()
     let email=req.body.username;
     let password=req.body.password;
     var user=await SQL.getUserEamil(email)
-    console.log(user)
+    console.log("user:",user)
     if(user.length==0){
-      await SQL.registerUser(email,password)
+    await SQL.registerUser(email,password)
       res.send({code:1,data:"success"})
     }else{
       res.send({code:1,data:"error"})
     }
   });
 
-export async function getServerSideProps({ req, res }) {
-  return router.run(req, res);
-}
 export default router
 export const config = {
     api: {

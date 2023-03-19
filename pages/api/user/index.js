@@ -2,8 +2,7 @@ import { JWT } from "../../../lib/util/JWT";
 import nc from 'next-connect'
 import SQL from '../../../lib/util/SQL'
 
-const handle=nc()
-.get(async(req,res)=>{
+const handle=nc().get(async(req,res)=>{
     const token=req.headers.authorization?.split(' ')[1]
     const decode =JWT.verify(token)
     var email=''

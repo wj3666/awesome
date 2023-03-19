@@ -31,8 +31,6 @@ const ConvertJpgPage = observer(() => {
       stores.convertJpgStore.changeIsShowChoseList(true);
     }
   }
-
-
   return (
     <div className='flex flex-row justify-between h-full'>
       {
@@ -122,14 +120,48 @@ const ConvertJpgBlock = () => {
 }
 
 const ImgInfo = observer(({ item, idx }) => {
+  const [showOptions, setShowOptions] = useState({ id: null, status: false })
+  const [reName, setReName] = useState('')
+  const [closeModify, setCloseModeify] = useState(false)
+  const setListDataName = (name: string, id: number) => {
+    setReName(name)
+  }
+  useEffect(() => {
+    addEventListener('click', (e) => {
+      let t = document.getElementById("divmode")
+      if (!e.path.includes(t)) {
+        setCloseModeify(false)
+      } else {
+        setCloseModeify(true)
+      }
+    })
+    return () => {
+      removeEventListener('click', (e) => {
+        setCloseModeify(false);
+      })
+    }
+  })
   return (
-    <div className='w-85 h-82.75'>
+    <div className='w-85 h-82.75 ' id='divmode' onClick={() => {
+      console.log("111")
+      setCloseModeify(true)
+      console.log(closeModify)
+      setShowOptions({ id: idx, status: !showOptions.status })
+    }} >
       <div className='w-full h-75.5 p-1.5 rounded-md bg-nb-222325 shadow-card'>
         <img className='w-full h-full object-contain' src={URL.createObjectURL(item)} />
       </div>
-      <div className='mt-3 mb-0.75 flex justify-between font-p12-FFFFFF-w400'>
-        <p>{NBString.truncateString(item.name, 18, 6)}</p>
+      <div className='mt-3 mb-0.75 flex justify-between font-p12-FFFFFF-w400' onClick={(e) => e.stopPropagation()}>
+        {closeModify ? showOptions.status && idx === showOptions.id &&
+          <input id='inputs' type="text" className='w-67 h-6 focus:outline-none bg-nb-sidebar-grey font-p12-FFFFFF-w400' value={reName} placeholder={item.name}
+            onChange={(e) => {
+              setListDataName(e.target.value, idx)
+            }} />
+          :
+          <p className='font-p12-FFFFFF-w400'>{NBString.truncateString(item.name, 18, 6)}</p>
 
+
+        }
         <p className={`${stores.appStore.userPrivilege ? "" : NBString.getImgSizeMb(item.size) >= 5 && "line-through text-nb-F45D47"}`}>{NBString.getImgSizeUnit(item.size) ? NBString.getImgSize(item.size) + "Mb" : NBString.getImgSize(item.size) + "Kb"} {stores.compressStore.process.length != 0 && NBString.getImgSizeMb(stores.compressStore.imgListData[idx].size) < 5 && <>
           &gt; {NBString.getImgSizeUnit(stores.compressStore.imgListCompressData[idx]?.size) ? NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Mb" : NBString.getImgSize(stores.compressStore.imgListCompressData[idx]?.size) + "Kb"}
         </>

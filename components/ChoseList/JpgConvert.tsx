@@ -274,6 +274,7 @@ const GifMode = observer(() => {
             }
         }, 1000)
     }
+
     return (
         <>
             <div className='flex-none w-72.5 pt-23 sticky top-0 h-screen'>

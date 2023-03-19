@@ -19,8 +19,7 @@ export default async function handler(req, res) {
             mw(req, res, resolve)
         })
         // console.log(req.file)
-        res.send(JSON.stringify({code:1,data:req.file}))
-        
+        res.send(JSON.stringify({code:1,data:req.file})) 
         // let filePath = './' + req.file.path;
         // // 文件类型
         // let temp = req.file.originalname.split('.');

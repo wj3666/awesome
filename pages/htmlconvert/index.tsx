@@ -33,11 +33,10 @@ const HtmlConvert = observer(() => {
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.convertJpgStore.imgListData.length == 0 &&
             <div>
-              <p className='font-p36-FFFFFF-w600'>HTML转图片</p>
+              <p className='font-p36-FFFFFF-w600it'>HTML转图片</p>
               <p className='font-p20-FFFFFF-w400 mt-10.5 leading-10 w-156'>将网页转换为<span className='font-p20-4C90FE-w600 italic'>PNG, GIF, SVG</span>格式图片</p>
             </div>
           }
-
           <div className='flex flex-col  items-start mt-12.5 mb-4.5 space-y-1'>
             {
               // stores.htmlconvertStore.htmlData != '' ? ""

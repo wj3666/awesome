@@ -55,7 +55,7 @@ const CompressPage = observer(({ props }) => {
         <div className='flex-grow flex flex-col items-center justify-center'>
           {stores.compressStore.imgListData.length == 0 &&
             <div>
-              <p className='font-p36-FFFFFF-w600'>压缩图像文件</p>
+              <p className='font-p36-FFFFFF-w600it'>压缩图像文件</p>
               <p className='font-p20-FFFFFF-w400 mt-10.5'>压缩<span className='font-p20-4C90FE-w600 italic'>JPG、</span><span className='font-p20-4C90FE-w600 italic'>PNG、</span><span className='font-p20-4C90FE-w600 italic'>SVG</span>或<span className='font-p20-4C90FE-w600 italic'>GIF</span>，并保持最佳的质量批量缩小多个图片尺寸</p>
             </div>
           }

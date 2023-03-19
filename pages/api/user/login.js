@@ -7,11 +7,9 @@ import SQL  from '../../../lib/util/SQL'
 
  const handle=nc()
  .post ( async(req,res)=>{
-   
     let userName=req.body.username;
     let password=req.body.password;
     var user =await SQL.getUserEP(userName,password)
-    console.log("111",user[0])
     if(user.length==0){
         res.send({code:1,data:"eamil error"});
     }else{
